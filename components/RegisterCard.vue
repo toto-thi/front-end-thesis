@@ -1,5 +1,11 @@
 <template>
-  <v-row align="center" justify="center" dense style="height: 100vh" class="mb-10">
+  <v-row
+    align="center"
+    justify="center"
+    dense
+    style="height: 100vh"
+    class="mb-10"
+  >
     <v-col cols="4" xl="4" sm="6" md="6" fill-height>
       <v-card flat>
         <v-card-title class="justify-center font-weight-bold display-4">
@@ -38,17 +44,19 @@
 
             <!-- DOB picker -->
             <v-menu
-              ref="menu"
               v-model="menu"
               :close-on-content-click="false"
               transition="scale-transition"
               offset-y
+              max-width="290px"
               min-width="auto"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
-                  v-model="dateOfbirth"
+                  v-model="computedDateFormatted"
                   label="Date of Birth"
+                  hint="MM/DD/YYYY format"
+                  persistent-hint
                   append-icon="mdi-calendar"
                   readonly
                   outlined
@@ -59,14 +67,14 @@
               </template>
               <v-date-picker
                 v-model="dateOfbirth"
-                :active-picker.sync="activePicker"
+                no-title
                 :max="
                   new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
                     .toISOString()
                     .substr(0, 10)
                 "
                 min="1950-01-01"
-                @change="saveDob"
+                @input="menu = !menu"
               ></v-date-picker>
             </v-menu>
 
@@ -129,7 +137,7 @@
               <v-row align="center" justify="center" class="mx-8">
                 <v-col cols="12">
                   <v-btn
-                    color="#44496c"
+                    color="primary"
                     large
                     block
                     rounded
@@ -151,7 +159,7 @@
 <script>
 export default {
   name: 'Register',
-  data() {
+  data(vm) {
     return {
       checkbox: false,
       activePicker: null,
@@ -159,7 +167,14 @@ export default {
       show: false,
       firstname: '',
       lastname: '',
-      dateOfbirth: null,
+      dateOfbirth: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      dateFormatted: vm.formatDate(
+        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substr(0, 10)
+      ),
       selectedGender: '',
       email: '',
       password: '',
@@ -183,13 +198,25 @@ export default {
     }
   },
   watch: {
-    menu(val) {
-      val && setTimeout(() => (this.activePicker = 'YEAR'))
+    date(val) {
+      this.dateFormatted = this.formatDate(this.date)
     },
   },
   methods: {
     saveDob(date) {
       this.$refs.menu.save(date)
+    },
+    formatDate(date) {
+      if (!date) return null
+
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
+    },
+  },
+  computed: {
+    // optional  input
+    computedDateFormatted() {
+      return this.formatDate(this.dateOfbirth)
     },
   },
 }

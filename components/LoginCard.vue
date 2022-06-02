@@ -48,7 +48,7 @@
               <v-row align="center" justify="center" class="mx-8">
                 <v-col cols="12">
                   <v-btn
-                    color="#44496c"
+                    color="primary"
                     large
                     block
                     rounded

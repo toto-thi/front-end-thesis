@@ -16,10 +16,24 @@
       </nuxt-link>
 
       <v-spacer />
-      <v-btn plain rounded color="white--text" class="mx-2 hidden-md-and-down" nuxt to="/CharityPage">
+      <v-btn
+        plain
+        rounded
+        color="white--text"
+        class="mx-2 hidden-md-and-down"
+        nuxt
+        to="/CharityPage"
+      >
         <span class="text-capitalize">Charity Project</span>
       </v-btn>
-      <v-btn plain rounded color="white--text" class="mx-2 hidden-md-and-down" nuxt to="/About">
+      <v-btn
+        plain
+        rounded
+        color="white--text"
+        class="mx-2 hidden-md-and-down"
+        nuxt
+        to="/About"
+      >
         <span class="text-capitalize">About Us</span>
       </v-btn>
 
@@ -92,31 +106,37 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <v-spacer />
-      <v-row justify="center" class="px-2">
-        <v-col cols="12">
-          <v-btn
-            block
-            outlined
-            plain
-            rounded
-            color="white--text"
-            class="hidden-md-and-up mb-2"
-          >
-            <span class="text-capitalize">Login</span>
-          </v-btn>
-          <v-btn
-            outlined
-            block
-            plain
-            rounded
-            color="white--text"
-            class="hidden-md-and-up"
-          >
-            <span class="text-capitalize">Register</span>
-          </v-btn>
-        </v-col>
-      </v-row>
+
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-row justify="center" class="px-2">
+            <v-col cols="12">
+              <v-btn
+                block
+                outlined
+                plain
+                rounded
+                color="white--text"
+                class="hidden-md-and-up mb-2"
+                nuxt
+                to="/Login"
+              >
+                <span class="text-capitalize">Login</span>
+              </v-btn>
+              <v-btn
+                block
+                rounded
+                color="#44496c"
+                class="hidden-md-and-up white--text"
+                nuxt
+                to="/Register"
+              >
+                <span class="text-capitalize">Register</span>
+              </v-btn>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
     </v-navigation-drawer>
 
     <!-- For dashboard/setting page -->
@@ -144,7 +164,6 @@ export default {
         },
       ],
       miniVariant: false,
-      rightDrawer: false,
       title: 'TJ Charity',
     }
   },

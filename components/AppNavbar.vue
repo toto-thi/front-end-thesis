@@ -63,7 +63,7 @@
         plain
         rounded
         outlined
-        color="white--text #44496c"
+        color="white--text #primary"
         class="mx-2 hidden-md-and-down"
         nuxt
         to="/Login"
@@ -72,7 +72,7 @@
       </v-btn>
       <v-btn
         rounded
-        color="#44496c"
+        color="primary"
         class="white--text hidden-md-and-down"
         nuxt
         to="/Register"

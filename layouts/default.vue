@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app light>
     <AppNavbar />
     <v-main>
       <v-container>

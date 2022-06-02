@@ -11,7 +11,7 @@
         <v-btn
           large
           rounded
-          color="#44496c"
+          color="primary"
           class="white--text"
           nuxt
           to="/CharityPage"
@@ -20,7 +20,7 @@
         </v-btn>
       </v-col>
       <v-col cols="8" xl="8" sm="12" md="4">
-        <v-card shaped outlined elevation="5" color="#44496c">
+        <v-card shaped outlined elevation="5" color="primary">
           <v-img src="/home-pic-1.png" :aspect-ratio="16 / 9"></v-img>
         </v-card>
       </v-col>
@@ -33,7 +33,7 @@
       style="height: 100vh"
     >
       <v-col md="3" sm="6" xs="12" offset="1" align-self="start">
-        <v-card shaped color="#44496c" class="rounded-tl-0" elevation="5">
+        <v-card shaped color="primary" class="rounded-tl-0" elevation="5">
           <v-card-title class="mx-10 headline white--text font-weight-bold">
             <v-img src="/home-pic-2.png"></v-img>
             Browse <br />

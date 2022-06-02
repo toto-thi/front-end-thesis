@@ -167,9 +167,7 @@ export default {
       show: false,
       firstname: '',
       lastname: '',
-      dateOfbirth: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
+      dateOfbirth: '',
       dateFormatted: vm.formatDate(
         new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
@@ -218,7 +216,7 @@ export default {
     computedDateFormatted() {
       return this.formatDate(this.dateOfbirth)
     },
-  },
+  }
 }
 </script>
 

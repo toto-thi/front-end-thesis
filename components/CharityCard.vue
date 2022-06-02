@@ -65,82 +65,12 @@
 </template>
 
 <script>
+import projects from '@/DummyData.json'
 export default {
   name: 'CharityPage',
   data() {
     return {
-      dummyProjects: [
-        {
-          id: 'aiufhewanONepwn',
-          title: 'Charity Project 1',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-        {
-          id: 'OkslONndsnfoa',
-          title: 'Charity Project 2',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-        {
-          id: 'PnnsdPU8hn',
-          title: 'Charity Project 3',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-        {
-          id: 'aOJPNUBDKFF',
-          title: 'Charity Project 4',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-        {
-          id: 'PPMDFWB7FEaknsbdb',
-          title: 'Charity Project 5',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-        {
-          id: 'aiufhewanONepwn',
-          title: 'Charity Project 6',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-        {
-          id: 'aiufhewanONepwn',
-          title: 'Charity Project 7',
-          imgUrl:
-            'https://images.unsplash.com/photo-1508138221679-760a23a2285b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-          description:
-            "lorem ipsum  simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-          startDate: '22-04-2021',
-          closeDate: '22-08-2021',
-        },
-      ],
+      dummyProjects: projects
     }
   },
 }

@@ -1,5 +1,7 @@
 <template>
-  <AboutCard />
+  <div>
+    this is an about page, will comeback to work on it later.
+  </div>
 </template>
 
 <script>

@@ -35,7 +35,7 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    // '@nuxtjs/apollo',
+    '@nuxtjs/apollo',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -80,34 +80,13 @@ export default {
     },
   },
 
-  // apollo: {
-  //   clientConfigs: {
-  //     default: {
-  //       httpEndpoint: 'http://localhost:4000'
-  //     },
-  //     alternativeClient: {
-  //       httpEndpoint: 'http://localhost:4000',
-  //       browserHttpEndpoint: '/graphql',
-  //       httpLinkOptions: {
-  //         credentials: 'same-origin'
-  //       },
-  //       // only in production
-  //       // wsEndpoint: 'ws://locahost:4000',
-
-  //       // local storage
-  //       tokenName: 'apollo-token',
-  //     },
-  //     $query: {
-  //       loadingKey: 'loading',
-  //       fetchPolicy: 'cache-and-network'
-  //     },
-  //     authenticationType: 'Bearer',
-  //     includeNodeModules: true,
-  //     cookieAttributes: {
-  //       //will config later
-  //     }
-  //   }
-  // },
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://localhost:4000/graphql'
+      },
+    }
+  },
 
   build: {},
 }

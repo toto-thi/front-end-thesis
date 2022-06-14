@@ -3,11 +3,32 @@
     align="center"
     justify="center"
     dense
-    style="height: 100vh"
+    height="100vh"
     class="mb-10"
   >
-    <v-col cols="4" xl="4" sm="6" md="6" fill-height>
-      <v-card flat>
+    <v-col cols="8" xl="8" sm="12" md="12" fill-height class="px-16">
+
+      <v-app-bar flat elevate-on-scroll class="white">
+        <v-app-bar-nav-icon
+          @click.stop="drawer = !drawer"
+          class="hidden-md-and-up"
+        />
+        <nuxt-link to="/">
+          <v-img
+            to="/"
+            src="/Logo.png"
+            contain
+            max-height="150"
+            max-width="150"
+          ></v-img>
+        </nuxt-link>
+
+        <!-- <v-spacer />
+        <v-select :items="lang" dense flat class="select">
+        </v-select> -->
+      </v-app-bar>
+
+      <v-card flat class="px-16 mx-16">
         <v-card-title class="justify-center font-weight-bold display-4">
           Register
         </v-card-title>
@@ -146,12 +167,15 @@
                   >
                 </v-col>
                 <span>Already have an account? &nbsp; </span>
-                <a>Login now!</a>
+                <nuxt-link to="Login" style="text-decoration:none;"> Login now!</nuxt-link>
               </v-row>
             </v-card-actions>
           </v-form>
         </v-text>
       </v-card>
+    </v-col>
+    <v-col cols="4" xl="4" sm="0" md="0" app>
+      <v-sheet color="#44496c" height="100vh" rounded="xl"></v-sheet>
     </v-col>
   </v-row>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <v-main fill-height>
     <v-row align="center" justify="center">
-      <v-card color="#44496c">
+      <v-sheet rounded="xl" color="#44496c">
         <v-row align="center">
           <v-col cols="6" xl="6" sm="12" md="12">
             <v-img
@@ -20,7 +20,7 @@
             ></v-img>
           </v-col>
         </v-row>
-      </v-card>
+      </v-sheet>
     </v-row>
     <br />
     <br />
@@ -35,7 +35,7 @@
         v-for="project in dummyProjects"
         :key="project.id"
       >
-        <v-card color="#44496c" class="white--text mb-10 mx-10">
+        <v-card color="primary" class="white--text mb-10 mx-10 rounded-xl">
           <v-card-title>
             <v-avatar>
               <v-img :src="project.imgUrl"></v-img>
@@ -47,12 +47,12 @@
             {{ project.description }}</v-card-text
           >
           <v-card-text class="white--text">
-            Project Start: {{ project.startDate }} <br />
+            Project Start: {{ project.startDate }}  <br>
             Project Close: {{ project.closeDate }}
           </v-card-text>
           <v-card-actions class="mr-4">
             <v-row align="center" justify="end">
-              <v-btn rounded color="white" class="text-capitalize mb-4">
+              <v-btn rounded outlined color="white" class="text-capitalize mb-4">
                 Donate Now
                 <v-icon>mdi-arrow-right</v-icon>
               </v-btn>

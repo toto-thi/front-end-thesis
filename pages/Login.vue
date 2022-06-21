@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  layout: 'auth',
+  layout: 'authApp',
 }
 </script>
 

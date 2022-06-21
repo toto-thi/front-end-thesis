@@ -1,5 +1,5 @@
 <template>
-  <v-row align="center" justify="center" dense height="100vh">
+  <v-row align="center" justify="center" dense height="100vh" v-if="!loading">
     <v-col cols="8" xl="8" sm="12" md="12" fill-height class="px-16">
       <v-app-bar flat elevate-on-scroll class="white">
         <v-app-bar-nav-icon
@@ -29,7 +29,7 @@
           Welcome Back! <br />
           <span>Join the Donor's Community</span>
         </v-card-subtitle>
-        <v-text>
+        
           <v-form class="px-3">
             <v-text-field
               name="Email"
@@ -38,7 +38,7 @@
               required
               outlined
               clearable
-              v-model="email"
+              v-model="credentials.email"
               :rules="emailRules"
             ></v-text-field>
             <v-text-field
@@ -48,7 +48,7 @@
               required
               outlined
               clearable
-              v-model="password"
+              v-model="credentials.password"
               :append-icon="show ? 'mdi-eye-outline' : 'mdi-eye-off-outline'"
               :type="show ? 'text' : 'password'"
               :rules="passwordRules"
@@ -68,6 +68,7 @@
               <v-row align="center" justify="center" class="mx-8">
                 <v-col cols="12">
                   <v-btn
+                    @click="signIn"
                     color="primary"
                     large
                     block
@@ -83,31 +84,45 @@
               </v-row>
             </v-card-actions>
           </v-form>
-        </v-text>
+        
       </v-card>
     </v-col>
     <v-col cols="4" xl="4" sm="0" md="0" app>
-      <v-sheet color="#44496c" height="100vh" rounded="xl"></v-sheet>
+      <v-sheet color="#44496c" height="100vh" rounded="xl">
+      </v-sheet>
     </v-col>
   </v-row>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Login',
+  middleware: 'isAuth',
   data() {
     return {
       show: false,
       checkbox: false,
       lang: ['English', 'ລາວ'],
-      email: '',
-      password: '',
+      credentials: {
+        email: '',
+        password: '',
+      },
       emailRules: [
         (v) => !!v || 'E-mail is required',
         (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid',
       ],
       passwordRules: [(v) => !!v || 'Please enter your password'],
     }
+  },
+  computed: {
+    ...mapGetters(['user', 'loading'])
+  },
+  methods: {
+    async signIn() {
+      await this.$store.dispatch('loginUser', this.credentials);
+    },
   },
 }
 </script>

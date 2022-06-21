@@ -66,6 +66,7 @@
 
 <script>
 import projects from '@/DummyData.json'
+
 export default {
   name: 'CharityPage',
   data() {

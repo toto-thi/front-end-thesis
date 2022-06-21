@@ -60,6 +60,7 @@
       </v-menu>
 
       <v-btn
+        v-if="!user"
         plain
         rounded
         outlined
@@ -71,6 +72,7 @@
         <span class="text-capitalize">Login</span>
       </v-btn>
       <v-btn
+        v-if="!user"
         rounded
         color="primary"
         class="white--text hidden-md-and-down"
@@ -79,6 +81,10 @@
       >
         <span class="text-capitalize">Register</span>
       </v-btn>
+
+      <v-divider vertical v-if="user" />
+      <MenuUser v-if="user" :user="user" />
+
     </v-app-bar>
 
     <!-- for mobile only -->
@@ -138,42 +144,39 @@
         </div>
       </template>
     </v-navigation-drawer>
-
-    <!-- For dashboard/setting page -->
-    <!-- will implement later -->
   </nav>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import MenuUser from './custom_component/MenuUser.vue'
+
 export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-application',
-          title: 'Charity Projects',
-          to: '/CharityPage',
-        },
-        {
-          icon: 'mdi-information',
-          title: 'About Us',
-          to: '/About',
-        },
-      ],
-      miniVariant: false,
-      title: 'TJ Charity',
-    }
-  },
+    middleware: "isAuth",
+    computed: {
+        ...mapGetters(["user"]),
+    },
+    data() {
+        return {
+            clipped: false,
+            drawer: false,
+            fixed: false,
+            items: [
+                {
+                    icon: "mdi-application",
+                    title: "Charity Projects",
+                    to: "/CharityPage",
+                },
+                {
+                    icon: "mdi-information",
+                    title: "About Us",
+                    to: "/About",
+                },
+            ],
+            miniVariant: false,
+            title: "TJ Charity",
+        };
+    },
+    components: { MenuUser }
 }
 </script>
-
-<style>
-</style>
-
-
-      <!-- <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn> -->

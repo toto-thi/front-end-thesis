@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -14,44 +15,33 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
+    // '@nuxtjs/auth-next'
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
   },
 
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
       lang: 'en',
     },
   },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -68,7 +58,7 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: "#44496c",
+          primary: '#44496c',
           accent: colors.indigo.accent2,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -79,13 +69,28 @@ export default {
       },
     },
   },
+  // auth: {
+  //   strategies: {
+  //     graphql: {
+  //       scheme: ''
+  //     }
+  //   },
+  //   redirect: {
+  //     login: '/Login',
+  //     logout: '/Login?logout=true',
+  //     callback: false,
+  //     home: '/'
+  //   }
+  // },
 
   apollo: {
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:4000/graphql'
+        httpEndpoint: process.env.HTTP_ENDPOINT,
+        // tokenName: process.env.AUTH_TOKEN,
       },
-    }
+    },
+    // authenticationType: process.env.AUTH_TYPE,
   },
 
   build: {},

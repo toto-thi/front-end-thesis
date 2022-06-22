@@ -117,7 +117,6 @@ const actions = {
   async singOut({ commit }) {
     commit('clearUser');
     await this.app.$apolloHelpers.onLogout();
-    // window.localStorage.removeItem('vuex');
     this.$router.push('/');
   },
 }

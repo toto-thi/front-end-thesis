@@ -60,7 +60,7 @@
       </v-menu>
 
       <v-btn
-        v-if="!user"
+        v-if="!authenticated"
         plain
         rounded
         outlined
@@ -72,7 +72,7 @@
         <span class="text-capitalize">Login</span>
       </v-btn>
       <v-btn
-        v-if="!user"
+        v-if="!authenticated"
         rounded
         color="primary"
         class="white--text hidden-md-and-down"
@@ -82,8 +82,8 @@
         <span class="text-capitalize">Register</span>
       </v-btn>
 
-      <v-divider vertical v-if="user" />
-      <MenuUser v-if="user" :user="user" />
+      <v-divider vertical v-if="authenticated" />
+      <MenuUser v-if="authenticated" :user="user" />
 
     </v-app-bar>
 
@@ -149,12 +149,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import MenuUser from './custom_component/MenuUser.vue'
+import MenuUser from './custom_component/navs/MenuUser.vue'
 
 export default {
     middleware: "isAuth",
     computed: {
-        ...mapGetters(["user"]),
+        ...mapGetters(["user", "authenticated"]),
     },
     data() {
         return {

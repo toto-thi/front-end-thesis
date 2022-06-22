@@ -4,12 +4,14 @@ import { CREATE_USER } from '~/graphql/mutations/userMutate'
 import { decode } from 'jsonwebtoken'
 
 const state = {
-  user: null,
+  user: {},
+  authenticated: false,
   loading: false,
 }
 
 const getters = {
   user: (state) => state.user,
+  authenticated: state => state.authenticated,
   loading: (state) => state.loading,
 }
 
@@ -19,8 +21,12 @@ const mutations = {
   },
   setUser(state, payload) {
     state.user = payload
+    state.authenticated = true
   },
-  clearUser: (state) => (state.user = null),
+  clearUser: (state) => {
+    state.user = {}
+    state.authenticated = false
+  },
 }
 
 const actions = {
@@ -111,6 +117,7 @@ const actions = {
   async singOut({ commit }) {
     commit('clearUser');
     await this.app.$apolloHelpers.onLogout();
+    // window.localStorage.removeItem('vuex');
     this.$router.push('/');
   },
 }

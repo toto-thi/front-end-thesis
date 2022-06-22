@@ -17,19 +17,20 @@ export default {
 
   css: [],
 
-  plugins: [],
+  plugins: [
+    {
+      src: '~/plugins/persistedState.client.js',
+    },
+  ],
 
   components: true,
 
-  buildModules: [
-    '@nuxtjs/vuetify',
-  ],
+  buildModules: ['@nuxtjs/vuetify'],
 
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
-    // '@nuxtjs/auth-next'
   ],
 
   axios: {
@@ -69,28 +70,13 @@ export default {
       },
     },
   },
-  // auth: {
-  //   strategies: {
-  //     graphql: {
-  //       scheme: ''
-  //     }
-  //   },
-  //   redirect: {
-  //     login: '/Login',
-  //     logout: '/Login?logout=true',
-  //     callback: false,
-  //     home: '/'
-  //   }
-  // },
 
   apollo: {
     clientConfigs: {
       default: {
         httpEndpoint: process.env.HTTP_ENDPOINT,
-        // tokenName: process.env.AUTH_TOKEN,
       },
     },
-    // authenticationType: process.env.AUTH_TYPE,
   },
 
   build: {},

@@ -11,7 +11,7 @@ const state = {
 
 const getters = {
   user: (state) => state.user,
-  authenticated: state => state.authenticated,
+  authenticated: (state) => state.authenticated,
   loading: (state) => state.loading,
 }
 
@@ -30,10 +30,6 @@ const mutations = {
 }
 
 const actions = {
-  // async nuxtServerInit({ dispatch }) {
-  //   await dispatch('getCurrentUser')
-  // },
-
   async getCurrentUser({ commit }, userId) {
     if (!this.app.$apolloHelpers.getToken()) {
       commit('clearUser')
@@ -77,7 +73,7 @@ const actions = {
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
 
-      this.$router.push('/')
+      this.$router.push('/Dashboard')
     } catch (err) {
       console.error(err)
     }
@@ -106,7 +102,7 @@ const actions = {
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
 
-      this.$router.push('/')
+      this.$router.push('/Dashboard')
     } catch (err) {
       console.error(err)
     }
@@ -115,9 +111,9 @@ const actions = {
   },
 
   async singOut({ commit }) {
-    commit('clearUser');
-    await this.app.$apolloHelpers.onLogout();
-    this.$router.push('/');
+    await this.app.$apolloHelpers.onLogout()
+    commit('clearUser')
+    this.$router.push('/')
   },
 }
 

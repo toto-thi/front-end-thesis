@@ -99,7 +99,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
-  middleware: 'isAuth',
   data() {
     return {
       show: false,

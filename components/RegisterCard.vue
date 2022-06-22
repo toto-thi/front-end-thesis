@@ -93,7 +93,7 @@
           </v-menu>
 
           <!-- Select Gender -->
-          <v-text>Gender</v-text>
+          <span>Gender</span>
           <v-radio-group
             v-model="selectedGender"
             dense

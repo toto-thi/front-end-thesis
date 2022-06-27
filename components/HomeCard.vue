@@ -19,10 +19,7 @@
           <v-icon right>mdi-arrow-right</v-icon>
         </v-btn>
       </v-col>
-      <v-col cols="8" xl="8" sm="12" md="4">
-        <!-- <v-card shaped outlined elevation="5" color="primary">
-          <v-img src="/home-pic-1.png" :aspect-ratio="16 / 9"></v-img>
-        </v-card> -->
+      <v-col cols="8" xl="8" sm="8" md="8">
         <v-sheet color="primary" rounded="xl">
           <v-img src="/home-pic-1.png" :aspect-ratio="16 / 9"></v-img>
         </v-sheet>

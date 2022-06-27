@@ -3,7 +3,7 @@
     <v-row align="center" justify="center">
       <v-sheet rounded="xl" color="#44496c">
         <v-row align="center">
-          <v-col cols="6" xl="6" sm="12" md="12">
+          <v-col cols="6" xl="6" sm="6" md="6" align-self="center">
             <v-img
               src="/charity-pic-1.png"
               contain
@@ -11,7 +11,7 @@
               width="600"
             ></v-img>
           </v-col>
-          <v-col cols="6" xl="6" sm="12" md="12">
+          <v-col cols="6" xl="6" sm="6" md="6">
             <v-img
               src="/charity-pic-2.png"
               contain

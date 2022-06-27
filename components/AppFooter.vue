@@ -1,7 +1,7 @@
 <template>
   <v-footer class="mt-16 white" absolute app>
     <v-row align="start" justify="space-between" class="ml-16" style="height:25vh">
-      <v-col cols="4" sm="12" xl="4" class="text-center">
+      <v-col cols="4" sm="4" xl="4" class="text-center">
         <h1>About</h1>
         <br>
         <h4>This project is for Thesis purpose only.</h4>
@@ -9,13 +9,13 @@
         <h4>Faculty of Natural Sciences</h4>
         <h4>Computer Science 2021-2022</h4>
       </v-col>
-      <v-col cols="4" xl="4" sm="12" class="text-center">
+      <v-col cols="4" xl="4" sm="4" class="text-center">
         <h1>Developers</h1>
         <br>
         <h4>Thinakone Louangdy</h4>
         <h4>Souphaxay Phounsavart</h4>
       </v-col>
-      <v-col cols="4" xl="4" sm="12">
+      <v-col cols="4" xl="4" sm="4">
         <v-row class="mt-10" align="center" justify="center">
           <v-btn
             plain

@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" justify="center" dense height="100vh" class="mb-10">
-    <v-col cols="8" xl="8" sm="12" md="12" fill-height class="px-16">
+    <v-col cols="12" xl="12" sm="8" md="8" fill-height class="px-16">
       <v-app-bar flat elevate-on-scroll class="white">
         <v-app-bar-nav-icon
           @click.stop="drawer = !drawer"
@@ -21,8 +21,8 @@
         </v-select> -->
       </v-app-bar>
 
-      <v-card flat class="px-16 mx-16">
-        <v-card-title class="justify-center font-weight-bold display-4">
+      <v-card flat class="px-5">
+        <v-card-title class="justify-center font-weight-bold" style="font-size: 3.5rem">
           Register
         </v-card-title>
         <v-card-subtitle class="mt-5 mb-5 text-center font-weight-bold title">
@@ -169,9 +169,9 @@
         </v-form>
       </v-card>
     </v-col>
-    <v-col cols="4" xl="4" sm="0" md="0" app>
+    <!-- <v-col cols="4" xl="4" class="hidden-sm-and-down">
       <v-sheet color="#44496c" height="100vh" rounded="xl"></v-sheet>
-    </v-col>
+    </v-col> -->
   </v-row>
 </template>
 

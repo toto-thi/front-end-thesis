@@ -111,9 +111,11 @@ const actions = {
   },
 
   async singOut({ commit }) {
+    commit('setLoading', true)
     await this.app.$apolloHelpers.onLogout()
     commit('clearUser')
     this.$router.push('/')
+    commit('setLoading', false)
   },
 }
 

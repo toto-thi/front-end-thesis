@@ -1,18 +1,19 @@
 import createPersistedState from 'vuex-persistedstate'
-import cookie from 'cookie'
-import Cookies from 'js-cookie'
+import SecureLs from 'secure-ls'
+
+var ls = new SecureLs({ isCompression: false})
 
 export default ({ store, req, isDev }) => {
   createPersistedState({
-    key: 'tempData',
+    key: 'vuex',
     storage: {
       getItem: (key) =>
         process.client
-          ? Cookies.get(key)
-          : cookie.parse(req.headers.cookie || '')[key],
+          ? ls.get(key)
+          : ls.parse(req.headers.cookie || '')[key],
       setItem: (key, value) =>
-        Cookies.set(key, value, { expires: 100, secure: !isDev }),
-      removeItem: (key) => Cookies.remove(key),
+        ls.set(key, value, { expires: 100, secure: !isDev }),
+      removeItem: (key) => ls.remove(key),
     },
   })(store)
 }

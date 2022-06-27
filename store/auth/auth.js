@@ -73,7 +73,7 @@ const actions = {
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
 
-      this.$router.push('/Dashboard')
+      this.$router.push('/dashboard/adminPage')
     } catch (err) {
       console.error(err)
     }
@@ -102,7 +102,7 @@ const actions = {
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
 
-      this.$router.push('/Dashboard')
+      this.$router.push('/dashboard/adminPage')
     } catch (err) {
       console.error(err)
     }

@@ -1,14 +1,14 @@
 <template>
   <v-main fill-height>
     <v-row align="center" justify="center">
-      <v-sheet rounded="xl" color="#44496c">
+      <v-sheet rounded="xl" color="#44496c" width="85%">
         <v-row align="center">
           <v-col cols="6" xl="6" sm="6" md="6" align-self="center">
             <v-img
               src="/charity-pic-1.png"
               contain
               height="400"
-              width="600"
+              width="100%"
             ></v-img>
           </v-col>
           <v-col cols="6" xl="6" sm="6" md="6">
@@ -16,7 +16,7 @@
               src="/charity-pic-2.png"
               contain
               height="400"
-              width="600"
+              width="100%"
             ></v-img>
           </v-col>
         </v-row>
@@ -26,7 +26,7 @@
     <br />
     <br />
 
-    <v-row justify="center" align="center" class="mt-16">
+    <v-row justify="center" align="center" class="mt-16 mx-16">
       <v-col
         cols="4"
         xl="4"

@@ -1,5 +1,5 @@
 <template>
-  <v-main fill-height>
+  <div>
     <v-row align="center" justify="center">
       <v-sheet rounded="xl" color="#44496c" width="85%">
         <v-row align="center">
@@ -7,7 +7,7 @@
             <v-img
               src="/charity-pic-1.png"
               contain
-              height="400"
+              height="600"
               width="100%"
             ></v-img>
           </v-col>
@@ -15,7 +15,7 @@
             <v-img
               src="/charity-pic-2.png"
               contain
-              height="400"
+              height="600"
               width="100%"
             ></v-img>
           </v-col>
@@ -32,7 +32,7 @@
         xl="4"
         sm="6"
         md="6"
-        v-for="project in dummyProjects"
+        v-for="project in approved"
         :key="project.id"
       >
         <v-card color="primary" class="white--text mb-10 mx-10 rounded-xl">
@@ -47,12 +47,34 @@
             {{ project.description }}</v-card-text
           >
           <v-card-text class="white--text">
-            Project Start: {{ project.startDate }}  <br>
-            Project Close: {{ project.closeDate }}
+            Project Start: {{ project.startDate }} <br />
+            Project Close: {{ project.endDate }} <br />
+            Created By: {{ project.createdBy.firstname }} {{ project.createdBy.lastname }}
+
+            <!-- <v-row justify="start">
+              <v-col cols="6" align-self="start">
+                Created By:
+                <v-img
+                  :src="project.createdBy.imgUrl"
+                  contain
+                  height="36px"
+                  justify-start
+                ></v-img>
+              </v-col>
+              <v-col class="mr-16">
+                {{ project.createdBy.firstname }}
+                {{ project.createdBy.lastname }}
+              </v-col>
+            </v-row> -->
           </v-card-text>
           <v-card-actions class="mr-4">
             <v-row align="center" justify="end">
-              <v-btn rounded outlined color="white" class="text-capitalize mb-4">
+              <v-btn
+                rounded
+                outlined
+                color="white"
+                class="text-capitalize mb-4"
+              >
                 Donate Now
                 <v-icon>mdi-arrow-right</v-icon>
               </v-btn>
@@ -61,18 +83,19 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-main>
+  </div>
 </template>
 
 <script>
-import projects from '@/DummyData.json'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'CharityPage',
-  data() {
-    return {
-      dummyProjects: projects
-    }
+  beforeCreate() {
+    return this.$store.dispatch('getApprovedProject')
+  },
+  computed: {
+    ...mapGetters(['approved']),
   },
 }
 </script>

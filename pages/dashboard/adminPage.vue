@@ -1,12 +1,12 @@
 <template>
-  <DashboardCard />
+  <MainDashboardCard />
 </template>
 
 <script>
-import DashboardCard from '~/components/DashboardCard.vue';
+import MainDashboardCard from '../../components/custom_component/dashboard/MainDashboardCard.vue';
 export default {
     layout: "dashboardApp",
-    components: { DashboardCard }
+    components: { MainDashboardCard }
 }
 </script>
 

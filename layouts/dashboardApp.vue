@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <DashboardNav :user="user" />
-    <v-main fill-height>
+    <v-main style="padding: 112px 0px 0px 256px;">
       <v-container fluid>
         <nuxt />
       </v-container>

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main fill-height>
+    <v-main style="padding: 0px 0px 0px 0px;">
         <v-container fluid>
             <nuxt />
         </v-container>

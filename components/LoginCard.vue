@@ -1,6 +1,6 @@
 <template>
-  <v-row align="center" justify="center" dense height="100vh" v-if="!loading">
-    <v-col cols="8" xl="8" sm="8" md="8" fill-height class="px-16">
+  <v-row justify="center" dense height="100vh" v-if="!loading">
+    <v-col cols="8" xl="8" sm="8" md="8" class="px-16">
       <v-app-bar flat elevate-on-scroll class="white">
         <v-app-bar-nav-icon
           @click.stop="drawer = !drawer"
@@ -21,7 +21,7 @@
         </v-select> -->
       </v-app-bar>
 
-      <v-card flat class="px-16 mx-16">
+      <v-card flat class="px-16 mx-16" style="padding: 112px;">
         <v-card-title class="justify-center font-weight-bold" style="font-size: 3.5rem">
           Login
         </v-card-title>
@@ -116,7 +116,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['user', 'loading'])
+    ...mapGetters(['loading'])
   },
   methods: {
     async signIn() {

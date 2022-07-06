@@ -16,11 +16,7 @@ export default {
 
   css: [],
 
-  plugins: [
-    {
-      src: '~/plugins/persistedState.client.js',
-    },
-  ],
+  plugins: ['~/plugins/persistedState.client.js', '~/plugins/charityProjects'],
 
   components: true,
 

@@ -1,6 +1,6 @@
 <template>
-  <v-row align="center" justify="center" dense height="100vh" class="mb-10">
-    <v-col cols="12" xl="12" sm="8" md="8" fill-height class="px-16">
+  <v-row justify="center" dense height="100vh" class="mb-10">
+    <v-col cols="8" xl="8" sm="8" md="8" fill-height class="px-16">
       <v-app-bar flat elevate-on-scroll class="white">
         <v-app-bar-nav-icon
           @click.stop="drawer = !drawer"
@@ -169,9 +169,9 @@
         </v-form>
       </v-card>
     </v-col>
-    <!-- <v-col cols="4" xl="4" class="hidden-sm-and-down">
-      <v-sheet color="#44496c" height="100vh" rounded="xl"></v-sheet>
-    </v-col> -->
+    <v-col cols="4" xl="4" class="hidden-sm-and-down">
+      <v-sheet color="primary" height="100vh" rounded="xl"></v-sheet>
+    </v-col>
   </v-row>
 </template>
 

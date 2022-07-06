@@ -1,33 +1,20 @@
-import gql from 'graphql-tag'
+import gql from 'graphql-tag';
+import { USER_FRAGMENT } from '../fragments'
 
 export const GET_ALL_USERS = gql`
-  fragment UserData on User {
-    id
-    firstname
-    lastname
-    dob
-    email
-    role
-    imgUrl
-  }
-
+  ${USER_FRAGMENT}
   query GetAllUsers {
     getAllUsers {
-      ...userData
+      ...UserData
     }
   }
 `
 
 export const USER_PROFILE = gql`
+  ${USER_FRAGMENT}
   query UserProfile($id: ID!) {
   userProfile(id: $id) {
-    id
-    firstname
-    lastname
-    dob
-    email
-    imgUrl
-    role
+    ...UserData
   }
 }
 `

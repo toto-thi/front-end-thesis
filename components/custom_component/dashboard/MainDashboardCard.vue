@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-row class="mx-2 text-center">
       <v-col cols="4" v-for="(card, i) in cards" :key="i">
         <v-card class="rounded-xl white--text" color="primary">
@@ -20,14 +20,15 @@
       </v-col>
     </v-row>
     <v-row class="mt-10 mx-4">
-      <PendingTable :pendingProject="pending"/>
+      <PendingTable :pendingProject="pending" />
     </v-row>
-  </div>
+  </v-container>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import PendingTable from './PendingTable.vue'
+import LoadingScreen from '../helpers/LoadingScreen.vue'
 
 export default {
   name: 'MainDashboardCard',
@@ -52,13 +53,13 @@ export default {
       ],
     }
   },
-  beforeCreate() {
+  created() {
     return this.$store.dispatch('getPendingProject')
   },
   computed: {
-    ...mapGetters(['pending', 'dLoading']),
+    ...mapGetters(['pending', 'dLoading', 'loading']),
   },
-  components: { PendingTable },
+  components: { PendingTable, LoadingScreen },
 }
 </script>
 

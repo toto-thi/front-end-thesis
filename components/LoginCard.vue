@@ -1,5 +1,7 @@
 <template>
-  <v-row justify="center" dense height="100vh" v-if="!loading">
+<div>
+  <div>
+    <v-row justify="center" dense height="100vh" v-if="!loading">
     <v-col cols="8" xl="8" sm="8" md="8" class="px-16">
       <v-app-bar flat elevate-on-scroll class="white">
         <v-app-bar-nav-icon
@@ -92,6 +94,13 @@
       </v-sheet>
     </v-col>
   </v-row>
+  </div>
+  <!-- <div v-if="loading">
+    <loading-screen :loading="loading"/>
+  </div> -->
+</div>
+  
+  
 </template>
 
 <script>

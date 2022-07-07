@@ -4,6 +4,7 @@
     <v-data-table
       :headers="headers"
       :items="pendingProject"
+      :items-per-page="5"
       item-key="title"
       class="elevation-1"
     >
@@ -111,7 +112,7 @@ export default {
     rejectProject(item) {
       this.dialogReject = true
       this.selected.id = item.id
-      this.selected.reject = true
+      this.selected.rejection = true
     },
     confirmReject() {
       this.dialogReject = false

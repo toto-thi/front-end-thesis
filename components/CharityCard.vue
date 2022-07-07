@@ -91,7 +91,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'CharityPage',
-  beforeCreate() {
+  created() {
     return this.$store.dispatch('getApprovedProject')
   },
   computed: {

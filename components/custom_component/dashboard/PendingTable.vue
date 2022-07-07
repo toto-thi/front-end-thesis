@@ -23,12 +23,14 @@
         >
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="#DF0000" text @click="closeDialog">Cancel</v-btn>
+          <v-btn color="#DF0000" text @click="dialogApprove = !dialogApprove"
+            >Cancel</v-btn
+          >
           <v-btn color="#53A700" text @click="confirmApproval">Confirm</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="dialogReject" max-width="50%" max-height="200px">
+    <v-dialog v-model="dialogReject" max-width="50%" max-height="200px" class="primary">
       <v-card color="primary" class="rounded-xl white--text">
         <v-card-title class="text-h5"
           >Are you sure you want to reject this project?</v-card-title
@@ -47,79 +49,73 @@
 
 <script>
 export default {
-    props:{
-        pendingProject: {
-            type: Array,
-            required: true
-        }
+  props: {
+    pendingProject: {
+      type: Array,
+      required: true,
     },
+  },
   data() {
     return {
       dialogApprove: false,
       dialogReject: false,
-      setStatus: {
-        id: '',
-        approval: ''
-      },
+      selected: [],
       headers: [
         {
           text: 'Title',
           align: 'start',
           value: 'title',
-          width: '1%'
+          width: '1%',
         },
         {
           text: 'Description',
           align: 'start',
           sortable: false,
           value: 'description',
-          width: '1%'
+          width: '1%',
         },
         {
           text: 'Start Date',
           align: 'center',
           sortable: false,
           value: 'startDate',
-          width: '1%'
+          width: '1%',
         },
         {
           text: 'End Date',
           align: 'center',
           sortable: false,
           value: 'endDate',
-          width: '1%'
+          width: '1%',
         },
         {
           text: 'Approval',
           align: 'center',
           value: 'approval',
           sortable: false,
-          width: '1%'
+          width: '1%',
         },
       ],
     }
   },
   methods: {
-    closeDialog() {
-      this.dialogApprove = false
+    approveProject(item) {
+      this.dialogApprove = true
+      this.selected.id = item.id
+      this.selected.approval = true
     },
     confirmApproval() {
       this.dialogApprove = false
-    },
-    approveProject(item) {
-      this.dialogApprove = true
-      const updateStatus = {
-        id: item.id,
-        approval: true
-      }
-      this.$store.dispatch('approveProject', updateStatus)
+      this.$store.dispatch('approveProject', this.selected)
     },
     rejectProject(item) {
       this.dialogReject = true
+      this.selected.id = item.id
+      this.selected.reject = true
     },
     confirmReject() {
-      alert('rejected')
       this.dialogReject = false
+      this.$store.dispatch('rejectProject', this.selected)
     },
   },
 }

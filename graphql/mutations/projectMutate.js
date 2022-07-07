@@ -5,3 +5,8 @@ export const APPROVE_PROJECT = gql`
     approveProject(id: $id, approval: $approval)
   }
 `
+export const REJECT_PROJECT = gql`
+  mutation RejectProject($id: ID!, $rejection: Boolean!) {
+    rejectProject(id: $id, rejection: $rejection)
+  }
+`

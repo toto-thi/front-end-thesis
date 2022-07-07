@@ -18,3 +18,11 @@ export const GET_APPROVED_PROJECTS = gql`
     }
   }
 `
+export const GET_REJECTED_PROJECTS = gql`
+  ${PROJECT_FRAGMENT}
+  query GetRejectedProjects {
+    getRejectedProjects {
+      ...ProjectData
+    }
+  }
+`

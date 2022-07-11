@@ -5,6 +5,7 @@ export const USER_FRAGMENT = gql`
     id
     firstname
     lastname
+    email
     gender
     imgUrl
     role
@@ -21,6 +22,7 @@ export const PROJECT_FRAGMENT = gql`
     startDate
     endDate
     targetAmount
+    donateAmount
     createdBy {
       id
       firstname

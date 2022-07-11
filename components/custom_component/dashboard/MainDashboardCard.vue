@@ -1,32 +1,67 @@
 <template>
   <div>
-    <div v-if="loading && !user">
+    <div v-if="loading">
       <LoadingScreen :isLoading="loading" />
     </div>
 
     <div v-else>
       <v-container>
         <v-row class="mx-2 text-center">
-          <v-col cols="4" v-for="(card, i) in cards" :key="i">
+          <v-col>
             <v-card class="rounded-xl white--text" color="primary">
               <v-row class="mt-2 mx-2" style="height: 25vh">
                 <v-col cols="2" align-self="start">
-                  <v-icon color="white" large> {{ card.icon }}</v-icon>
+                  <v-icon color="white" large> mdi-chart-areaspline </v-icon>
                 </v-col>
                 <v-col cols="6" align-self="center">
-                  <p class="headline">{{ card.count }}</p>
+                  <p class="headline">{{ allProjects.length }}</p>
                 </v-col>
                 <v-col cols="4" align-self="end">
-                  <v-card-text class="title font-weight-bold">{{
-                    card.title
-                  }}</v-card-text>
+                  <v-card-text class="title font-weight-bold"
+                    >Projects</v-card-text
+                  >
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card class="rounded-xl white--text" color="primary">
+              <v-row class="mt-2 mx-2" style="height: 25vh">
+                <v-col cols="2" align-self="start">
+                  <v-icon color="white" large> mdi-chart-donut </v-icon>
+                </v-col>
+                <v-col cols="6" align-self="center">
+                  <p class="headline">{{ approved.length }}</p>
+                </v-col>
+                <v-col cols="4" align-self="end">
+                  <v-card-text class="title font-weight-bold text-capitalize"
+                    >active projects</v-card-text
+                  >
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-card class="rounded-xl white--text" color="primary">
+              <v-row class="mt-2 mx-2" style="height: 25vh">
+                <v-col cols="2" align-self="start">
+                  <v-icon color="white" large> mdi-ethereum </v-icon>
+                </v-col>
+                <v-col cols="6" align-self="center">
+                  <!-- will implement later -->
+                  <p class="headline">4089.093 ETH</p> 
+                </v-col>
+                <v-col cols="4" align-self="end">
+                  <v-card-text class="title font-weight-bold"
+                    >Donated</v-card-text
+                  >
                 </v-col>
               </v-row>
             </v-card>
           </v-col>
         </v-row>
         <v-row class="mt-10 mx-4">
-          <PendingTable :pendingProject="pending"/>
+          <AllProjectTable :allProjects="allProjects" />
         </v-row>
       </v-container>
     </div>
@@ -35,44 +70,26 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PendingTable from './PendingTable.vue'
+import AllProjectTable from './AllProjectTable.vue'
 import LoadingScreen from '../helpers/LoadingScreen.vue'
 
 export default {
   name: 'MainDashboardCard',
   data() {
     return {
-      cards: [
-        {
-          icon: 'mdi-chart-areaspline',
-          title: 'Projects',
-          count: '774',
-        },
-        {
-          icon: 'mdi-chart-areaspline',
-          title: 'Active Projects',
-          count: '544',
-        },
-        {
-          icon: 'mdi-chart-areaspline',
-          title: 'Donated',
-          count: '4097.8352 ETH',
-        },
-      ],
+      totalDonation: 0,
+    }
+  },
+  methods: {
+    async calTotalDonation() {
+      //will implement later
+      return;
     }
   },
   computed: {
-    ...mapGetters([
-      'pending',
-      'reject',
-      'close',
-      'approved',
-      'dLoading',
-      'loading',
-      'user'
-    ])
+    ...mapGetters(['allProjects', 'approved', 'dLoading', 'loading']),
   },
-  components: { PendingTable, LoadingScreen },
+  components: { AllProjectTable, LoadingScreen },
 }
 </script>
 

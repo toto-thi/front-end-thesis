@@ -60,9 +60,9 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-row class="mt-10 mx-4">
+        <!-- <v-row class="mt-10 mx-4">
           <AllProjectTable :allProjects="allProjects" />
-        </v-row>
+        </v-row> -->
       </v-container>
     </div>
   </div>
@@ -70,7 +70,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import AllProjectTable from './AllProjectTable.vue'
 import LoadingScreen from '../helpers/LoadingScreen.vue'
 
 export default {
@@ -89,7 +88,7 @@ export default {
   computed: {
     ...mapGetters(['allProjects', 'approved', 'dLoading', 'loading']),
   },
-  components: { AllProjectTable, LoadingScreen },
+  components: { LoadingScreen },
 }
 </script>
 

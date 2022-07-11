@@ -17,7 +17,7 @@
       </template>
 
       <v-list>
-        <v-list-item router exact to="/random">
+        <v-list-item router exact to="/dashboard/profile">
           <v-list-item-action>
             <v-icon> mdi-account </v-icon>
           </v-list-item-action>

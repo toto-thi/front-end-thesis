@@ -48,20 +48,63 @@
             </template>
           </v-select>
         </v-col>
-        <v-col cols="1" class="mt-2">
+        <v-col cols="1" class="mt-1">
           <!-- will come back later -->
-          <v-badge overlap>
-            <v-icon large>mdi-bell-outline</v-icon>
-          </v-badge>
+          <v-btn
+            @click="connectWallet"
+            color="primary"
+            rounded
+            large
+            class="text-capitalize"
+            >connect wallet</v-btn
+          >
         </v-col>
       </v-row>
     </v-app-bar>
 
     <!-- CRUD Control -->
-    <v-navigation-drawer app fixed absolute permanent v-model="drawer" height="100%">
+    <v-navigation-drawer app fixed absolute permanent v-model="drawer">
       <!-- Menu -->
-      <v-list nav rounded class="mt-16 pt-16">
-        <v-list-item
+      <v-list nav dense rounded class="mt-16 pt-16">
+        <div v-for="(item, i) in items" :key="i">
+          <v-list-item
+            v-if="!item.items"
+            :key="i"
+            :to="item.to"
+            class="v-list-item"
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content v-text="item.title" />
+          </v-list-item>
+
+          <v-list-group v-else :key="item.title" no-action>
+            <template v-slot:activator>
+              <v-list-item>
+                <v-list-item-action>
+                  <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  {{ item.title }}
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+
+            <v-list-item
+              v-for="sub in item.items"
+              :key="sub.title"
+              :to="sub.to"
+            >
+              <v-list-item-action>
+                <v-icon>{{ sub.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-title v-text="sub.title" />
+            </v-list-item>
+          </v-list-group>
+        </div>
+
+        <!-- <v-list-item
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
@@ -74,7 +117,7 @@
           <v-list-item-content>
             <v-list-item-title v-text="item.title" />
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> -->
       </v-list>
 
       <!-- User Display -->
@@ -88,10 +131,10 @@
                 </v-list-item-avatar>
               </v-list-item>
               <v-list-item class="text-center">
-                <v-list-item-title class="text-capitalize">
-                  {{ user.firstname }} &nbsp;
-                  {{ user.lastname }}</v-list-item-title
-                >
+                <v-list-item-title>
+                  {{ user.firstname }} &nbsp; {{ user.lastname }} <br />
+                  {{ user.email }}
+                </v-list-item-title>
               </v-list-item>
             </v-col>
             <v-col cols="12">
@@ -131,7 +174,29 @@ export default {
         {
           icon: 'mdi-home-variant-outline',
           title: 'Dashboard',
-          to: '/dashboard/adminPage',
+          to: '/dashboard/main',
+          items: [
+            {
+              icon: 'mdi-archive-check-outline',
+              title: 'Approved',
+              to: '/dashboard/approved',
+            },
+            {
+              icon: 'mdi-archive-clock-outline',
+              title: 'All Request',
+              to: '/dashboard/requested',
+            },
+            {
+              icon: 'mdi-close-box-multiple-outline',
+              title: 'Rejected',
+              to: '/dashboard/rejected',
+            },
+            {
+              icon: 'mdi-check-all',
+              title: 'Finished Project',
+              to: '/dashboard/closed',
+            }
+          ],
         },
         {
           icon: 'mdi-chart-box-outline',
@@ -173,6 +238,9 @@ export default {
     async signOut() {
       await this.$store.dispatch('singOut')
     },
+    connectWallet() {
+      alert('connecting...')
+    }
   },
 }
 </script>

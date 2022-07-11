@@ -31,7 +31,12 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="dialogReject" max-width="50%" max-height="200px" class="primary">
+    <v-dialog
+      v-model="dialogReject"
+      max-width="50%"
+      max-height="200px"
+      class="primary"
+    >
       <v-card color="primary" class="rounded-xl white--text">
         <v-card-title class="text-h5"
           >Are you sure you want to reject this project?</v-card-title
@@ -87,6 +92,13 @@ export default {
           align: 'center',
           sortable: false,
           value: 'endDate',
+          width: '1%',
+        },
+        {
+          text: 'Target (ETH)',
+          align: 'center',
+          sortable: true,
+          value: 'targetAmount',
           width: '1%',
         },
         {

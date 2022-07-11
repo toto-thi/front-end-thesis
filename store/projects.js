@@ -1,4 +1,5 @@
 import {
+  GET_ALL_PROJECT,
   GET_PENDING_PROJECT,
   GET_APPROVED_PROJECTS,
   GET_REJECTED_PROJECTS,
@@ -10,6 +11,7 @@ import {
 } from '~/graphql/mutations/projectMutate'
 
 const state = {
+  allProjects: {},
   approvedProjects: {},
   pendingProjects: {},
   rejectedProjects: {},
@@ -18,6 +20,7 @@ const state = {
 }
 
 const getters = {
+  allProjects: (state) => state.allProjects,
   approved: (state) => state.approvedProjects,
   pending: (state) => state.pendingProjects,
   reject: (state) => state.rejectedProjects,
@@ -28,6 +31,9 @@ const getters = {
 const mutations = {
   setLoading(state, status) {
     state.dLoading = status
+  },
+  fetchAllProjects(state, payload) {
+    state.allProjects = payload
   },
   fetchApprovedProject(state, payload) {
     state.approvedProjects = payload
@@ -45,9 +51,19 @@ const mutations = {
 
 const actions = {
   async nuxtServerInit({ dispatch }) {
+    await dispatch('getAllPropjects')
     await dispatch('getPendingProject')
     await dispatch('getApprovedProject')
     await dispatch('getRejectedProjects')
+  },
+  async getAllPropjects({ commit }) {
+    commit('setLoading', true)
+
+    let client = this.app.apolloProvider.defaultClient
+
+    await loadAllProject(commit, client)
+
+    commit('setLoading', false)
   },
   async getApprovedProject({ commit }) {
     commit('setLoading', true)
@@ -132,6 +148,20 @@ export default {
   getters,
   mutations,
   actions,
+}
+
+async function loadAllProject(commit, client) {
+  try {
+    const allProj = await client
+      .query({
+        query: GET_ALL_PROJECT,
+      })
+      .then(({ data }) => data && data.getAllProjects)
+
+    commit('fetchAllProjects', allProj)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 async function loadApprovedProject(commit, client) {

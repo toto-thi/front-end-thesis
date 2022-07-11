@@ -1,6 +1,19 @@
 import gql from 'graphql-tag'
 import { PROJECT_FRAGMENT } from '../fragments'
 
+export const GET_ALL_PROJECT = gql`
+  ${PROJECT_FRAGMENT}
+  query GetAllProjects {
+    getAllProjects {
+      ...ProjectData
+      isApproved
+      isClose
+      isPending
+      isRejected
+    }
+  }
+`
+
 export const GET_PENDING_PROJECT = gql`
   ${PROJECT_FRAGMENT}
   query PendingProject {

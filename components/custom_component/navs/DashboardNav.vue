@@ -103,21 +103,6 @@
             </v-list-item>
           </v-list-group>
         </div>
-
-        <!-- <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item> -->
       </v-list>
 
       <!-- User Display -->
@@ -140,9 +125,21 @@
             <v-col cols="12">
               <v-row class="mx-5">
                 <v-col cols="6">
-                  <v-btn color="white">
-                    <v-icon>mdi-cog-outline</v-icon>
-                  </v-btn>
+                  <v-menu :rounded="rounded" offset-y>
+                    <template v-slot:activator="{ attrs, on }">
+                      <v-btn color="white" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-cog-outline</v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item router exact to="/dashboard/profile">
+                        <v-list-item-action>
+                          <v-icon>mdi-account-cog-outline</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-title>Profile</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
                 </v-col>
                 <v-col cols="6">
                   <v-btn @click="signOut" color="white">
@@ -175,43 +172,43 @@ export default {
           icon: 'mdi-home-variant-outline',
           title: 'Dashboard',
           to: '/dashboard/main',
+        },
+        {
+          icon: 'mdi-chart-box-outline',
+          title: 'Charity',
+          to: '/dashboard/charity/approved',
           items: [
             {
               icon: 'mdi-archive-check-outline',
               title: 'Approved',
-              to: '/dashboard/approved',
+              to: '/dashboard/charity/approved',
             },
             {
               icon: 'mdi-archive-clock-outline',
               title: 'All Request',
-              to: '/dashboard/requested',
+              to: '/dashboard/charity/requested',
             },
             {
               icon: 'mdi-close-box-multiple-outline',
               title: 'Rejected',
-              to: '/dashboard/rejected',
+              to: '/dashboard/charity/rejected',
             },
             {
               icon: 'mdi-check-all',
               title: 'Finished Project',
-              to: '/dashboard/closed',
-            }
+              to: '/dashboard/charity/completed',
+            },
           ],
-        },
-        {
-          icon: 'mdi-chart-box-outline',
-          title: 'Charity Project',
-          to: '/dashboard/',
         },
         {
           icon: 'mdi-account-multiple',
           title: 'Users',
-          to: '/dashboard/',
+          to: '/dashboard/users',
         },
         {
           icon: 'mdi-history',
           title: 'All Transactions',
-          to: '/dashboard/',
+          to: '/dashboard/history',
         },
       ],
       langs: [
@@ -240,7 +237,7 @@ export default {
     },
     connectWallet() {
       alert('connecting...')
-    }
+    },
   },
 }
 </script>

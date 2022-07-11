@@ -49,7 +49,8 @@
           <v-card-text class="white--text">
             Project Start: {{ project.startDate }} <br />
             Project Close: {{ project.endDate }} <br />
-            Created By: {{ project.createdBy.firstname }} {{ project.createdBy.lastname }}
+            Created By: {{ project.createdBy.firstname }}
+            {{ project.createdBy.lastname }}
 
             <!-- <v-row justify="start">
               <v-col cols="6" align-self="start">
@@ -66,6 +67,19 @@
                 {{ project.createdBy.lastname }}
               </v-col>
             </v-row> -->
+          </v-card-text>
+          <v-card-text class="white--text">
+            Progress:
+            <v-progress-linear
+              v-model="project.donateAmount"
+              color="#53A700"
+              height="25"
+              class="white--text rounded-xl"
+            >
+              <template v-slot:default="{ value }">
+                <strong>{{ (value * 100) / project.targetAmount  }}%</strong>
+              </template>
+            </v-progress-linear>
           </v-card-text>
           <v-card-actions class="mr-4">
             <v-row align="center" justify="end">

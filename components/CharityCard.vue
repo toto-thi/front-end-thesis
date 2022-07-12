@@ -51,33 +51,18 @@
             Project Close: {{ project.endDate }} <br />
             Created By: {{ project.createdBy.firstname }}
             {{ project.createdBy.lastname }}
-
-            <!-- <v-row justify="start">
-              <v-col cols="6" align-self="start">
-                Created By:
-                <v-img
-                  :src="project.createdBy.imgUrl"
-                  contain
-                  height="36px"
-                  justify-start
-                ></v-img>
-              </v-col>
-              <v-col class="mr-16">
-                {{ project.createdBy.firstname }}
-                {{ project.createdBy.lastname }}
-              </v-col>
-            </v-row> -->
           </v-card-text>
           <v-card-text class="white--text">
             Progress:
             <v-progress-linear
-              v-model="project.donateAmount"
+              :value="calPercentage(project.donateAmount, project.targetAmount)"
               color="#53A700"
               height="25"
+              :buffer-value="100"
               class="white--text rounded-xl"
             >
               <template v-slot:default="{ value }">
-                <strong>{{ (value * 100) / project.targetAmount  }}%</strong>
+                <strong>{{ value }}%</strong>
               </template>
             </v-progress-linear>
           </v-card-text>
@@ -90,7 +75,7 @@
                 class="text-capitalize mb-4"
               >
                 Donate Now
-                <v-icon>mdi-arrow-right</v-icon>
+                <v-icon small>mdi-arrow-right</v-icon>
               </v-btn>
             </v-row>
           </v-card-actions>
@@ -107,6 +92,16 @@ export default {
   name: 'CharityPage',
   computed: {
     ...mapGetters(['approved']),
+  },
+  data() {
+    return {
+      progressValue: '',
+    }
+  },
+  methods: {
+    calPercentage(donateVal, maxVal) {
+      return (donateVal * 100) / maxVal
+    },
   },
 }
 </script>

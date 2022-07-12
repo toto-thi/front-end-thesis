@@ -8,13 +8,24 @@
       item-key="title"
       class="elevation-1"
     >
-      <template v-slot:item.approval="{ item }">
-        <v-icon color="#53A700" class="mx-2" @click="approveProject(item)"
-          >mdi-check-decagram</v-icon
-        >
-        <v-icon color="#DF0000" class="mx-2" @click="rejectProject(item)"
-          >mdi-cancel</v-icon
-        >
+      <template v-slot:item="{ item }">
+        <tr>
+          <td>{{ item.title }}</td>
+          <td class="text-xs-right">
+            <ShortText :text="item.description" :target="15" />
+          </td>
+          <td class="text-center">{{ item.startDate }}</td>
+          <td class="text-center">{{ item.endDate }}</td>
+          <td class="text-center">{{ item.targetAmount }}</td>
+          <td class="text-center">
+            <v-icon color="#53A700" class="mx-2" @click="approveProject(item)"
+              >mdi-check-decagram</v-icon
+            >
+            <v-icon color="#DF0000" class="mx-2" @click="rejectProject(item)"
+              >mdi-cancel</v-icon
+            >
+          </td>
+        </tr>
       </template>
     </v-data-table>
     <v-dialog v-model="dialogApprove" max-width="50%" max-height="200px">
@@ -54,6 +65,8 @@
 </template>
 
 <script>
+import ShortText from '~/utils/ShortText.vue'
+
 export default {
   props: {
     pendingProject: {
@@ -61,6 +74,7 @@ export default {
       required: true,
     },
   },
+  components: { ShortText },
   data() {
     return {
       dialogApprove: false,

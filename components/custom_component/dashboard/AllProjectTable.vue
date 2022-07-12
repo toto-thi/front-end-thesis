@@ -8,11 +8,26 @@
       item-key="title"
       class="elevation-1"
     >
+      <template v-slot:item="{ item }">
+        <tr>
+          <td>{{ item.title }}</td>
+          <td class="text-xs-right">
+            <ShortText :text="item.description" :target="15" />
+          </td>
+          <td class="text-center">{{ item.startDate }}</td>
+          <td class="text-center">{{ item.endDate }}</td>
+          <td class="text-center">{{ item.targetAmount }}</td>
+          <td class="text-center">{{ item.donateAmount }}</td>
+          <td class="text-center">{{ item.isPending }}</td>
+        </tr>
+      </template>
     </v-data-table>
   </v-card>
 </template>
 
 <script>
+import ShortText from '~/utils/ShortText.vue'
+
 export default {
   props: {
     allProjects: {
@@ -74,6 +89,7 @@ export default {
       ],
     }
   },
+  components: { ShortText },
 }
 </script>
 

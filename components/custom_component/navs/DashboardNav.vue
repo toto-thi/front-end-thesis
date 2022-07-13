@@ -24,7 +24,6 @@
             clearable
             placeholder="Search Here..."
             prepend-inner-icon="mdi-magnify"
-            :search="search"
             v-model="search"
           ></v-text-field>
         </v-col>

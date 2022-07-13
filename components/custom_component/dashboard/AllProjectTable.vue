@@ -18,7 +18,7 @@
           <td class="text-center">{{ item.endDate }}</td>
           <td class="text-center">{{ item.targetAmount }}</td>
           <td class="text-center">{{ item.donateAmount }}</td>
-          <td class="text-center">{{ item.isPending }}</td>
+          <td class="text-center">{{ item.isPending ? 'Pending' : 'Approved' }}</td>
         </tr>
       </template>
     </v-data-table>

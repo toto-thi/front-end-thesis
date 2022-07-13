@@ -19,8 +19,8 @@
         <v-row class="mt-10" align="center" justify="center">
           <v-btn
             plain
-            v-for="social in socials"
-            :key="social"
+            v-for="(social, s) in socials"
+            :key="s"
             :href="social.to"
           >
             <v-icon large>mdi-{{ social.icon }}</v-icon></v-btn

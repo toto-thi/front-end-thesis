@@ -1,6 +1,6 @@
 import { LOGIN_USER } from '~/graphql/mutations/authMutate'
 import { USER_PROFILE } from '~/graphql/queries/userQuery'
-import { CREATE_USER } from '~/graphql/mutations/userMutate'
+import { CREATE_USER, UPDATE_USER } from '~/graphql/mutations/userMutate'
 import { decode } from 'jsonwebtoken'
 
 const state = {
@@ -115,6 +115,29 @@ const actions = {
     await this.app.$apolloHelpers.onLogout()
     commit('clearUser')
     this.$router.push('/')
+    commit('setLoading', false)
+  },
+
+  async updateProfile({ commit, dispatch }, newData) {
+    commit('setLoading', true)
+
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      let resp = await client
+        .mutate({
+          mutation: UPDATE_USER,
+          variables: {
+            id: newData.id,
+            updateInput: newData.detail,
+          },
+        })
+        .then(({ data }) => data && data.updateUser)
+
+      await dispatch('getCurrentUser', resp.id)
+    } catch (err) {
+      console.log(err)
+    }
     commit('setLoading', false)
   },
 }

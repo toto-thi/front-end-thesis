@@ -2,12 +2,27 @@
   <div>
     <v-row align="start" class="mx-5">
       <v-col cols="2">
-        <v-img :src="imgUrl" :alt="firstname" contain height="30vh"></v-img>
+        <v-img :src="imgUrl" :alt="firstname" contain max-height="30vh"></v-img>
         <!-- upload image -->
-        <v-btn color="primary" block left class="text-capitalize">
-          <v-icon>mdi-camera</v-icon>
-          upload new picture
+        <v-btn
+          color="primary"
+          block
+          left
+          class="text-capitalize mt-3"
+          :loading="isSlecting"
+          @click="SelectFile"
+          max-width="50px"
+        >
+          <v-icon left>mdi-camera</v-icon>
+          {{ buttonText }}
         </v-btn>
+        <input
+          class="d-none"
+          ref="uploader"
+          type="file"
+          accept="image/*"
+          @change="onFileChanged"
+        />
       </v-col>
       <v-col cols="8">
         <v-row class="mt-5 mx-10">
@@ -129,6 +144,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import ShortText from '~/utils/ShortText.vue'
+
 export default {
   props: {
     userProfile: {
@@ -160,6 +178,9 @@ export default {
           ) ||
           'Minimum 8 characters, at least one letter, one number and one special character',
       ],
+      selectedFile: null,
+      isSlecting: false,
+      defaultButtonText: 'upload new picture',
     }
   },
   methods: {
@@ -171,18 +192,49 @@ export default {
     },
     async updateUserData(id) {
       const newData = {
-        firstname: this.firstname,
-        lastname: this.lastname,
-        gender: this.selectedGender,
-        dob: this.dob,
-        email: this.email,
-        imgUrl: this.imgUrl,
-        password: this.password,
+        id: id,
+        detail: {
+          firstname: this.firstname,
+          lastname: this.lastname,
+          gender: this.selectedGender,
+          dob: this.dob,
+          email: this.email,
+          imgUrl: this.imgUrl,
+          password: this.password,
+        },
       }
       try {
+        await this.$store.dispatch('updateProfile', newData)
       } catch (err) {
         console.error(err)
       }
+    },
+    SelectFile() {
+      this.isSlecting = true
+
+      window.addEventListener(
+        'focus',
+        () => {
+          this.isSlecting = false
+        },
+        { once: true }
+      )
+
+      this.$refs.uploader.click()
+    },
+    onFileChanged(e) {
+      this.selectedFile = e.target.files[0]
+
+      //display in image box
+      this.imgUrl = URL.createObjectURL(this.selectedFile)
+    },
+    cancel() {
+      this.selectedGender = this.userProfile.gender
+      this.firstname = this.userProfile.firstname
+      this.lastname = this.userProfile.lastname
+      this.dob = this.userProfile.dob
+      this.imgUrl = this.userProfile.imgUrl
+      this.email = this.userProfile.email
     },
   },
   mounted() {
@@ -195,10 +247,15 @@ export default {
     this.role = this.userProfile.role
   },
   computed: {
+    ...mapGetters(['loading']),
     dateFormatted() {
       return this.formatDate(this.dob)
     },
+    buttonText() {
+      return this.selectedFile ? this.selectedFile.name : this.defaultButtonText
+    },
   },
+  components: { ShortText },
 }
 </script>
 

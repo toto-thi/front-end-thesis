@@ -25,7 +25,6 @@
     <br />
     <br />
     <br />
-
     <v-row justify="center" align="center" class="mt-16 mx-16">
       <v-col
         cols="4"
@@ -35,51 +34,59 @@
         v-for="project in approved"
         :key="project.id"
       >
-        <v-card color="primary" class="white--text mb-10 mx-10 rounded-xl">
-          <v-card-title>
-            <v-avatar>
-              <v-img :src="project.imgUrl"></v-img>
-            </v-avatar>
-            <span class="subheadline ml-3"> {{ project.title }}</span>
-          </v-card-title>
-          <v-divider inset color="white"></v-divider>
-          <v-card-text class="white--text">
-            {{ project.description }}</v-card-text
-          >
-          <v-card-text class="white--text">
-            Project Start: {{ project.startDate }} <br />
-            Project Close: {{ project.endDate }} <br />
-            Created By: {{ project.createdBy.firstname }}
-            {{ project.createdBy.lastname }}
-          </v-card-text>
-          <v-card-text class="white--text">
-            Progress:
-            <v-progress-linear
-              :value="calPercentage(project.donateAmount, project.targetAmount)"
-              color="#53A700"
-              height="25"
-              :buffer-value="100"
-              class="white--text rounded-xl"
-            >
-              <template v-slot:default="{ value }">
-                <strong>{{ value }}%</strong>
-              </template>
-            </v-progress-linear>
-          </v-card-text>
-          <v-card-actions class="mr-4">
-            <v-row align="center" justify="end">
-              <v-btn
-                rounded
-                outlined
-                color="white"
-                class="text-capitalize mb-4"
+        <v-lazy
+          min-height="200"
+          :options="{ threshold: 1 }"
+          transition="scroll-x-reverse-transition"
+        >
+          <v-card color="primary" class="white--text mb-10 mx-10 rounded-xl">
+            <v-card-title>
+              <v-avatar>
+                <v-img :src="project.imgUrl"></v-img>
+              </v-avatar>
+              <span class="subheadline ml-3"> {{ project.title }}</span>
+            </v-card-title>
+            <v-divider color="white"></v-divider>
+            <v-card-text class="white--text">
+              <ShortText :text="project.description" :target="100" />
+            </v-card-text>
+            <v-card-text class="white--text">
+              Project Start: {{ project.startDate }} <br />
+              Project Close: {{ project.endDate }} <br />
+              Created By: {{ project.createdBy.firstname }}
+              {{ project.createdBy.lastname }}
+            </v-card-text>
+            <v-card-text class="white--text">
+              Progress:
+              <v-progress-linear
+                :value="
+                  calPercentage(project.donateAmount, project.targetAmount)
+                "
+                color="#53A700"
+                height="25"
+                :buffer-value="100"
+                class="white--text rounded-xl"
               >
-                Donate Now
-                <v-icon small>mdi-arrow-right</v-icon>
-              </v-btn>
-            </v-row>
-          </v-card-actions>
-        </v-card>
+                <template v-slot:default="{ value }">
+                  <strong>{{ value }}%</strong>
+                </template>
+              </v-progress-linear>
+            </v-card-text>
+            <v-card-actions class="mr-4">
+              <v-row align="center" justify="end">
+                <v-btn
+                  rounded
+                  outlined
+                  color="white"
+                  class="text-capitalize mb-4"
+                >
+                  Donate Now
+                  <v-icon small>mdi-arrow-right</v-icon>
+                </v-btn>
+              </v-row>
+            </v-card-actions>
+          </v-card>
+        </v-lazy>
       </v-col>
     </v-row>
   </div>
@@ -87,6 +94,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ShortText from '~/utils/ShortText.vue'
 
 export default {
   name: 'CharityPage',
@@ -103,6 +111,7 @@ export default {
       return (donateVal * 100) / maxVal
     },
   },
+  components: { ShortText },
 }
 </script>
 

@@ -103,7 +103,10 @@ export default {
   },
   data() {
     return {
-      progressValue: '',
+      page: 1,
+      totalPage: 0,
+      pageSize: 6,
+      pageSizes: [3, 6, 9]
     }
   },
   methods: {

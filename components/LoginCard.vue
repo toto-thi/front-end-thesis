@@ -17,10 +17,6 @@
                 max-width="150"
               ></v-img>
             </nuxt-link>
-
-            <!-- <v-spacer />
-        <v-select :items="lang" dense flat class="select">
-        </v-select> -->
           </v-app-bar>
 
           <v-card flat class="px-16 mx-16" style="padding: 112px">

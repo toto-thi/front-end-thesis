@@ -1,67 +1,101 @@
 <template>
-  <v-card class="rounded-xl" width="100%">
-    <v-card-title>All Request</v-card-title>
-    <v-data-table
-      :headers="headers"
-      :items="pendingProject"
-      :items-per-page="5"
-      item-key="title"
-      class="elevation-1"
-    >
-      <template v-slot:item="{ item }">
-        <tr>
-          <td>{{ item.title }}</td>
-          <td class="text-xs-right">
-            <ShortText :text="item.description" :target="15" />
-          </td>
-          <td class="text-center">{{ item.startDate }}</td>
-          <td class="text-center">{{ item.endDate }}</td>
-          <td class="text-center">{{ item.targetAmount }}</td>
-          <td class="text-center">
-            <v-icon color="#53A700" class="mx-2" @click="approveProject(item)"
-              >mdi-check-decagram</v-icon
-            >
-            <v-icon color="#DF0000" class="mx-2" @click="rejectProject(item)"
-              >mdi-cancel</v-icon
-            >
-          </td>
-        </tr>
-      </template>
-    </v-data-table>
-    <v-dialog v-model="dialogApprove" max-width="50%" max-height="200px">
-      <v-card color="primary" class="rounded-xl white--text">
-        <v-card-title class="text-h5"
-          >Are you sure you want to approve this project?</v-card-title
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="#DF0000" text @click="dialogApprove = !dialogApprove"
-            >Cancel</v-btn
-          >
-          <v-btn color="#53A700" text @click="confirmApproval">Confirm</v-btn>
-        </v-card-actions>
+  <v-container>
+    <v-row>
+      <v-card
+        color="primary"
+        class="rounded-xl mb-16 white--text font-weight-bold"
+        height="20vh"
+        width="100%"
+      >
+        <v-row justify="center" align="center">
+          <v-col cols="6" align-self="center">
+            <v-card-title class="justify-center pb-12">
+              <h1>Request Projects</h1>
+            </v-card-title>
+          </v-col>
+          <v-col cols="6">
+            <v-img src="/request-table-img.svg" contain height="25vh"></v-img>
+          </v-col>
+        </v-row>
       </v-card>
-    </v-dialog>
-    <v-dialog
-      v-model="dialogReject"
-      max-width="50%"
-      max-height="200px"
-      class="primary"
-    >
-      <v-card color="primary" class="rounded-xl white--text">
-        <v-card-title class="text-h5"
-          >Are you sure you want to reject this project?</v-card-title
+    </v-row>
+    <v-row>
+      <v-card class="rounded-xl" width="100%">
+        <v-card-title>All Request</v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="pendingProject"
+          :items-per-page="5"
+          item-key="title"
+          class="elevation-1"
         >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="#DF0000" text @click="dialogReject = !dialogReject"
-            >Cancel</v-btn
-          >
-          <v-btn color="#53A700" text @click="confirmReject">Confirm</v-btn>
-        </v-card-actions>
+          <template v-slot:item="{ item }">
+            <tr>
+              <td>{{ item.title }}</td>
+              <td class="text-xs-right">
+                <ShortText :text="item.description" :target="15" />
+              </td>
+              <td class="text-center">{{ item.startDate }}</td>
+              <td class="text-center">{{ item.endDate }}</td>
+              <td class="text-center">{{ item.targetAmount }}</td>
+              <td class="text-center">
+                <v-icon
+                  color="#53A700"
+                  class="mx-2"
+                  @click="approveProject(item)"
+                  >mdi-check-decagram</v-icon
+                >
+                <v-icon
+                  color="#DF0000"
+                  class="mx-2"
+                  @click="rejectProject(item)"
+                  >mdi-cancel</v-icon
+                >
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+        <v-dialog v-model="dialogApprove" max-width="50%" max-height="200px">
+          <v-card color="primary" class="rounded-xl white--text">
+            <v-card-title class="text-h5"
+              >Are you sure you want to approve this project?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="#DF0000"
+                text
+                @click="dialogApprove = !dialogApprove"
+                >Cancel</v-btn
+              >
+              <v-btn color="#53A700" text @click="confirmApproval"
+                >Confirm</v-btn
+              >
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-dialog
+          v-model="dialogReject"
+          max-width="50%"
+          max-height="200px"
+          class="primary"
+        >
+          <v-card color="primary" class="rounded-xl white--text">
+            <v-card-title class="text-h5"
+              >Are you sure you want to reject this project?</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="#DF0000" text @click="dialogReject = !dialogReject"
+                >Cancel</v-btn
+              >
+              <v-btn color="#53A700" text @click="confirmReject">Confirm</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-card>
-    </v-dialog>
-  </v-card>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

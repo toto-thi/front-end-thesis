@@ -14,6 +14,16 @@ export const GET_ALL_PROJECT = gql`
   }
 `
 
+export const GET_PROJECT_DETAILS = gql`
+  ${PROJECT_FRAGMENT}
+  query GetProjectById($id: ID!) {
+  getProjectById(id: $id) {
+    ...ProjectData
+    isApproved
+  }
+}
+`
+
 export const GET_PENDING_PROJECT = gql`
   ${PROJECT_FRAGMENT}
   query PendingProject {

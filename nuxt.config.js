@@ -26,6 +26,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
+    // 'vue-socials/nuxt'
   ],
 
   axios: {

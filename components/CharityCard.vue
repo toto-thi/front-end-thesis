@@ -37,7 +37,7 @@
         <v-lazy
           min-height="200"
           :options="{ threshold: 1 }"
-          transition="scroll-x-reverse-transition"
+          transition="slide-y-reverse-transition"
         >
           <v-card color="primary" class="white--text mb-10 mx-10 rounded-xl">
             <v-card-title>

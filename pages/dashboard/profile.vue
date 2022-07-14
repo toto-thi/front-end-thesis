@@ -4,7 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import ProfileEditor from '~/components/custom_component/dashboard/ProfileEditor.vue'
+import ProfileEditor from '~/components/dashboard/ProfileEditor.vue'
 
 export default {
   layout: 'dashboardApp',

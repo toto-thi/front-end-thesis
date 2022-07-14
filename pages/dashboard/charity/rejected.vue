@@ -4,7 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import RejectedTable from '~/components/custom_component/dashboard/RejectedTable.vue'
+import RejectedTable from '~/components/dashboard/RejectedTable.vue'
 
 export default {
   layout: 'dashboardApp',

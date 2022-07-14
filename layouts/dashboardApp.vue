@@ -11,7 +11,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import DashboardNav from '~/components/custom_component/navs/DashboardNav.vue'
+import DashboardNav from '~/components/navs/DashboardNav.vue'
 
 export default {
   middleware: 'isAuth',

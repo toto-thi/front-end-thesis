@@ -149,7 +149,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import MenuUser from './custom_component/navs/MenuUser.vue'
+import MenuUser from './navs/MenuUser.vue'
 
 export default {
     middleware: "isAuth",

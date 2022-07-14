@@ -4,7 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PendingTable from '~/components/custom_component/dashboard/PendingTable.vue'
+import PendingTable from '~/components/dashboard/PendingTable.vue'
 
 export default {
   layout: 'dashboardApp',

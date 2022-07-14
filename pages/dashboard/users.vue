@@ -4,7 +4,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import UsersTable from '~/components/custom_component/dashboard/UsersTable.vue'
+import UsersTable from '~/components/dashboard/UsersTable.vue'
 
 export default {
   components: { UsersTable },

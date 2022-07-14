@@ -22,6 +22,7 @@
     "nuxt": "^2.15.8",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14",
+    "vue-socials": "^1.1.0",
     "vue-template-compiler": "^2.6.14",
     "vuetify": "^2.6.1",
     "vuex-persist": "^3.1.3",

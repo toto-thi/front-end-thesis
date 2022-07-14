@@ -80,7 +80,11 @@
                   color="white"
                   class="text-capitalize mb-4"
                 >
-                  Donate Now
+                  <nuxt-link
+                    class="white--text non-dec"
+                    :to="`/charity/${project.id}`"
+                    >Donate Now</nuxt-link
+                  >
                   <v-icon small>mdi-arrow-right</v-icon>
                 </v-btn>
               </v-row>
@@ -106,7 +110,7 @@ export default {
       page: 1,
       totalPage: 0,
       pageSize: 6,
-      pageSizes: [3, 6, 9]
+      pageSizes: [3, 6, 9],
     }
   },
   methods: {
@@ -118,5 +122,8 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.non-dec {
+  text-decoration: none;
+}
 </style>

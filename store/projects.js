@@ -1,5 +1,6 @@
 import {
   GET_ALL_PROJECT,
+  GET_PROJECT_DETAILS,
   GET_PENDING_PROJECT,
   GET_APPROVED_PROJECTS,
   GET_REJECTED_PROJECTS,
@@ -64,6 +65,28 @@ const actions = {
     await loadAllProject(commit, client)
 
     commit('setLoading', false)
+  },
+  async getProjectDetail({ commit }, id) {
+    commit('setLoading', true)
+
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const resp = await client
+        .query({
+          query: GET_PROJECT_DETAILS,
+          variables: {
+            id: id,
+          },
+        })
+        .then(({ data }) => data && data.getProjectById)
+
+      return resp;
+    } catch (err) {
+      console.error(err)
+    }
+
+    commit('setLoading', true)
   },
   async getApprovedProject({ commit }) {
     commit('setLoading', true)

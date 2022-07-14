@@ -10,12 +10,6 @@
       <template v-slot:top>
         <v-toolbar flat class="rounded-xl">
           <v-toolbar-title>All Users</v-toolbar-title>
-          <!-- <v-spacer></v-spacer>
-          <v-dialog v-model="editDialog" max-width="500px">
-            <template v-slot:activator="{ attrs, on }">
-              <v-btn color="primary">text</v-btn>
-            </template>
-          </v-dialog> -->
         </v-toolbar>
       </template>
       <template v-slot:item="{ item }">

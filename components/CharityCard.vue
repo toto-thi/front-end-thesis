@@ -1,6 +1,7 @@
 <template>
   <div>
-    <v-row align="center" justify="center">
+    <v-container class="mt-8">
+      <v-row align="center" justify="center">
       <v-sheet rounded="xl" color="#44496c" width="85%">
         <v-row align="center">
           <v-col cols="6" xl="6" sm="6" md="6" align-self="center">
@@ -22,10 +23,10 @@
         </v-row>
       </v-sheet>
     </v-row>
-    <br />
-    <br />
-    <br />
-    <v-row justify="center" align="center" class="mt-16 mx-16">
+    </v-container>
+
+    <v-container v-if="approved" class="mt-16">
+      <v-row justify="center" align="center" class="mt-16 mx-16">
       <v-col
         cols="4"
         xl="4"
@@ -93,6 +94,13 @@
         </v-lazy>
       </v-col>
     </v-row>
+    </v-container>
+    <v-container v-else height="20vh" class="pb-16">
+      <v-row align="center" justify="center">
+      <h1>There is no available charity project at the moment.</h1>
+    </v-row>
+    </v-container>
+    
   </div>
 </template>
 
@@ -104,6 +112,9 @@ export default {
   name: 'CharityPage',
   computed: {
     ...mapGetters(['approved']),
+  },
+  async mounted() {
+    await this.$store.dispatch('getApprovedProject')
   },
   data() {
     return {

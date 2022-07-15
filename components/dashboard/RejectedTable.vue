@@ -56,6 +56,9 @@ export default {
       required: true,
     },
   },
+  async mounted() {
+    await this.$store.dispatch('getRejectedProjects')
+  },
   components: { ShortText },
   data() {
     return {

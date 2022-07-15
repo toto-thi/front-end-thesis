@@ -7,9 +7,12 @@ import { mapGetters } from 'vuex'
 import PendingTable from '~/components/dashboard/PendingTable.vue'
 
 export default {
-  layout: 'dashboardApp',
+  layout: 'dashboard',
   computed: {
     ...mapGetters(['pending']),
+  },
+  async mounted() {
+    await this.$store.dispatch('getPendingProject')
   },
   components: { PendingTable },
 }

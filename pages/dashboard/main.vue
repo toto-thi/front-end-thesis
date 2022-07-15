@@ -6,7 +6,7 @@
 import MainDashboardCard from '~/components/dashboard/MainDashboardCard.vue';
 
 export default {
-    layout: "dashboardApp",
+    layout: "dashboard",
     components: { MainDashboardCard }
 }
 </script>

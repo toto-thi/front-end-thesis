@@ -16,7 +16,7 @@ export default {
 
   css: [],
 
-  plugins: ['~/plugins/persistedState.client.js', '~/plugins/charityProjects'],
+  plugins: ['~/plugins/persistedState.client.js'],
 
   components: true,
 
@@ -26,7 +26,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
-    // 'vue-socials/nuxt'
+    'vue-social-sharing/nuxt'
   ],
 
   axios: {

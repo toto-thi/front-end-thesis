@@ -63,7 +63,7 @@
     </v-app-bar>
 
     <!-- CRUD Control -->
-    <v-navigation-drawer app fixed absolute permanent v-model="drawer">
+    <v-navigation-drawer app fixed absolute permanent v-model="drawer" height="100%">
       <!-- Menu -->
       <v-list nav dense rounded class="mt-16 pt-16">
         <div v-for="(item, i) in items" :key="i">

@@ -74,6 +74,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+
         <v-dialog
           v-model="dialogReject"
           max-width="50%"
@@ -100,6 +101,7 @@
 
 <script>
 import ShortText from '~/utils/ShortText.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -108,11 +110,15 @@ export default {
       required: true,
     },
   },
+  computed: {
+    ...mapGetters(['dLoading']),
+  },
   components: { ShortText },
   data() {
     return {
       dialogApprove: false,
       dialogReject: false,
+      loading: false,
       selected: [],
       headers: [
         {
@@ -165,18 +171,27 @@ export default {
       this.selected.id = item.id
       this.selected.approval = true
     },
-    confirmApproval() {
+    async confirmApproval() {
+      try {
+        await this.$store.dispatch('approveProject', this.selected)
+        await this.$store.dispatch('getPendingProject')
+      } catch (err) {
+        console.error(err)
+      }
+
+      this.selected = []
+
       this.dialogApprove = false
-      this.$store.dispatch('approveProject', this.selected)
     },
     rejectProject(item) {
       this.dialogReject = true
       this.selected.id = item.id
       this.selected.rejection = true
     },
-    confirmReject() {
+    async confirmReject() {
+      await this.$store.dispatch('rejectProject', this.selected)
+      this.selected = []
       this.dialogReject = false
-      this.$store.dispatch('rejectProject', this.selected)
     },
   },
 }

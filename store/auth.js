@@ -75,7 +75,7 @@ const actions = {
 
       this.$router.push('/dashboard/main')
     } catch (err) {
-      console.error(err)
+      console.error(err.message.substring(15))
     }
     commit('setLoading', false)
   },

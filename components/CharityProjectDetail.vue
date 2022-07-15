@@ -71,7 +71,7 @@
               <h3 class="pt-16">Project Duration</h3>
               <br />
 
-              <h2>{{ project.startDate }} left.</h2>
+              <h2>{{ project.endDate }}</h2>
 
               <br />
               <h3>Expected Amount</h3>
@@ -112,46 +112,41 @@
               <br />
               <v-row align="center">
                 <v-btn icon color="primary" class="mx-2">
-                  <s-facebook
-                    :window-features="windowFeatures"
-                    :share-options="facebookShareOptions"
-                    :user-native-behavior="useNativeBehavior"
-                    @popup-close="onClose"
-                    @popup-open="onOpen"
-                    @popup-block="onBlock"
-                    @popup-focus="onFocus"
+                  <ShareNetwork
+                    network="facebook"
+                    url="www.google.com"
+                    :title="`${project.title}`"
+                    description="Blablabla"
+                    quote="GooGOOGOOOO"
+                    hashtags="tjcharity, cryptocurrency"
                     style="text-decoration: none"
                   >
                     <v-icon large>mdi-facebook</v-icon>
-                  </s-facebook>
+                  </ShareNetwork>
                 </v-btn>
                 <v-btn icon color="primary" class="mx-2">
-                  <s-whats-app
-                    :window-features="windowFeatures"
-                    :share-options="whatsAppShareOptions"
-                    :user-native-behavior="useNativeBehavior"
-                    @popup-close="onClose"
-                    @popup-open="onOpen"
-                    @popup-block="onBlock"
-                    @popup-focus="onFocus"
+                  <ShareNetwork
+                    network="whatsApp"
+                    url="www.google.com"
+                    :title="`${project.title}`"
+                    description="Blablabla"
                     style="text-decoration: none"
                   >
                     <v-icon large>mdi-whatsapp</v-icon>
-                  </s-whats-app>
+                  </ShareNetwork>
                 </v-btn>
                 <v-btn icon color="primary" class="mx-2">
-                  <s-twitter
-                    :window-features="windowFeatures"
-                    :share-options="twitterShareOptions"
-                    :user-native-behavior="useNativeBehavior"
-                    @popup-close="onClose"
-                    @popup-open="onOpen"
-                    @popup-block="onBlock"
-                    @popup-focus="onFocus"
+                  <ShareNetwork
+                    network="twitter"
+                    url="www.google.com"
+                    :title="`${project.title}`"
+                    description="Blablabla"
+                    hashtags="tjcharity, cryptocurrency"
+                    twitter-user="random_user"
                     style="text-decoration: none"
                   >
                     <v-icon large>mdi-twitter</v-icon>
-                  </s-twitter>
+                  </ShareNetwork>
                 </v-btn>
               </v-row>
             </v-card-text>
@@ -223,11 +218,8 @@
 </template>
 
 <script>
-import { SFacebook, STwitter, SWhatsApp } from 'vue-socials'
-
 export default {
   name: 'CharityProjectDetail',
-  components: { SFacebook, STwitter, SWhatsApp },
   props: {
     project: {
       required: true,
@@ -237,23 +229,6 @@ export default {
   data() {
     return {
       // this is the way to do dynamic URL `https://localhost:3000${this.$route.path}`
-      windowFeatures: {},
-      facebookShareOptions: {
-        url: 'https://www.google.com',
-        quote: 'Donate for those who are in need...',
-        hashtag: '#TJCharity',
-      },
-      twitterShareOptions: {
-        url: 'https://www.google.com',
-        text: 'Donate for those who are in need...',
-        hashtag: ['TJCharity', 'Thesis'],
-        via: 'TJDev',
-      },
-      whatsAppShareOptions: {
-        number: '8562092070847',
-        text: 'Donate for those who are in need... https://www.google.com',
-      },
-      useNativeBehavior: false,
       items: [
         {
           src: 'https://images.unsplash.com/photo-1589825029592-e857f30a76bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -269,12 +244,6 @@ export default {
         },
       ],
     }
-  },
-  methods: {
-    onClose() {},
-    onOpen() {},
-    onBlock() {},
-    onFocus() {},
   },
 }
 </script>

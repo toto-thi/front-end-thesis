@@ -7,9 +7,12 @@ import { mapGetters } from 'vuex'
 import RejectedTable from '~/components/dashboard/RejectedTable.vue'
 
 export default {
-  layout: 'dashboardApp',
+  layout: 'dashboard',
   computed: { ...mapGetters(['reject']) },
   components: { RejectedTable },
+  async mounted() {
+    await this.$store.dispatch('getRejectedProjects')
+  },
 }
 </script>
 

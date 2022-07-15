@@ -147,7 +147,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -158,6 +157,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       firstname: '',
       lastname: '',
       dob: '',
@@ -193,6 +193,8 @@ export default {
       return `${month}/${day}/${year}`
     },
     async updateUserData(id) {
+      this.loading = true
+
       const newData = {
         id: id,
         detail: {
@@ -210,6 +212,7 @@ export default {
       } catch (err) {
         console.error(err)
       }
+      this.loading = false
     },
     SelectFile() {
       this.isSlecting = true
@@ -249,7 +252,6 @@ export default {
     this.role = this.userProfile.role
   },
   computed: {
-    ...mapGetters(['loading']),
     dateFormatted() {
       return this.formatDate(this.dob)
     },

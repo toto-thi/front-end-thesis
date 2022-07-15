@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  layout: 'dashboardApp',
+  layout: 'dashboard',
 }
 </script>
 

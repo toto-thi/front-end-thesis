@@ -7,11 +7,14 @@ import { mapGetters } from 'vuex'
 import ApprovedTable from '~/components/dashboard/ApprovedTable.vue'
 
 export default {
-  layout: 'dashboardApp',
+  layout: 'dashboard',
   computed: {
     ...mapGetters(['approved']),
   },
   components: { ApprovedTable },
+  async mounted() {
+    await this.$store.dispatch('getApprovedProject')
+  },
 }
 </script>
 

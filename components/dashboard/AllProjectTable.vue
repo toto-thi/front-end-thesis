@@ -18,7 +18,16 @@
           <td class="text-center">{{ item.endDate }}</td>
           <td class="text-center">{{ item.targetAmount }}</td>
           <td class="text-center">{{ item.donateAmount }}</td>
-          <td class="text-center">{{ item.isPending ? 'Pending' : 'Approved' }}</td>
+          <td class="text-center">
+            {{
+              statusDisplay(
+                item.isApproved,
+                item.isRejected,
+                item.isPending,
+                item.isClose
+              )
+            }}
+          </td>
         </tr>
       </template>
     </v-data-table>
@@ -90,6 +99,14 @@ export default {
     }
   },
   components: { ShortText },
+  methods: {
+    statusDisplay(approve, reject, pending, close) {
+      if (approve) return 'Approved'
+      if (reject) return 'Rejected'
+      if (pending) return 'Pending'
+      if (close) return 'Close'
+    },
+  },
 }
 </script>
 

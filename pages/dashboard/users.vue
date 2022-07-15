@@ -8,7 +8,7 @@ import UsersTable from '~/components/dashboard/UsersTable.vue'
 
 export default {
   components: { UsersTable },
-  layout: 'dashboardApp',
+  layout: 'dashboard',
   computed: { ...mapGetters(['userList']) },
   async mounted() {
     this.$store.dispatch('getAllUsers')

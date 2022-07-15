@@ -7,7 +7,7 @@ import { mapGetters } from 'vuex'
 import ProfileEditor from '~/components/dashboard/ProfileEditor.vue'
 
 export default {
-  layout: 'dashboardApp',
+  layout: 'dashboard',
   computed: { ...mapGetters(['user']) },
   components: { ProfileEditor },
 }

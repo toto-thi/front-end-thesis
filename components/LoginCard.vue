@@ -57,6 +57,7 @@
                 :rules="passwordRules"
                 @click:append="show = !show"
               ></v-text-field>
+
               <v-row justify="space-between" align="start">
                 <v-col cols="6" align-self="start">
                   <v-checkbox
@@ -93,7 +94,7 @@
           </v-card>
         </v-col>
         <v-col cols="4" xl="4" class="hidden-sm-and-down">
-          <v-sheet color="#44496c" height="100vh" rounded="xl"> </v-sheet>
+          <v-sheet color="#44496c" height="100%" rounded="xl"> </v-sheet>
         </v-col>
       </v-row>
     </div>
@@ -110,6 +111,7 @@ export default {
       show: false,
       checkbox: false,
       lang: ['English', 'ລາວ'],
+      errorMsg: '',
       credentials: {
         email: '',
         password: '',

@@ -7,9 +7,12 @@ import { mapGetters } from 'vuex'
 import AllProjectTable from '~/components/dashboard/AllProjectTable.vue'
 
 export default {
-  layout: 'dashboardApp',
+  layout: 'dashboard',
   computed: { ...mapGetters(['allProjects']) },
   components: { AllProjectTable },
+  async mounted() {
+    await this.$store.dispatch('getAllProjects')
+  },
 }
 </script>
 

@@ -12,11 +12,11 @@ import {
 } from '~/graphql/mutations/projectMutate'
 
 const state = {
-  allProjects: {},
-  approvedProjects: {},
-  pendingProjects: {},
-  rejectedProjects: {},
-  closedProjects: {},
+  allProjects: [],
+  approvedProjects: [],
+  pendingProjects: [],
+  rejectedProjects: [],
+  closedProjects: [],
   dLoading: false,
 }
 
@@ -52,17 +52,25 @@ const mutations = {
 
 const actions = {
   async nuxtServerInit({ dispatch }) {
-    await dispatch('getAllPropjects')
-    await dispatch('getPendingProject')
+    await dispatch('getAllProjects')
     await dispatch('getApprovedProject')
-    await dispatch('getRejectedProjects')
   },
-  async getAllPropjects({ commit }) {
+  async getAllProjects({ commit }) {
     commit('setLoading', true)
 
     let client = this.app.apolloProvider.defaultClient
 
-    await loadAllProject(commit, client)
+    try {
+      const allProj = await client
+        .query({
+          query: GET_ALL_PROJECT,
+        })
+        .then(({ data }) => data && data.getAllProjects)
+
+      commit('fetchAllProjects', allProj)
+    } catch (err) {
+      console.error(err)
+    }
 
     commit('setLoading', false)
   },
@@ -81,7 +89,7 @@ const actions = {
         })
         .then(({ data }) => data && data.getProjectById)
 
-      return resp;
+      return resp
     } catch (err) {
       console.error(err)
     }
@@ -93,7 +101,17 @@ const actions = {
 
     let client = this.app.apolloProvider.defaultClient
 
-    await loadApprovedProject(commit, client)
+    try {
+      const approveProj = await client
+        .query({
+          query: GET_APPROVED_PROJECTS,
+        })
+        .then(({ data }) => data && data.getApprovedProjects)
+
+      commit('fetchApprovedProject', approveProj)
+    } catch (err) {
+      console.error(err)
+    }
 
     commit('setLoading', false)
   },
@@ -102,7 +120,17 @@ const actions = {
 
     let client = this.app.apolloProvider.defaultClient
 
-    await loadPendingProject(commit, client)
+    try {
+      const pendingProj = await client
+        .query({
+          query: GET_PENDING_PROJECT,
+        })
+        .then(({ data }) => data && data.getPendingProjects)
+
+      commit('fetchPendingProject', pendingProj)
+    } catch (err) {
+      console.error(err)
+    }
 
     commit('setLoading', false)
   },
@@ -111,11 +139,21 @@ const actions = {
 
     let client = this.app.apolloProvider.defaultClient
 
-    await loadRejectProject(commit, client)
+    try {
+      const rejectProj = await client
+        .query({
+          query: GET_REJECTED_PROJECTS,
+        })
+        .then(({ data }) => data && data.getRejectedProjects)
+
+      commit('fetchRejectedProject', rejectProj)
+    } catch (err) {
+      console.error(err)
+    }
 
     commit('setLoading', false)
   },
-  async approveProject({ commit }, payload) {
+  async approveProject({ commit, dispatch }, payload) {
     commit('setLoading', true)
 
     let client = this.app.apolloProvider.defaultClient
@@ -130,15 +168,13 @@ const actions = {
           },
         })
         .then(({ data }) => data && data.approveProject)
-
-      await loadPendingProject(commit, client)
-      await loadApprovedProject(commit, client)
+  
     } catch (err) {
       console.error(err)
     }
     commit('setLoading', false)
   },
-  async rejectProject({ commit }, payload) {
+  async rejectProject({ commit, dispatch }, payload) {
     commit('setLoading', true)
 
     let client = this.app.apolloProvider.defaultClient
@@ -154,9 +190,10 @@ const actions = {
         })
         .then(({ data }) => data && data.rejectProject)
 
-      await loadPendingProject(commit, client)
-      await loadApprovedProject(commit, client)
-      await loadRejectProject(commit, client)
+        if(resp) {
+          await dispatch('getRejectedProjects')
+          await dispatch('getPendingProject')
+        }
     } catch (err) {
       console.error(err)
     }
@@ -171,60 +208,4 @@ export default {
   getters,
   mutations,
   actions,
-}
-
-async function loadAllProject(commit, client) {
-  try {
-    const allProj = await client
-      .query({
-        query: GET_ALL_PROJECT,
-      })
-      .then(({ data }) => data && data.getAllProjects)
-
-    commit('fetchAllProjects', allProj)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-async function loadApprovedProject(commit, client) {
-  try {
-    const approveProj = await client
-      .query({
-        query: GET_APPROVED_PROJECTS,
-      })
-      .then(({ data }) => data && data.getApprovedProjects)
-
-    commit('fetchApprovedProject', approveProj)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-async function loadPendingProject(commit, client) {
-  try {
-    const pendingProj = await client
-      .query({
-        query: GET_PENDING_PROJECT,
-      })
-      .then(({ data }) => data && data.getPendingProjects)
-
-    commit('fetchPendingProject', pendingProj)
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-async function loadRejectProject(commit, client) {
-  try {
-    const rejectProj = await client
-      .query({
-        query: GET_REJECTED_PROJECTS,
-      })
-      .then(({ data }) => data && data.getRejectedProjects)
-
-    commit('fetchRejectedProject', rejectProj)
-  } catch (err) {
-    console.error(err)
-  }
 }

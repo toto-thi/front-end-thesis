@@ -14,7 +14,10 @@
           </nuxt-link>
         </v-col>
         <v-col cols="2" class="">
-          <span class="headline font-weight-black">Admin Dashboard</span> <br />
+          <span class="headline font-weight-black">{{
+            dashboardTitle(user.role)
+          }}</span>
+          <br />
           <span class="caption">Welcome, {{ user.firstname }}</span>
         </v-col>
         <v-col cols="5" class="text-center" align-self="end">
@@ -51,6 +54,7 @@
         <v-col cols="1" class="mt-1">
           <!-- will come back later -->
           <v-btn
+            v-if="user.walletID == null"
             @click="connectWallet"
             color="primary"
             rounded
@@ -58,15 +62,23 @@
             class="text-capitalize"
             >connect wallet</v-btn
           >
+          <v-btn v-else color="white">Money Amount</v-btn>
         </v-col>
       </v-row>
     </v-app-bar>
 
     <!-- CRUD Control -->
-    <v-navigation-drawer app fixed absolute permanent v-model="drawer" height="100%">
-      <!-- Menu -->
-      <v-list nav dense rounded class="mt-16 pt-16">
-        <div v-for="(item, i) in items" :key="i">
+    <v-navigation-drawer
+      app
+      fixed
+      absolute
+      permanent
+      v-model="drawer"
+      height="100%"
+    >
+      <!-- Admin Menu -->
+      <v-list nav dense rounded class="mt-16 pt-16" v-if="user.role == 'admin'">
+        <div v-for="(item, i) in adminItems" :key="i">
           <v-list-item
             v-if="!item.items"
             :key="i"
@@ -103,6 +115,21 @@
             </v-list-item>
           </v-list-group>
         </div>
+      </v-list>
+
+      <!-- Member Menu -->
+      <v-list v-else nav dense rounded class="mt-16 pt-16">
+        <v-list-item
+          v-for="(item, i) in memberItems"
+          :key="i"
+          :to="item.to"
+          class="v-list-item"
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content v-text="item.title" />
+        </v-list-item>
       </v-list>
 
       <!-- User Display -->
@@ -167,7 +194,7 @@ export default {
     return {
       drawer: true,
       search: '',
-      items: [
+      adminItems: [
         {
           icon: 'mdi-home-variant-outline',
           title: 'Dashboard',
@@ -211,6 +238,23 @@ export default {
           to: '/dashboard/history',
         },
       ],
+      memberItems: [
+        {
+          icon: 'mdi-home-variant-outline',
+          title: 'Home',
+          to: '/dashboard/member/main',
+        },
+        {
+          icon: 'mdi-chart-box-outline',
+          title: 'Your Project',
+          to: '/dashboard/member/projects',
+        },
+        {
+          icon: 'mdi-history',
+          title: 'History',
+          to: '/dashboard/member/history',
+        },
+      ],
       langs: [
         {
           name: 'English',
@@ -237,6 +281,10 @@ export default {
     },
     connectWallet() {
       alert('connecting...')
+    },
+    dashboardTitle(role) {
+      if (role === 'admin') return 'Admin Dashboard'
+      else return 'Dashboard'
     },
   },
 }

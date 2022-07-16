@@ -17,11 +17,11 @@ export const GET_ALL_PROJECT = gql`
 export const GET_PROJECT_DETAILS = gql`
   ${PROJECT_FRAGMENT}
   query GetProjectById($id: ID!) {
-  getProjectById(id: $id) {
-    ...ProjectData
-    isApproved
+    getProjectById(id: $id) {
+      ...ProjectData
+      isApproved
+    }
   }
-}
 `
 
 export const GET_PENDING_PROJECT = gql`
@@ -45,6 +45,15 @@ export const GET_REJECTED_PROJECTS = gql`
   ${PROJECT_FRAGMENT}
   query GetRejectedProjects {
     getRejectedProjects {
+      ...ProjectData
+    }
+  }
+`
+
+export const GET_PROJECT_BY_CREATOR = gql`
+  ${PROJECT_FRAGMENT}
+  query GetProjectByCreator($uid: ID!) {
+    getProjectByCreator(uid: $uid) {
       ...ProjectData
     }
   }

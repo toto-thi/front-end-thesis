@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <v-row justify="center" dense height="100vh" v-if="!loading">
+      <v-row justify="center" dense height="100vh">
         <v-col cols="8" xl="8" sm="8" md="8" class="px-16">
           <v-app-bar flat elevate-on-scroll class="white">
             <v-app-bar-nav-icon
@@ -124,11 +124,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['loading']),
+    ...mapGetters(['loading', 'user']),
   },
   methods: {
     async signIn() {
       await this.$store.dispatch('loginUser', this.credentials)
+
+      if(this.user.role === 'admin') {
+        this.$router.push('/dashboard/main')
+      } else {
+        this.$router.push('/dashboard/member/main')
+      }
     },
   },
 }

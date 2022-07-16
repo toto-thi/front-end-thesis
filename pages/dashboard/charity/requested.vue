@@ -11,9 +11,6 @@ export default {
   computed: {
     ...mapGetters(['pending']),
   },
-  async mounted() {
-    await this.$store.dispatch('getPendingProject')
-  },
   components: { PendingTable },
 }
 </script>

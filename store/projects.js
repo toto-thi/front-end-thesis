@@ -4,12 +4,15 @@ import {
   GET_PENDING_PROJECT,
   GET_APPROVED_PROJECTS,
   GET_REJECTED_PROJECTS,
+  GET_PROJECT_BY_CREATOR,
 } from '~/graphql/queries/projectQuery'
 
 import {
   APPROVE_PROJECT,
   REJECT_PROJECT,
 } from '~/graphql/mutations/projectMutate'
+
+import { fetchProjects, fetchProjectById } from '~/helpers/getAPI'
 
 const state = {
   allProjects: [],
@@ -54,6 +57,8 @@ const actions = {
   async nuxtServerInit({ dispatch }) {
     await dispatch('getAllProjects')
     await dispatch('getApprovedProject')
+    await dispatch('getPendingProject')
+    await dispatch('getRejectedProjects')
   },
   async getAllProjects({ commit }) {
     commit('setLoading', true)
@@ -61,13 +66,8 @@ const actions = {
     let client = this.app.apolloProvider.defaultClient
 
     try {
-      const allProj = await client
-        .query({
-          query: GET_ALL_PROJECT,
-        })
-        .then(({ data }) => data && data.getAllProjects)
-
-      commit('fetchAllProjects', allProj)
+      const allProj = await fetchProjects(client, GET_ALL_PROJECT)
+      commit('fetchAllProjects', allProj.getAllProjects)
     } catch (err) {
       console.error(err)
     }
@@ -80,21 +80,26 @@ const actions = {
     let client = this.app.apolloProvider.defaultClient
 
     try {
-      const resp = await client
-        .query({
-          query: GET_PROJECT_DETAILS,
-          variables: {
-            id: id,
-          },
-        })
-        .then(({ data }) => data && data.getProjectById)
-
-      return resp
+      const resp = await fetchProjectById(client, GET_PROJECT_DETAILS, id)
+      return resp.getProjectById
     } catch (err) {
       console.error(err)
     }
 
     commit('setLoading', true)
+  },
+  async getProjectByCreator({ commit }, uid) {
+    commit('setLoading', true)
+
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const resp = await fetchProjectById(client, GET_PROJECT_BY_CREATOR, uid)
+      return resp.getProjectByCreator
+    } catch (err) {
+      console.error(err)
+    }
+    commit('setLoading', false)
   },
   async getApprovedProject({ commit }) {
     commit('setLoading', true)
@@ -102,13 +107,8 @@ const actions = {
     let client = this.app.apolloProvider.defaultClient
 
     try {
-      const approveProj = await client
-        .query({
-          query: GET_APPROVED_PROJECTS,
-        })
-        .then(({ data }) => data && data.getApprovedProjects)
-
-      commit('fetchApprovedProject', approveProj)
+      const approveProj = await fetchProjects(client, GET_APPROVED_PROJECTS)
+      commit('fetchApprovedProject', approveProj.getApprovedProjects)
     } catch (err) {
       console.error(err)
     }
@@ -121,13 +121,8 @@ const actions = {
     let client = this.app.apolloProvider.defaultClient
 
     try {
-      const pendingProj = await client
-        .query({
-          query: GET_PENDING_PROJECT,
-        })
-        .then(({ data }) => data && data.getPendingProjects)
-
-      commit('fetchPendingProject', pendingProj)
+      const pendingProj = await fetchProjects(client, GET_PENDING_PROJECT)
+      commit('fetchPendingProject', pendingProj.getPendingProjects)
     } catch (err) {
       console.error(err)
     }
@@ -140,13 +135,8 @@ const actions = {
     let client = this.app.apolloProvider.defaultClient
 
     try {
-      const rejectProj = await client
-        .query({
-          query: GET_REJECTED_PROJECTS,
-        })
-        .then(({ data }) => data && data.getRejectedProjects)
-
-      commit('fetchRejectedProject', rejectProj)
+      const rejectProj = await fetchProjects(client, GET_REJECTED_PROJECTS)
+      commit('fetchRejectedProject', rejectProj.getRejectedProjects)
     } catch (err) {
       console.error(err)
     }
@@ -168,7 +158,12 @@ const actions = {
           },
         })
         .then(({ data }) => data && data.approveProject)
-  
+
+      if (!!resp) {
+        await dispatch('getPendingProject')
+        await dispatch('getApprovedProject')
+        await dispatch('getAllProjects')
+      }
     } catch (err) {
       console.error(err)
     }
@@ -190,10 +185,10 @@ const actions = {
         })
         .then(({ data }) => data && data.rejectProject)
 
-        if(resp) {
-          await dispatch('getRejectedProjects')
-          await dispatch('getPendingProject')
-        }
+      if (resp) {
+        await dispatch('getPendingProject')
+        await dispatch('getRejectedProjects')
+      }
     } catch (err) {
       console.error(err)
     }

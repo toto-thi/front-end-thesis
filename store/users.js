@@ -1,4 +1,5 @@
 import { GET_ALL_USERS } from '~/graphql/queries/userQuery'
+import { UPDATE_USER } from '~/graphql/mutations/userMutate'
 
 const state = {
   users: [],
@@ -25,6 +26,26 @@ const actions = {
       .then(({ data }) => data && data.getAllUsers)
 
     commit('setUsers', resp)
+    return resp
+  },
+  async updateUser({ commit }, newData) {
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      let resp = await client
+        .mutate({
+          mutation: UPDATE_USER,
+          variables: {
+            id: newData.id,
+            updateInput: newData.detail,
+          },
+        })
+        .then(({ data }) => data && data.updateUser)
+
+      commit('setUsers', resp)
+    } catch (err) {
+      console.error(err)
+    }
   },
 }
 

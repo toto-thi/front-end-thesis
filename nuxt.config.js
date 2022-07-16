@@ -16,7 +16,7 @@ export default {
 
   css: [],
 
-  plugins: ['~/plugins/persistedState.client.js'],
+  plugins: [{ src: '~/plugins/persistedState.client.js', ssr: false }],
 
   components: true,
 
@@ -26,7 +26,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
-    'vue-social-sharing/nuxt'
+    'vue-social-sharing/nuxt',
   ],
 
   axios: {

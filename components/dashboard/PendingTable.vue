@@ -56,7 +56,7 @@
           </template>
         </v-data-table>
         <v-dialog v-model="dialogApprove" max-width="50%" max-height="200px">
-          <v-card color="primary" class="rounded-xl white--text">
+          <v-card color="white">
             <v-card-title class="text-h5"
               >Are you sure you want to approve this project?</v-card-title
             >
@@ -72,6 +72,12 @@
                 >Confirm</v-btn
               >
             </v-card-actions>
+            <v-overlay :value="dLoading">
+              <v-progress-circular
+                indeterminate
+                size="64"
+              ></v-progress-circular>
+            </v-overlay>
           </v-card>
         </v-dialog>
 
@@ -81,7 +87,7 @@
           max-height="200px"
           class="primary"
         >
-          <v-card color="primary" class="rounded-xl white--text">
+          <v-card color="white">
             <v-card-title class="text-h5"
               >Are you sure you want to reject this project?</v-card-title
             >
@@ -92,6 +98,12 @@
               >
               <v-btn color="#53A700" text @click="confirmReject">Confirm</v-btn>
             </v-card-actions>
+            <v-overlay :value="dLoading">
+              <v-progress-circular
+                indeterminate
+                size="64"
+              ></v-progress-circular>
+            </v-overlay>
           </v-card>
         </v-dialog>
       </v-card>
@@ -172,15 +184,8 @@ export default {
       this.selected.approval = true
     },
     async confirmApproval() {
-      try {
-        await this.$store.dispatch('approveProject', this.selected)
-        await this.$store.dispatch('getPendingProject')
-      } catch (err) {
-        console.error(err)
-      }
-
+      await this.$store.dispatch('approveProject', this.selected)
       this.selected = []
-
       this.dialogApprove = false
     },
     rejectProject(item) {

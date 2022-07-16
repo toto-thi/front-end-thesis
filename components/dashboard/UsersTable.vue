@@ -27,6 +27,7 @@
           :items-per-page="5"
           item-key="title"
           class="elevation-1"
+          v-model="users"
         >
           <template v-slot:top>
             <v-toolbar flat class="rounded-xl">
@@ -176,7 +177,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['loading'])
+    ...mapGetters(['loading']),
   },
   data() {
     return {
@@ -247,7 +248,6 @@ export default {
           value: 'admin',
         },
       ],
-
       selected: {
         firstname: '',
         lastname: '',
@@ -285,7 +285,7 @@ export default {
       }
 
       try {
-        await this.$store.dispatch('updateProfile', newData)
+        await this.$store.dispatch('updateUser', newData)
         await this.$store.dispatch('getAllUsers')
       } catch (err) {
         console.error(err)

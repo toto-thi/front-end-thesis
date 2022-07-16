@@ -72,8 +72,6 @@ const actions = {
 
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
-
-      this.$router.push('/dashboard/main')
     } catch (err) {
       console.error(err.message.substring(15))
     }

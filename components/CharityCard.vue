@@ -161,8 +161,7 @@ export default {
   data() {
     return {
       page: 1,
-      perPage: 4,
-      totalPages: 0,
+      perPage: 6,
       addDialog: false,
     }
   },

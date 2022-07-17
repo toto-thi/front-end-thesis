@@ -96,7 +96,7 @@ export default async (context, locale) => {
     kTotalDonation: 'Donated',
     kUpdateBtn: 'update',
     kUsersBtn: 'users',
-    kUploadImgBtn: 'upload new picture',
+    kUploadImgBtn: 'Upload pictures',
     kUserDialog: 'Edit user details',
     kWelcome: 'Welcome',
     kYourProjectBtn: 'Your Project',

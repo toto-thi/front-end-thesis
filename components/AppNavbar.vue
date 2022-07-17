@@ -24,7 +24,7 @@
         nuxt
         to="/CharityPage"
       >
-        <span class="text-capitalize">{{$t('kCharityProject')}}</span>
+        <span class="text-capitalize">{{ $t('kCharityProject') }}</span>
       </v-btn>
       <v-btn
         plain
@@ -34,7 +34,7 @@
         nuxt
         to="/About"
       >
-        <span class="text-capitalize">{{$t('kAboutUs')}}</span>
+        <span class="text-capitalize">{{ $t('kAboutUs') }}</span>
       </v-btn>
 
       <v-menu open-on-hover offset-y close-on-content-click>
@@ -49,12 +49,22 @@
             <v-icon>mdi-web</v-icon>
           </v-btn>
         </template>
-        <v-list shaped>
-          <v-list-item>
-            <v-list-item-title>English</v-list-item-title>
+        <v-list>
+          <v-list-item @click="onChange('en')">
+            <!-- <nuxt-link
+              :to="switchLocalePath('en')"
+              style="text-decoration: none"
+            > -->
+              <v-list-item-title>English</v-list-item-title>
+            <!-- </nuxt-link> -->
           </v-list-item>
-          <v-list-item>
-            <v-list-item-title>ລາວ</v-list-item-title>
+          <v-list-item @click="onChange('la')">
+            <!-- <nuxt-link
+              :to="switchLocalePath('la')"
+              style="text-decoration: none"
+            > -->
+              <v-list-item-title>ລາວ</v-list-item-title>
+            <!-- </nuxt-link> -->
           </v-list-item>
         </v-list>
       </v-menu>
@@ -69,7 +79,7 @@
         nuxt
         to="/Login"
       >
-        <span class="text-capitalize">{{$t('kLogin')}}</span>
+        <span class="text-capitalize">{{ $t('kLogin') }}</span>
       </v-btn>
       <v-btn
         v-if="!authenticated"
@@ -79,12 +89,11 @@
         nuxt
         to="/Register"
       >
-        <span class="text-capitalize">{{$t('kRegister')}}</span>
+        <span class="text-capitalize">{{ $t('kRegister') }}</span>
       </v-btn>
 
       <v-divider vertical v-if="authenticated" />
       <MenuUser v-if="authenticated" :user="user" />
-
     </v-app-bar>
 
     <!-- for mobile only -->
@@ -152,31 +161,36 @@ import { mapGetters } from 'vuex'
 import MenuUser from './MenuUser.vue'
 
 export default {
-    middleware: "isAuth",
-    computed: {
-        ...mapGetters(["user", "authenticated"]),
-    },
-    data() {
-        return {
-            clipped: false,
-            drawer: false,
-            fixed: false,
-            items: [
-                {
-                    icon: "mdi-application",
-                    title: "Charity Projects",
-                    to: "/CharityPage",
-                },
-                {
-                    icon: "mdi-information",
-                    title: "About Us",
-                    to: "/About",
-                },
-            ],
-            miniVariant: false,
-            title: "TJ Charity",
-        };
-    },
-    components: { MenuUser }
+  middleware: 'isAuth',
+  computed: {
+    ...mapGetters(['user', 'authenticated']),
+  },
+  data() {
+    return {
+      clipped: false,
+      drawer: false,
+      fixed: false,
+      items: [
+        {
+          icon: 'mdi-application',
+          title: 'Charity Projects',
+          to: '/CharityPage',
+        },
+        {
+          icon: 'mdi-information',
+          title: 'About Us',
+          to: '/About',
+        },
+      ],
+      miniVariant: false,
+      title: 'TJ Charity',
+    }
+  },
+  components: { MenuUser },
+  methods: {
+    onChange(code) {
+      return this.$i18n.setLocale(code)
+    }
+  },
 }
 </script>

@@ -18,14 +18,16 @@
             dashboardTitle(user.role)
           }}</span>
           <br />
-          <span class="caption">{{$t('kWelcome')}}, {{ user.firstname }}</span>
+          <span class="caption"
+            >{{ $t('kWelcome') }}, {{ user.firstname }}</span
+          >
         </v-col>
         <v-col cols="5" class="text-center" align-self="end">
           <v-text-field
             dense
             outlined
             clearable
-            placeholder="Search Here..."
+            :placeholder="$t('kSearchHint') + '...'"
             prepend-inner-icon="mdi-magnify"
             v-model="search"
           ></v-text-field>
@@ -60,9 +62,9 @@
             rounded
             large
             class="text-capitalize"
-            >{{$t('kConnectWallet')}}</v-btn
+            >{{ $t('kConnectWallet') }}</v-btn
           >
-          <v-btn v-else color="white">{{$t('kMoney')}}</v-btn>
+          <v-btn v-else color="white">{{ $t('kMoney') }}</v-btn>
         </v-col>
       </v-row>
     </v-app-bar>
@@ -152,7 +154,7 @@
             <v-col cols="12">
               <v-row class="mx-5">
                 <v-col cols="6">
-                  <v-menu :rounded="rounded" offset-y>
+                  <v-menu offset-y>
                     <template v-slot:activator="{ attrs, on }">
                       <v-btn color="white" v-bind="attrs" v-on="on">
                         <v-icon>mdi-cog-outline</v-icon>
@@ -163,7 +165,9 @@
                         <v-list-item-action>
                           <v-icon>mdi-account-cog-outline</v-icon>
                         </v-list-item-action>
-                        <v-list-item-title>{{$t('kProfile')}}</v-list-item-title>
+                        <v-list-item-title>{{
+                          $t('kProfile')
+                        }}</v-list-item-title>
                       </v-list-item>
                     </v-list>
                   </v-menu>
@@ -260,9 +264,10 @@ export default {
           name: 'English',
           value: 'English',
           langImg: 'https://cdn-icons-png.flaticon.com/512/555/555417.png',
+          code: 'en',
         },
         {
-          name: 'Laos',
+          name: 'ລາວ',
           value: 'ລາວ',
           langImg: 'https://cdn-icons-png.flaticon.com/512/330/330573.png',
         },
@@ -271,6 +276,7 @@ export default {
         name: 'English',
         value: 'English',
         langImg: 'https://cdn-icons-png.flaticon.com/512/555/555417.png',
+        code: 'en',
       },
       noticeMsg: [],
     }
@@ -278,6 +284,7 @@ export default {
   methods: {
     async signOut() {
       await this.$store.dispatch('singOut')
+      this.$router.push('/Login')
     },
     connectWallet() {
       alert('connecting...')
@@ -285,6 +292,10 @@ export default {
     dashboardTitle(role) {
       if (role === 'admin') return 'Admin Dashboard'
       else return 'Dashboard'
+    },
+    switchLang(code) {
+      console.log('lang code', code)
+      return this.$i18n.setLocale(code)
     },
   },
 }

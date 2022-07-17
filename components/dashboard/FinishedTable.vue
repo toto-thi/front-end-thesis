@@ -10,7 +10,7 @@
         <v-row justify="center" align="center">
           <v-col cols="6" align-self="center">
             <v-card-title class="justify-center pb-12">
-              <h1>Completed Projects</h1>
+              <h1 class="text-capitalize">{{ $t('kFinishedBtn') }}</h1>
             </v-card-title>
           </v-col>
           <v-col cols="6">

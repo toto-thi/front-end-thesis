@@ -18,7 +18,7 @@
             dashboardTitle(user.role)
           }}</span>
           <br />
-          <span class="caption">Welcome, {{ user.firstname }}</span>
+          <span class="caption">{{$t('kWelcome')}}, {{ user.firstname }}</span>
         </v-col>
         <v-col cols="5" class="text-center" align-self="end">
           <v-text-field
@@ -60,9 +60,9 @@
             rounded
             large
             class="text-capitalize"
-            >connect wallet</v-btn
+            >{{$t('kConnectWallet')}}</v-btn
           >
-          <v-btn v-else color="white">Money Amount</v-btn>
+          <v-btn v-else color="white">{{$t('kMoney')}}</v-btn>
         </v-col>
       </v-row>
     </v-app-bar>
@@ -163,7 +163,7 @@
                         <v-list-item-action>
                           <v-icon>mdi-account-cog-outline</v-icon>
                         </v-list-item-action>
-                        <v-list-item-title>Profile</v-list-item-title>
+                        <v-list-item-title>{{$t('kProfile')}}</v-list-item-title>
                       </v-list-item>
                     </v-list>
                   </v-menu>

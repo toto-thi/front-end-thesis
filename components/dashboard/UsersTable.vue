@@ -9,8 +9,8 @@
       >
         <v-row justify="center" align="center">
           <v-col cols="6" align-self="center">
-            <v-card-title class="justify-center pb-12">
-              <h1>Users</h1>
+            <v-card-title class="justify-center pb-12 text-capitalize">
+              <h1>{{ $t('kUsersBtn') }}</h1>
             </v-card-title>
           </v-col>
           <v-col cols="6">
@@ -31,7 +31,9 @@
         >
           <template v-slot:top>
             <v-toolbar flat class="rounded-xl">
-              <v-toolbar-title>All Users</v-toolbar-title>
+              <v-toolbar-title class="text-capitalize">{{
+                $t('kUsersBtn')
+              }}</v-toolbar-title>
             </v-toolbar>
           </template>
           <template v-slot:item="{ item }">
@@ -65,28 +67,28 @@
         </v-data-table>
         <v-dialog v-model="editDialog" max-width="500px">
           <v-card color="white">
-            <v-card-title>Edit User Details</v-card-title>
+            <v-card-title>{{$t('kUserDialog')}}</v-card-title>
             <v-card-text>
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="6" xs="4">
                     <v-text-field
                       outlined
-                      label="First Name"
+                      :label="$t('kFirstName')"
                       v-model="selected.firstname"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" xs="4">
                     <v-text-field
                       outlined
-                      label="Last Name"
+                      :label="$t('kLastName')"
                       v-model="selected.lastname"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12">
-                    <span>Gender</span>
+                    <span>{{$t('kGender')}}</span>
                     <v-radio-group
                       v-model="selected.gender"
                       dense
@@ -94,8 +96,8 @@
                       class="title"
                       row
                     >
-                      <v-radio label="Male" value="male"> </v-radio>
-                      <v-radio label="Female" value="female"> </v-radio>
+                      <v-radio :label="$t('kMale')" value="male"> </v-radio>
+                      <v-radio :label="$t('kFemale')" value="female"> </v-radio>
                     </v-radio-group>
                   </v-col>
                 </v-row>
@@ -104,14 +106,14 @@
                     <v-text-field
                       outlined
                       clearable
-                      label="Email"
+                      :label="$t('kEmail')"
                       v-model="selected.email"
                     ></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row>
                   <v-col cols="12" sm="6">
-                    <span>Role</span>
+                    <span>{{$t('kRole')}}</span>
                     <v-select
                       dense
                       outlined
@@ -131,11 +133,11 @@
             </v-card-text>
             <v-card-actions>
               <v-btn color="success" text @click="confirmEdit"
-                >Update This User</v-btn
+                >{{$t('kUpdateBtn')}}</v-btn
               >
               <v-spacer />
               <v-btn color="error" text @click="editDialog = !editDialog"
-                >Cancel</v-btn
+                >{{$t('kCancelBtn')}}</v-btn
               >
             </v-card-actions>
             <v-overlay :value="loading">

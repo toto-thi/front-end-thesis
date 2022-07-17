@@ -1,22 +1,23 @@
 <template>
   <div>
-    <v-menu :key="text" :rounded="rounded" offset-y>
+    <v-menu offset-y>
       <template v-slot:activator="{ attrs, on }">
         <v-btn
           color="primary"
           class="white--text ma-5"
+          rounded
           v-bind="attrs"
           v-on="on"
           height="56"
         >
           {{ user.firstname }}
-          <v-avatar size="48" class="ma-2">
+          <v-avatar size="32" class="ma-2">
             <img :src="user.imgUrl" :alt="user.firstname" />
           </v-avatar>
         </v-btn>
       </template>
 
-      <v-list>
+      <v-list dense>
         <v-list-item router exact to="/dashboard/profile">
           <v-list-item-action>
             <v-icon> mdi-account </v-icon>

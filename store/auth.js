@@ -112,7 +112,6 @@ const actions = {
     commit('setLoading', true)
     await this.app.$apolloHelpers.onLogout()
     commit('clearUser')
-    this.$router.push('/')
     commit('setLoading', false)
   },
 

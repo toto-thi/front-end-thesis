@@ -9,8 +9,8 @@
       >
         <v-row justify="center" align="center">
           <v-col cols="6" align-self="center">
-            <v-card-title class="justify-center pb-12">
-              <h1>Request Projects</h1>
+            <v-card-title class="justify-center pb-12 text-capitalize">
+              <h1>{{ $('KRequestTitle') }}</h1>
             </v-card-title>
           </v-col>
           <v-col cols="6">
@@ -21,7 +21,7 @@
     </v-row>
     <v-row>
       <v-card class="rounded-xl" width="100%">
-        <v-card-title>All Request</v-card-title>
+        <v-card-title>{{ $t('kRequestBtn') }}</v-card-title>
         <v-data-table
           :headers="headers"
           :items="pendingProject"
@@ -57,20 +57,20 @@
         </v-data-table>
         <v-dialog v-model="dialogApprove" max-width="50%" max-height="200px">
           <v-card color="white">
-            <v-card-title class="text-h5"
-              >Are you sure you want to approve this project?</v-card-title
-            >
+            <v-card-title class="text-h5">{{
+              $t('kDialogApprove')
+            }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
                 color="#DF0000"
                 text
                 @click="dialogApprove = !dialogApprove"
-                >Cancel</v-btn
+                >{{ $t('kCancelBtn') }}</v-btn
               >
-              <v-btn color="#53A700" text @click="confirmApproval"
-                >Confirm</v-btn
-              >
+              <v-btn color="#53A700" text @click="confirmApproval">{{
+                $t('KConfirmBtn')
+              }}</v-btn>
             </v-card-actions>
             <v-overlay :value="dLoading">
               <v-progress-circular
@@ -88,15 +88,20 @@
           class="primary"
         >
           <v-card color="white">
-            <v-card-title class="text-h5"
-              >Are you sure you want to reject this project?</v-card-title
-            >
+            <v-card-title class="text-h5">{{
+              $t('kDialogReject')
+            }}</v-card-title>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="#DF0000" text @click="dialogReject = !dialogReject"
-                >Cancel</v-btn
+              <v-btn
+                color="#DF0000"
+                text
+                @click="dialogReject = !dialogReject"
+                >{{ $t('kCancelBtn') }}</v-btn
               >
-              <v-btn color="#53A700" text @click="confirmReject">Confirm</v-btn>
+              <v-btn color="#53A700" text @click="confirmReject">{{
+                $t('KConfirmBtn')
+              }}</v-btn>
             </v-card-actions>
             <v-overlay :value="dLoading">
               <v-progress-circular

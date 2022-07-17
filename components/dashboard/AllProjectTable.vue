@@ -1,6 +1,6 @@
 <template>
   <v-card class="rounded-xl" width="100%">
-    <v-card-title>All Projects</v-card-title>
+    <v-card-title class="text-capitalize">{{$t('kAllProject')}}</v-card-title>
     <v-data-table
       :headers="headers"
       :items="allProjects"

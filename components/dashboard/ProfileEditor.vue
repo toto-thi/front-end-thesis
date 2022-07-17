@@ -29,7 +29,7 @@
           <v-row class="mt-5 mx-10">
             <v-text-field
               name="firstname"
-              label="First Name"
+              :label="$t('kFirstName')"
               outlined
               v-model="firstname"
               id="firstname"
@@ -37,7 +37,7 @@
             ></v-text-field>
             <v-text-field
               name="lastname"
-              label="Last Name"
+              :label="$t('kLastName')"
               outlined
               v-model="lastname"
               id="lastname"
@@ -56,7 +56,7 @@
               <v-text-field
                 class="mx-12"
                 v-model="dateFormatted"
-                label="Date of Birth"
+                :label="$t('kDOB')"
                 append-icon="mdi-calendar"
                 readonly
                 outlined
@@ -78,7 +78,7 @@
             ></v-date-picker>
           </v-menu>
 
-          <span class="mx-12">Gender</span>
+          <span class="mx-12">{{ $t('kGender') }}</span>
           <v-radio-group
             v-model="selectedGender"
             dense
@@ -86,12 +86,12 @@
             class="title mx-12"
             row
           >
-            <v-radio label="Male" value="male"> </v-radio>
-            <v-radio label="Female" value="female"> </v-radio>
+            <v-radio :label="$t('kMale')" value="male"> </v-radio>
+            <v-radio :label="$t('kFemale')" value="female"> </v-radio>
           </v-radio-group>
           <v-text-field
             name="email"
-            label="Email"
+            :label="$t('kEmail')"
             outlined
             v-model="email"
             :rules="emailRule"
@@ -100,7 +100,7 @@
           ></v-text-field>
           <v-text-field
             name="password"
-            label="Password"
+            :label="$t('kPassword')"
             outlined
             :type="'password'"
             :rules="passwordRule"
@@ -112,7 +112,7 @@
           ></v-text-field>
           <v-text-field
             name="role"
-            label="Role"
+            :label="$t('kRole')"
             outlined
             v-model="role"
             disabled
@@ -127,7 +127,7 @@
                 class="text-capitalize white--text"
                 block
                 :loading="loading"
-                >Update My Profile</v-btn
+                >{{ $t('kUpdateBtn') }}</v-btn
               >
             </v-col>
             <v-col cols="6">
@@ -136,7 +136,7 @@
                 color="red"
                 class="text-capitalize white--text"
                 block
-                >Cancel</v-btn
+                >{{ $t('kCancelBtn') }}</v-btn
               >
             </v-col>
           </v-row>
@@ -147,7 +147,6 @@
 </template>
 
 <script>
-
 export default {
   props: {
     userProfile: {

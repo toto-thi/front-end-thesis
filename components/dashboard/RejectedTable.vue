@@ -9,8 +9,8 @@
       >
         <v-row justify="center" align="center">
           <v-col cols="6" align-self="center">
-            <v-card-title class="justify-center pb-12">
-              <h1>Rejected Projects</h1>
+            <v-card-title class="justify-center pb-12 text-capitalize">
+              <h1>{{ $t('kRejectTitle') }}</h1>
             </v-card-title>
           </v-col>
           <v-col cols="6">
@@ -21,7 +21,9 @@
     </v-row>
     <v-row>
       <v-card class="rounded-xl" width="100%">
-        <v-card-title>Projects that got rejection</v-card-title>
+        <v-card-title class="text-capitalize">{{
+          $t('kRejectTitle')
+        }}</v-card-title>
         <v-data-table
           :headers="headers"
           :items="rejectedProjects"

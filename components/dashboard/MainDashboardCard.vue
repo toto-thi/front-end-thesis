@@ -18,7 +18,7 @@
                 </v-col>
                 <v-col cols="4" align-self="end">
                   <v-card-text class="title font-weight-bold"
-                    >Projects</v-card-text
+                    >{{$t('kProjectCount')}}</v-card-text
                   >
                 </v-col>
               </v-row>
@@ -35,7 +35,7 @@
                 </v-col>
                 <v-col cols="4" align-self="end">
                   <v-card-text class="title font-weight-bold text-capitalize"
-                    >active projects</v-card-text
+                    >{{$t('kProjectActiveCount')}}</v-card-text
                   >
                 </v-col>
               </v-row>
@@ -53,7 +53,7 @@
                 </v-col>
                 <v-col cols="4" align-self="end">
                   <v-card-text class="title font-weight-bold"
-                    >Donated</v-card-text
+                    >{{$t('kTotalDonation')}}</v-card-text
                   >
                 </v-col>
               </v-row>

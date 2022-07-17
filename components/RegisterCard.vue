@@ -15,29 +15,25 @@
             max-width="150"
           ></v-img>
         </nuxt-link>
-
-        <!-- <v-spacer />
-        <v-select :items="lang" dense flat class="select">
-        </v-select> -->
       </v-app-bar>
 
       <v-card flat class="px-5">
-        <v-card-title class="justify-center font-weight-bold" style="font-size: 3.5rem">
-          Register
+        <v-card-title
+          class="justify-center font-weight-bold"
+          style="font-size: 3.5rem"
+        >
+          {{ $t('kRegister') }}
         </v-card-title>
         <v-card-subtitle class="mt-5 mb-5 text-center font-weight-bold title">
-          Welcome to the Charity Community! <br />
-          <span
-            >Be a part of the initial charity of a secure and transparency
-            charity projects.</span
-          >
+          {{ $t('kRegisterTitle1') }} <br />
+          <span>{{ $t('kRegisterTitle2') }}.</span>
         </v-card-subtitle>
 
         <v-form class="px-3">
           <!-- First Name -->
           <v-text-field
             name="firstName"
-            label="First Name"
+            :label="$t('kFirstName')"
             id="firstname"
             required
             outlined
@@ -48,7 +44,7 @@
           <!-- Last Name -->
           <v-text-field
             name="lastName"
-            label="Last Name"
+            :label="$t('kLastName')"
             id="lastname"
             required
             outlined
@@ -68,7 +64,7 @@
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="computedDateFormatted"
-                label="Date of Birth"
+                :label="$t('kDOB')"
                 hint="MM/DD/YYYY format"
                 persistent-hint
                 append-icon="mdi-calendar"
@@ -93,7 +89,7 @@
           </v-menu>
 
           <!-- Select Gender -->
-          <span>Gender</span>
+          <span>{{ $t('kGender') }}</span>
           <v-radio-group
             v-model="selectedGender"
             dense
@@ -101,14 +97,14 @@
             class="title"
             row
           >
-            <v-radio label="Male" value="male"> </v-radio>
-            <v-radio label="Female" value="female"> </v-radio>
+            <v-radio :label="$t('kMale')" value="male"> </v-radio>
+            <v-radio :label="$t('kFemale')" value="female"> </v-radio>
           </v-radio-group>
 
           <!-- Email -->
           <v-text-field
             name="Email"
-            label="Email"
+            :label="$t('kEmail')"
             id="email"
             required
             outlined
@@ -120,7 +116,7 @@
           <!-- Password -->
           <v-text-field
             name="Password"
-            label="Password"
+            :label="$t('kPassword')"
             id="password"
             required
             outlined
@@ -135,7 +131,7 @@
           <!-- Confirm Password -->
           <v-text-field
             name="confirmPassword"
-            label="Re-enter Password"
+            :label="$t('kConfirmPassword')"
             id="confirmpassword"
             required
             outlined
@@ -157,12 +153,12 @@
                   block
                   rounded
                   class="white--text text-capitalize font-weight-bold title"
-                  >Register</v-btn
+                  >{{ $t('kRegister') }}</v-btn
                 >
               </v-col>
-              <span>Already have an account? &nbsp; </span>
+              <span>{{ $t('kHasAcc') }} &nbsp; </span>
               <nuxt-link to="Login" style="text-decoration: none">
-                Login now!</nuxt-link
+                {{ $t('kLoginNow') }}</nuxt-link
               >
             </v-row>
           </v-card-actions>
@@ -243,7 +239,7 @@ export default {
         password: this.password.trim(),
       }
 
-      await this.$store.dispatch('signUp', newUser);
+      await this.$store.dispatch('signUp', newUser)
     },
   },
   computed: {

@@ -16,7 +16,10 @@ export default {
 
   css: [],
 
-  plugins: [{ src: '~/plugins/persistedState.client.js', ssr: false }],
+  plugins: [
+    { src: '~/plugins/persistedState.client.js', ssr: false },
+    '~/plugins/router',
+  ],
 
   components: true,
 
@@ -26,8 +29,26 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/apollo',
+    '@nuxtjs/i18n',
     'vue-social-sharing/nuxt',
   ],
+
+  i18n: {
+    locales: [
+      {
+        code: 'en',
+        file: 'en-US.js',
+      },
+      {
+        code: 'la',
+        file: 'la-LAO.js',
+      },
+    ],
+    lazy: true,
+    langDir: 'lang/',
+    defaultLocale: 'en',
+    skipSettingLocaleOnNavigate: true,
+  },
 
   axios: {
     baseURL: '/',

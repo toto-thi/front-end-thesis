@@ -24,19 +24,19 @@
               class="justify-center font-weight-bold"
               style="font-size: 3.5rem"
             >
-              Login
+              {{ $t('kLogin') }}
             </v-card-title>
             <v-card-subtitle
               class="mt-5 mb-5 text-center font-weight-bold title"
             >
-              Welcome Back! <br />
-              <span>Join the Donor's Community</span>
+              {{ $t('kLoginTitle') }} <br />
+              <span>{{ $t('kLoginSubTitle') }}</span>
             </v-card-subtitle>
 
             <v-form class="px-3">
               <v-text-field
                 name="Email"
-                label="Email"
+                :label="$t('kEmail')"
                 id="email"
                 required
                 outlined
@@ -46,7 +46,7 @@
               ></v-text-field>
               <v-text-field
                 name="Password"
-                label="Password"
+                :label="$t('kPassword')"
                 id="password"
                 required
                 outlined
@@ -61,13 +61,13 @@
               <v-row justify="space-between" align="start">
                 <v-col cols="6" align-self="start">
                   <v-checkbox
-                    label="Remember me"
+                    :label="$t('kRememberMeBox')"
                     v-model="checkbox"
                   ></v-checkbox>
                 </v-col>
                 <v-col cols="6" align-self="center" align="end">
                   <v-btn plain class="text-capitalize font-weight-medium"
-                    ><span>Forgot password?</span></v-btn
+                    ><span>{{ $t('kForgotPassword') }}</span></v-btn
                   >
                 </v-col>
               </v-row>
@@ -81,12 +81,12 @@
                       block
                       rounded
                       class="white--text text-capitalize font-weight-bold title"
-                      >Login</v-btn
+                      >{{ $t('kLogin') }}</v-btn
                     >
                   </v-col>
-                  <span>Don't have an account yet? &nbsp; </span>
+                  <span>{{ $t('kNoAcc') }} &nbsp; </span>
                   <nuxt-link to="Register" style="text-decoration: none">
-                    Register now!</nuxt-link
+                    {{ $t('kRegisterNow') }}</nuxt-link
                   >
                 </v-row>
               </v-card-actions>
@@ -130,7 +130,7 @@ export default {
     async signIn() {
       await this.$store.dispatch('loginUser', this.credentials)
 
-      if(this.user.role === 'admin') {
+      if (this.user.role === 'admin') {
         this.$router.push('/dashboard/main')
       } else {
         this.$router.push('/dashboard/member/main')

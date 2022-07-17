@@ -21,7 +21,7 @@
           ref="uploader"
           type="file"
           accept="image/*"
-          @change="onFileChanged"
+          @change="uploadImg"
         />
       </v-col>
       <v-col cols="8">
@@ -147,6 +147,9 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+import { UPLOAD_PROFILE_IMG } from '~/graphql/mutations/userMutate'
+
 export default {
   props: {
     userProfile: {
@@ -224,13 +227,19 @@ export default {
         { once: true }
       )
 
-      this.$refs.uploader.click()
+      this.$refs['uploader'].click()
     },
-    onFileChanged(e) {
-      this.selectedFile = e.target.files[0]
-
-      //display in image box
-      this.imgUrl = URL.createObjectURL(this.selectedFile)
+    async uploadImg() {
+      let { data } = await this.$apollo.mutate({
+        mutation: gql`
+          ${UPLOAD_PROFILE_IMG}
+        `,
+        variables: {
+          file: this.$refs['uploader'].files[0],
+        },
+      })
+      this.imgUrl = data.fileUploader
+      this.$refs.uploader = null
     },
     cancel() {
       this.selectedGender = this.userProfile.gender

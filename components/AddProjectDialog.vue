@@ -8,19 +8,19 @@
         <v-card-text class="mt-3">
           <v-container>
             <v-text-field
-              name="title"
               :label="$t('kProjectTitle')"
+              v-model="title"
               outlined
             ></v-text-field>
             <v-textarea
               :label="$t('kProjectDetail')"
-              name="description"
+              v-model="description"
               textarea
               outlined
               counter
             ></v-textarea>
             <v-text-field
-              name="target"
+              v-model="targetAmount"
               :label="$t('kTargetAmount')"
               prepend-inner-icon="mdi-ethereum"
               outlined
@@ -93,6 +93,14 @@
                 @input="menuEndDate = !menuEndDate"
               ></v-date-picker>
             </v-menu>
+            <v-file-input
+              multiple
+              :label="$t('kUploadImgBtn')"
+              accept="image/*"
+              outlined
+              clearable
+              small-chips
+            ></v-file-input>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -125,6 +133,10 @@ export default {
       menuEndDate: false,
       startDate: '',
       endDate: '',
+      title: '',
+      description: '',
+      targetAmount: '',
+      imgUrl: []
     }
   },
   methods: {
@@ -138,6 +150,9 @@ export default {
     closeDialog() {
       this.status = false
     },
+    async uploadImg() {
+        //operation here
+    }
   },
   computed: {
     startDateFormatted() {

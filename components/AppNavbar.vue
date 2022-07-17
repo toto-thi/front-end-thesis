@@ -24,7 +24,7 @@
         nuxt
         to="/CharityPage"
       >
-        <span class="text-capitalize">Charity Project</span>
+        <span class="text-capitalize">{{$t('kCharityProject')}}</span>
       </v-btn>
       <v-btn
         plain
@@ -34,7 +34,7 @@
         nuxt
         to="/About"
       >
-        <span class="text-capitalize">About Us</span>
+        <span class="text-capitalize">{{$t('kAboutUs')}}</span>
       </v-btn>
 
       <v-menu open-on-hover offset-y close-on-content-click>
@@ -69,7 +69,7 @@
         nuxt
         to="/Login"
       >
-        <span class="text-capitalize">Login</span>
+        <span class="text-capitalize">{{$t('kLogin')}}</span>
       </v-btn>
       <v-btn
         v-if="!authenticated"
@@ -79,7 +79,7 @@
         nuxt
         to="/Register"
       >
-        <span class="text-capitalize">Register</span>
+        <span class="text-capitalize">{{$t('kRegister')}}</span>
       </v-btn>
 
       <v-divider vertical v-if="authenticated" />

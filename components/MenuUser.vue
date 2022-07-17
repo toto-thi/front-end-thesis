@@ -21,19 +21,17 @@
           <v-list-item-action>
             <v-icon> mdi-account </v-icon>
           </v-list-item-action>
-          <v-list-item-title>Account</v-list-item-title>
-        </v-list-item>
-        <v-list-item router exact to="/ooo">
-          <v-list-item-action>
-            <v-icon> mdi-cog </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Settings</v-list-item-title>
+          <v-list-item-title class="text-capitalize">{{
+            $t('kAccount')
+          }}</v-list-item-title>
         </v-list-item>
         <v-list-item router exact @click="signOut">
           <v-list-item-action>
             <v-icon>mdi-logout</v-icon>
           </v-list-item-action>
-          <v-list-item-title>Sing Out</v-list-item-title>
+          <v-list-item-title class="text-capitalize">{{
+            $t('kSingOut')
+          }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

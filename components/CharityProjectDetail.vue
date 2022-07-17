@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-container class="px-16 mt-12" fluid>
+    <v-container class="mt-12" fluid>
       <v-row>
         <v-col cols="9">
           <v-row align="start" justify="center">
@@ -10,8 +10,8 @@
               width="100%"
               height="15vh"
             >
-              <v-card-title class="mt-6">
-                Topic: {{ project.title }}
+              <v-card-title class="mt-6 text-capitalize">
+                {{ $t('kProjectTitle') }}: {{ project.title }}
               </v-card-title>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -23,11 +23,11 @@
           </v-row>
           <v-row align="center" justify="center" class="mt-8">
             <v-card color="white" class="rounded-xl" width="100%" height="100%">
-              <v-card-title class="justify-center pt-8">
-                <h2>Project Details</h2>
+              <v-card-title class="justify-center pt-8 text-capitalize">
+                <h2>{{ $t('kProjectDetail') }}</h2>
               </v-card-title>
               <v-card-text class="px-8">
-                <h3>Story:</h3>
+                <h3>{{ $t('kStory') }}:</h3>
                 <br />
                 {{ project.description }}. <br />
                 <v-carousel
@@ -53,7 +53,7 @@
                   class="text-capitalize mb-4 mr-5"
                   rounded
                   outlined
-                  >Donate Now
+                  >{{$t('kDonate')}}
                   <v-icon small>mdi-ethereum</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -67,14 +67,14 @@
             height="100%"
             fill-height
           >
-            <v-card-text class="text-center pt-16">
-              <h3 class="pt-16">Project Duration</h3>
+            <v-card-text class="text-center pt-16 text-capitalize">
+              <h3 class="pt-16">{{ $t('kProjectDuration') }}</h3>
               <br />
 
               <h2>{{ project.endDate }}</h2>
 
               <br />
-              <h3>Expected Amount</h3>
+              <h3>{{ $t('kExpectAmount') }}</h3>
               <br />
 
               <h2>
@@ -83,8 +83,8 @@
               </h2>
               <br />
             </v-card-text>
-            <v-card-text class="px-4 mx-4">
-              <h3>About Creator</h3>
+            <v-card-text class="px-4 mx-4 text-capitalize">
+              <h3>{{ $t('kCreatorInfo') }}</h3>
               <br />
               <v-row align="start">
                 <v-col cols="3">
@@ -107,8 +107,8 @@
                 Vientiane, Laos.
               </h4>
             </v-card-text>
-            <v-card-text class="mt-10 px-4 mx-4">
-              <h2 class="font-weight-black">Share This Project</h2>
+            <v-card-text class="mt-10 px-4 mx-4 text-capitalize">
+              <h2 class="font-weight-black">{{ $t('kShareTitle') }}</h2>
               <br />
               <v-row align="center">
                 <v-btn icon color="primary" class="mx-2">
@@ -156,12 +156,12 @@
 
       <!-- Last Transaction-->
       <v-row
-        class="mt-8"
+        class="mt-8 text-capitalize"
         align="center"
         justify="center"
         style="text-decoration: underline"
       >
-        <h1>Latest Donations</h1>
+        <h1>{{ $t('kLatestDonation') }}</h1>
       </v-row>
       <v-row class="mt-6" align="center" justify="center">
         <v-col cols="4" xs="12">
@@ -171,12 +171,12 @@
             class="white--text rounded-xl"
           >
             <v-card-title class="justify-center">
-              TxnHash: 90Yfsh56Hk22h23bds442p9sd32fs4
+              {{ $t('kTxnHash') }}: 90Yfsh56Hk22h23bds442p9sd32fs4
             </v-card-title>
             <v-card-text class="white--text px-8">
-              From: xxxxx <br />
-              To: xxxxx <br />
-              Message: Keep doing what's good for our society
+              {{ $t('kTransferFrom') }}: xxxxx <br />
+              {{ $t('kTransferTo') }}: xxxxx <br />
+              {{ $t('kMessage') }}: Keep doing what's good for our society
             </v-card-text>
           </v-card>
         </v-col>
@@ -187,12 +187,12 @@
             class="white--text rounded-xl"
           >
             <v-card-title class="justify-center">
-              TxnHash: 90Yfsh56Hk22h23bds442p9sd32fs4
+              {{ $t('kTxnHash') }}: 90Yfsh56Hk22h23bds442p9sd32fs4
             </v-card-title>
             <v-card-text class="white--text px-8">
-              From: xxxxx <br />
-              To: xxxxx <br />
-              Message: Keep doing what's good for our society
+              {{ $t('kTransferFrom') }}: xxxxx <br />
+              {{ $t('kTransferTo') }}: xxxxx <br />
+              {{ $t('kMessage') }}: Keep doing what's good for our society
             </v-card-text>
           </v-card>
         </v-col>
@@ -203,12 +203,12 @@
             class="white--text rounded-xl"
           >
             <v-card-title class="justify-center">
-              TxnHash: 90Yfsh56Hk22h23bds442p9sd32fs4
+              {{ $t('kTxnHash') }}: 90Yfsh56Hk22h23bds442p9sd32fs4
             </v-card-title>
             <v-card-text class="white--text px-8">
-              From: xxxxx <br />
-              To: xxxxx <br />
-              Message: Keep doing what's good for our society
+              {{ $t('kTransferFrom') }}: xxxxx <br />
+              {{ $t('kTransferTo') }}: xxxxx <br />
+              {{ $t('kMessage') }}: Keep doing what's good for our society
             </v-card-text>
           </v-card>
         </v-col>

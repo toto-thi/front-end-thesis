@@ -127,12 +127,18 @@ export default {
     async signIn() {
       await this.$store.dispatch('loginUser', this.credentials)
 
+      const wallet = this.user.walletID
+      if (!!wallet) {
+        this.$store.state.walletAddress = wallet
+        this.$store.state.connectionStatus = true
+      }
+
       if (this.user.role === 'admin') {
         this.$router.push('/dashboard/main')
-      } else if(this.user.role === 'member') {
+      } else if (this.user.role === 'member') {
         this.$router.push('/dashboard/profile')
       } else {
-        this.$router.push('/Login')
+        this.$router.push('/login')
       }
     },
   },

@@ -46,6 +46,8 @@ export default async (context, locale) => {
     kLoginTitle: 'ຍິນດີຕ້ອນຮັບ!',
     kLoginSubTitle: 'ເຂົ້າຮ່ວມກັບຊຸມຊົນແຫ່ງການກຸສົນ',
     kLoginNow: 'ເຂົ້າສຸ່ລະບົບ ດຽວນີ້',
+    kLocation: 'ສະຖານທີ່ດຳເນີນການ',
+    kLocationHint: 'ບ້ານ, ເມືອງ, ແຂວງ',
     kMessage: 'ຂໍ້ຄວາມ',
     kMale: 'ຊາຍ',
     KMoney: 'ຈຳນວນເງິນ',

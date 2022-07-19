@@ -19,6 +19,7 @@ export const PROJECT_FRAGMENT = gql`
     id
     title
     description
+    location
     imageList
     startDate
     endDate

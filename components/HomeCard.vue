@@ -13,7 +13,7 @@
           color="primary"
           class="white--text text-capitalize"
           nuxt
-          to="/CharityPage"
+          to="/charityPage"
         >
           {{ $t('kDonate') }}
           <v-icon right>mdi-arrow-right</v-icon>

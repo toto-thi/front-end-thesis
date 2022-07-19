@@ -46,6 +46,8 @@ export default async (context, locale) => {
     kLoginTitle: 'Welcome Back!',
     kLoginSubTitle: "Join the Donor's Community",
     kLoginNow: 'Login now!',
+    kLocation: 'Project Location',
+    kLocationHint: 'Village, City, Province',
     kMessage: 'Message',
     kMale: 'Male',
     KMoney: 'Money Amount',

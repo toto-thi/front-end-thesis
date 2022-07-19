@@ -22,16 +22,7 @@
             >{{ $t('kWelcome') }}, {{ user.firstname }}</span
           >
         </v-col>
-        <v-col cols="5" class="text-center" align-self="end">
-          <v-text-field
-            dense
-            outlined
-            clearable
-            :placeholder="$t('kSearchHint') + '...'"
-            prepend-inner-icon="mdi-magnify"
-            v-model="search"
-          ></v-text-field>
-        </v-col>
+        <v-spacer />
         <v-col cols="2" class="text-start" align-self="end">
           <v-select
             dense
@@ -54,17 +45,18 @@
           </v-select>
         </v-col>
         <v-col cols="1" class="mt-1">
-          <!-- will come back later -->
           <v-btn
-            v-if="user.walletID == null"
-            @click="connectWallet"
+            v-if="user.walletID === ''"
+            @click="connectWallet(walletAddress)"
             color="primary"
             rounded
             large
             class="text-capitalize"
             >{{ $t('kConnectWallet') }}</v-btn
           >
-          <v-btn v-else color="white">{{ $t('kMoney') }}</v-btn>
+          <v-btn v-else-if="user.walletID" large color="primary" rounded>
+            {{ shortAddress(user.walletID) }}
+          </v-btn>
         </v-col>
       </v-row>
     </v-app-bar>
@@ -187,6 +179,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { shortenAddress } from '~/helpers/shortenAddress'
+
 export default {
   props: {
     user: {
@@ -281,13 +276,27 @@ export default {
       noticeMsg: [],
     }
   },
+  computed: {
+    ...mapGetters(['walletAddress', 'connectionStatus']),
+  },
   methods: {
     async signOut() {
       await this.$store.dispatch('singOut')
-      this.$router.push('/Login')
+      this.$router.push('/login')
     },
-    connectWallet() {
-      alert('connecting...')
+    async connectWallet(address) {
+      await this.$store.dispatch('connectWallet', address)
+
+      const walletDetail = {
+        id: this.user.id,
+        detail: {
+          walletID: this.walletAddress,
+        },
+      }
+      await this.$store.dispatch('updateUser', walletDetail)
+    },
+    shortAddress(address) {
+      return shortenAddress(address)
     },
     dashboardTitle(role) {
       if (role === 'admin') return 'Admin Dashboard'

@@ -24,6 +24,14 @@
               :label="$t('kTargetAmount')"
               prepend-inner-icon="mdi-ethereum"
               outlined
+              type="number"
+            ></v-text-field>
+            <v-text-field
+              v-model="location"
+              :label="$t('kLocation')"
+              prepend-inner-icon="mdi-map-marker-multiple"
+              :hint="$t('kLocationHint')"
+              outlined
             ></v-text-field>
             <v-menu
               v-model="menuStartDate"
@@ -105,7 +113,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" text>{{ $t('kMakeRequest') }}</v-btn>
+          <v-btn color="primary" text @click="makeRequest">{{
+            $t('kMakeRequest')
+          }}</v-btn>
           <v-btn color="error" text @click="closeDialog">
             {{ $t('kCancelBtn') }}
           </v-btn>
@@ -118,10 +128,6 @@
 <script>
 export default {
   props: {
-    //   item: {
-    //     type: Object,
-    //     required: true,
-    //   },
     status: {
       type: Boolean,
       required: true,
@@ -135,12 +141,26 @@ export default {
       endDate: '',
       title: '',
       description: '',
+      location: '',
       targetAmount: '',
-      imgUrl: []
+      imgUrl: null,
     }
   },
   methods: {
-    makeRequest() {},
+    async makeRequest() {
+      this.status = false
+
+      const newData = {
+        title: this.title,
+        description: this.description,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        location: this.location,
+        targetAmount: parseInt(this.targetAmount),
+        imageList: this.imgUrl,
+      }
+      await this.$store.dispatch('createProject', newData)
+    },
     formatDate(date) {
       if (!date) return null
 
@@ -151,8 +171,8 @@ export default {
       this.$emit('closeDialog')
     },
     async uploadImg() {
-        //operation here
-    }
+      //operation here
+    },
   },
   computed: {
     startDateFormatted() {

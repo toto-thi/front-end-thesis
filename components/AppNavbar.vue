@@ -22,7 +22,7 @@
         color="white--text"
         class="mx-2 hidden-md-and-down"
         nuxt
-        to="/CharityPage"
+        to="/charityPage"
       >
         <span class="text-capitalize">{{ $t('kCharityProject') }}</span>
       </v-btn>
@@ -32,7 +32,7 @@
         color="white--text"
         class="mx-2 hidden-md-and-down"
         nuxt
-        to="/About"
+        to="/about"
       >
         <span class="text-capitalize">{{ $t('kAboutUs') }}</span>
       </v-btn>
@@ -51,20 +51,10 @@
         </template>
         <v-list>
           <v-list-item @click="onChange('en')">
-            <!-- <nuxt-link
-              :to="switchLocalePath('en')"
-              style="text-decoration: none"
-            > -->
               <v-list-item-title>English</v-list-item-title>
-            <!-- </nuxt-link> -->
           </v-list-item>
           <v-list-item @click="onChange('la')">
-            <!-- <nuxt-link
-              :to="switchLocalePath('la')"
-              style="text-decoration: none"
-            > -->
               <v-list-item-title>ລາວ</v-list-item-title>
-            <!-- </nuxt-link> -->
           </v-list-item>
         </v-list>
       </v-menu>

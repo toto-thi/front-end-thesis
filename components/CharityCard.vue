@@ -170,7 +170,6 @@ export default {
       return (donateVal * 100) / maxVal
     },
     createProject() {
-      console.log('status: ', Object.keys(this.user).length === 0)
       if (Object.keys(this.user).length === 0) {
         // change to dialog box later
         return alert('Please login to continue...')

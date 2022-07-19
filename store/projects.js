@@ -10,6 +10,7 @@ import {
 import {
   APPROVE_PROJECT,
   REJECT_PROJECT,
+  CREATE_PROJECT,
 } from '~/graphql/mutations/projectMutate'
 
 import { fetchProjects, fetchProjectById } from '~/helpers/getAPI'
@@ -149,6 +150,33 @@ const actions = {
       console.error(err)
     }
 
+    commit('setLoading', false)
+  },
+  async createProject({ commit, dispatch }, payload) {
+    commit('setLoading', true)
+
+    console.log('payload', payload)
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const res = await client
+        .mutate({
+          mutation: CREATE_PROJECT,
+          variables: {
+            projectInput: payload,
+          },
+        })
+        .then(({ data }) => data && data.addProject)
+
+      console.log('check response: ', JSON.stringify(res))
+
+      if (!!res) {
+        await dispatch('getPendingProject')
+        await dispatch('getAllProjects')
+      }
+    } catch (err) {
+      console.log(err.message)
+    }
     commit('setLoading', false)
   },
   async approveProject({ commit, dispatch }, payload) {

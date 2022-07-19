@@ -109,6 +109,7 @@ const actions = {
   async singOut({ commit }) {
     commit('setLoading', true)
     await this.app.$apolloHelpers.onLogout()
+    localStorage.removeItem('temp')
     commit('clearUser')
     commit('setLoading', false)
   },

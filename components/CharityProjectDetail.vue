@@ -53,11 +53,13 @@
                   class="text-capitalize mb-4 mr-5"
                   rounded
                   outlined
-                  >{{$t('kDonate')}}
+                  @click="donationBox"
+                  >{{ $t('kDonate') }}
                   <v-icon small>mdi-ethereum</v-icon>
                 </v-btn>
               </v-card-actions>
             </v-card>
+            <DonationBox :status="donateDialog" :data="tempData" @closeBox="closeDialog" />
           </v-row>
         </v-col>
         <v-col cols="3">
@@ -104,7 +106,7 @@
               </v-row>
               <h4 class="mt-4">
                 <v-icon>mdi-map-marker</v-icon>
-                Vientiane, Laos.
+                {{ project.location }}
               </h4>
             </v-card-text>
             <v-card-text class="mt-10 px-4 mx-4 text-capitalize">
@@ -218,6 +220,8 @@
 </template>
 
 <script>
+import DonationBox from '@/components/DonationBox.vue'
+
 export default {
   name: 'CharityProjectDetail',
   props: {
@@ -228,6 +232,7 @@ export default {
   },
   data() {
     return {
+      donateDialog: false,
       // this is the way to do dynamic URL `https://localhost:3000${this.$route.path}`
       items: [
         {
@@ -243,8 +248,31 @@ export default {
           src: 'https://images.unsplash.com/photo-1505810176942-54d98851165f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
         },
       ],
+      tempData: {},
     }
   },
+  methods: {
+    donationBox() {
+      //check if user is login or not
+
+      this.donateDialog = true
+
+      const data = {
+        id: this.project.id,
+        walletID: this.$store.getters.walletAddress,
+        userID: this.$store.getters.user.id,
+        targetWallet: 'aikhsdoiigo989g8t9gvi9w2',
+      }
+
+      this.tempData = Object.assign({}, data)
+      console.log('test send data', this.tempData)
+    },
+    closeDialog() {
+      this.donateDialog = false
+      this.tempData = {}
+    },
+  },
+  components: { DonationBox },
 }
 </script>
 

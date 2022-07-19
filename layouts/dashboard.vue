@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <DashboardNav :user="user" />
+    <DashboardNav />
     <v-main style="padding: 112px 0px 0px 256px">
       <v-container fluid>
         <nuxt />
@@ -10,14 +10,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import DashboardNav from '~/components/navs/DashboardNav.vue'
+import DashboardNav from '~/components/DashboardNav.vue'
 
 export default {
   middleware: 'isAuth',
-  computed: {
-    ...mapGetters(['user']),
-  },
   data() {
     return {
       drawer: true,

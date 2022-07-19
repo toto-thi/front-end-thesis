@@ -39,78 +39,18 @@
               <td class="text-center">{{ item.endDate }}</td>
               <td class="text-center">{{ item.targetAmount }}</td>
               <td class="text-center">
-                <v-icon
-                  color="#53A700"
-                  class="mx-2"
-                  @click="approveProject(item)"
-                  >mdi-check-decagram</v-icon
-                >
-                <v-icon
-                  color="#DF0000"
-                  class="mx-2"
-                  @click="rejectProject(item)"
-                  >mdi-cancel</v-icon
-                >
+                <v-btn color="primary" large @click="reviewProject(item)">
+                  <v-icon large color="white">mdi-message-draw</v-icon>
+                </v-btn>
               </td>
             </tr>
           </template>
         </v-data-table>
-        <v-dialog v-model="dialogApprove" max-width="50%" max-height="200px">
-          <v-card color="white">
-            <v-card-title class="text-h5">{{
-              $t('kDialogApprove')
-            }}</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="#DF0000"
-                text
-                @click="dialogApprove = !dialogApprove"
-                >{{ $t('kCancelBtn') }}</v-btn
-              >
-              <v-btn color="#53A700" text @click="confirmApproval">{{
-                $t('KConfirmBtn')
-              }}</v-btn>
-            </v-card-actions>
-            <v-overlay :value="dLoading">
-              <v-progress-circular
-                indeterminate
-                size="64"
-              ></v-progress-circular>
-            </v-overlay>
-          </v-card>
-        </v-dialog>
-
-        <v-dialog
-          v-model="dialogReject"
-          max-width="50%"
-          max-height="200px"
-          class="primary"
-        >
-          <v-card color="white">
-            <v-card-title class="text-h5">{{
-              $t('kDialogReject')
-            }}</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="#DF0000"
-                text
-                @click="dialogReject = !dialogReject"
-                >{{ $t('kCancelBtn') }}</v-btn
-              >
-              <v-btn color="#53A700" text @click="confirmReject">{{
-                $t('KConfirmBtn')
-              }}</v-btn>
-            </v-card-actions>
-            <v-overlay :value="dLoading">
-              <v-progress-circular
-                indeterminate
-                size="64"
-              ></v-progress-circular>
-            </v-overlay>
-          </v-card>
-        </v-dialog>
+        <ReviewProjectDialog
+          :status="reviewDialog"
+          @closeMe="closeDialog"
+          :items="reviewData"
+        />
       </v-card>
     </v-row>
   </v-container>
@@ -118,7 +58,7 @@
 
 <script>
 import ShortText from '~/utils/ShortText.vue'
-import { mapGetters } from 'vuex'
+import ReviewProjectDialog from './ReviewProjectDialog.vue'
 
 export default {
   props: {
@@ -127,16 +67,13 @@ export default {
       required: true,
     },
   },
-  computed: {
-    ...mapGetters(['dLoading']),
-  },
-  components: { ShortText },
+  components: { ShortText, ReviewProjectDialog },
   data() {
     return {
-      dialogApprove: false,
-      dialogReject: false,
+      reviewDialog: false,
       loading: false,
-      selected: [],
+      reviewPID: '',
+      reviewData: {},
       headers: [
         {
           text: 'Title',
@@ -183,25 +120,13 @@ export default {
     }
   },
   methods: {
-    approveProject(item) {
-      this.dialogApprove = true
-      this.selected.id = item.id
-      this.selected.approval = true
+    reviewProject(item) {
+      this.reviewDialog = true
+      this.reviewPID = item.id
+      this.reviewData = Object.assign({}, item)
     },
-    async confirmApproval() {
-      await this.$store.dispatch('approveProject', this.selected)
-      this.selected = []
-      this.dialogApprove = false
-    },
-    rejectProject(item) {
-      this.dialogReject = true
-      this.selected.id = item.id
-      this.selected.rejection = true
-    },
-    async confirmReject() {
-      await this.$store.dispatch('rejectProject', this.selected)
-      this.selected = []
-      this.dialogReject = false
+    closeDialog() {
+      this.reviewDialog = false
     },
   },
 }

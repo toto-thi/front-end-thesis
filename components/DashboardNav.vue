@@ -45,18 +45,21 @@
           </v-select>
         </v-col>
         <v-col cols="1" class="mt-1">
-          <v-btn
-            v-if="user.walletID === ''"
-            @click="connectWallet(walletAddress)"
-            color="primary"
-            rounded
-            large
-            class="text-capitalize"
-            >{{ $t('kConnectWallet') }}</v-btn
-          >
-          <v-btn v-else-if="user.walletID" large color="primary" rounded>
-            {{ shortAddress(user.walletID) }}
-          </v-btn>
+          <div v-if="user.walletID === ''">
+            <v-btn
+              @click="connectWallet(walletAddress)"
+              color="primary"
+              rounded
+              large
+              class="text-capitalize"
+              >{{ $t('kConnectWallet') }}</v-btn
+            >
+          </div>
+          <div v-else-if="user.walletID">
+            <v-btn large color="primary" rounded>
+              {{ shortAddress(user.walletID) }}
+            </v-btn>
+          </div>
         </v-col>
       </v-row>
     </v-app-bar>
@@ -70,11 +73,53 @@
       v-model="drawer"
       height="100%"
     >
-      <!-- Admin Menu -->
-      <v-list nav dense rounded class="mt-16 pt-16" v-if="user.role == 'admin'">
-        <div v-for="(item, i) in adminItems" :key="i">
+      <div v-if="user.role == 'admin'">
+        <!-- Admin Menu -->
+        <v-list nav dense rounded class="mt-16 pt-16">
+          <div v-for="(item, i) in adminItems" :key="i">
+            <v-list-item
+              v-if="!item.items"
+              :key="i"
+              :to="item.to"
+              class="v-list-item"
+            >
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content v-text="item.title" />
+            </v-list-item>
+
+            <v-list-group v-else :key="item.title" no-action>
+              <template v-slot:activator>
+                <v-list-item>
+                  <v-list-item-action>
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-action>
+                  <v-list-item-content>
+                    {{ item.title }}
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+
+              <v-list-item
+                v-for="sub in item.items"
+                :key="sub.title"
+                :to="sub.to"
+              >
+                <v-list-item-action>
+                  <v-icon>{{ sub.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-title v-text="sub.title" />
+              </v-list-item>
+            </v-list-group>
+          </div>
+        </v-list>
+      </div>
+      <div v-else>
+        <!-- Member Menu -->
+        <v-list nav dense rounded class="mt-16 pt-16">
           <v-list-item
-            v-if="!item.items"
+            v-for="(item, i) in memberItems"
             :key="i"
             :to="item.to"
             class="v-list-item"
@@ -84,47 +129,8 @@
             </v-list-item-action>
             <v-list-item-content v-text="item.title" />
           </v-list-item>
-
-          <v-list-group v-else :key="item.title" no-action>
-            <template v-slot:activator>
-              <v-list-item>
-                <v-list-item-action>
-                  <v-icon>{{ item.icon }}</v-icon>
-                </v-list-item-action>
-                <v-list-item-content>
-                  {{ item.title }}
-                </v-list-item-content>
-              </v-list-item>
-            </template>
-
-            <v-list-item
-              v-for="sub in item.items"
-              :key="sub.title"
-              :to="sub.to"
-            >
-              <v-list-item-action>
-                <v-icon>{{ sub.icon }}</v-icon>
-              </v-list-item-action>
-              <v-list-item-title v-text="sub.title" />
-            </v-list-item>
-          </v-list-group>
-        </div>
-      </v-list>
-
-      <!-- Member Menu -->
-      <v-list v-else nav dense rounded class="mt-16 pt-16">
-        <v-list-item
-          v-for="(item, i) in memberItems"
-          :key="i"
-          :to="item.to"
-          class="v-list-item"
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content v-text="item.title" />
-        </v-list-item>
-      </v-list>
+        </v-list>
+      </div>
 
       <!-- User Display -->
       <template v-slot:append>
@@ -183,12 +189,6 @@ import { mapGetters } from 'vuex'
 import { shortenAddress } from '~/helpers/shortenAddress'
 
 export default {
-  props: {
-    user: {
-      type: Object,
-      required: true,
-    },
-  },
   data() {
     return {
       drawer: true,
@@ -277,7 +277,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['walletAddress', 'connectionStatus']),
+    ...mapGetters(['walletAddress', 'connectionStatus', 'user']),
   },
   methods: {
     async signOut() {

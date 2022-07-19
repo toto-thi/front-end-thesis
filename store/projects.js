@@ -179,7 +179,7 @@ const actions = {
     }
     commit('setLoading', false)
   },
-  async approveProject({ commit, dispatch }, payload) {
+  async approveProject({ commit, dispatch }, uid) {
     commit('setLoading', true)
 
     let client = this.app.apolloProvider.defaultClient
@@ -189,8 +189,8 @@ const actions = {
         .mutate({
           mutation: APPROVE_PROJECT,
           variables: {
-            id: payload.id,
-            approval: payload.approval,
+            id: uid,
+            approval: true,
           },
         })
         .then(({ data }) => data && data.approveProject)
@@ -205,7 +205,7 @@ const actions = {
     }
     commit('setLoading', false)
   },
-  async rejectProject({ commit, dispatch }, payload) {
+  async rejectProject({ commit, dispatch }, uid) {
     commit('setLoading', true)
 
     let client = this.app.apolloProvider.defaultClient
@@ -215,8 +215,8 @@ const actions = {
         .mutate({
           mutation: REJECT_PROJECT,
           variables: {
-            id: payload.id,
-            rejection: payload.rejection,
+            id: uid,
+            rejection: true,
           },
         })
         .then(({ data }) => data && data.rejectProject)

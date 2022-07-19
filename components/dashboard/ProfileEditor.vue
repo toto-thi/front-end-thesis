@@ -248,6 +248,7 @@ export default {
       this.dob = this.userProfile.dob
       this.imgUrl = this.userProfile.imgUrl
       this.email = this.userProfile.email
+      this.password = ''
     },
   },
   mounted() {

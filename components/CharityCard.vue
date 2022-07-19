@@ -32,13 +32,13 @@
           color="primary"
           class="text-capitalize mx-16"
           rounded
-          @click="addDialog = true"
+          @click="createProject"
         >
           <h3>{{ $t('kCreateBtn') }}</h3>
           &nbsp;
           <v-icon>mdi-file-plus-outline</v-icon>
         </v-btn>
-        <add-project-dialog :status="addDialog" />
+        <add-project-dialog :status="addDialog" @closeDialog="closeDialog" />
       </v-row>
       <v-row justify="center" align="center" class="mt-16 mx-16">
         <v-data-iterator
@@ -150,7 +150,7 @@ import ShortText from '~/utils/ShortText.vue'
 export default {
   name: 'CharityPage',
   computed: {
-    ...mapGetters(['approved']),
+    ...mapGetters(['approved', 'user']),
     totalPage() {
       return Math.ceil(this.approved.length / this.perPage)
     },
@@ -168,6 +168,18 @@ export default {
   methods: {
     calPercentage(donateVal, maxVal) {
       return (donateVal * 100) / maxVal
+    },
+    createProject() {
+      console.log('status: ', Object.keys(this.user).length === 0)
+      if (Object.keys(this.user).length === 0) {
+        // change to dialog box later
+        return alert('Please login to continue...')
+      } else {
+        this.addDialog = true
+      }
+    },
+    closeDialog() {
+      this.addDialog = false
     },
   },
   components: { ShortText },

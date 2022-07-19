@@ -244,9 +244,9 @@ export default {
       ],
       memberItems: [
         {
-          icon: 'mdi-home-variant-outline',
-          title: 'Home',
-          to: '/dashboard/member/main',
+          icon: 'mdi-face-man-profile',
+          title: 'Profile',
+          to: '/dashboard/profile',
         },
         {
           icon: 'mdi-chart-box-outline',

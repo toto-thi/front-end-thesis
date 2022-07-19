@@ -2,7 +2,7 @@
   <div>
     <div>
       <v-row justify="center" dense height="100vh">
-        <v-col cols="8" xl="8" sm="8" md="8" class="px-16">
+        <v-col cols="10" xl="10" sm="8" md="8" class="px-16">
           <v-app-bar flat elevate-on-scroll class="white">
             <v-app-bar-nav-icon
               @click.stop="drawer = !drawer"
@@ -93,9 +93,6 @@
             </v-form>
           </v-card>
         </v-col>
-        <v-col cols="4" xl="4" class="hidden-sm-and-down">
-          <v-sheet color="#44496c" height="100%" rounded="xl"> </v-sheet>
-        </v-col>
       </v-row>
     </div>
   </div>
@@ -132,8 +129,10 @@ export default {
 
       if (this.user.role === 'admin') {
         this.$router.push('/dashboard/main')
+      } else if(this.user.role === 'member') {
+        this.$router.push('/dashboard/profile')
       } else {
-        this.$router.push('/dashboard/member/main')
+        this.$router.push('/Login')
       }
     },
   },

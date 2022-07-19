@@ -148,7 +148,7 @@ export default {
       return `${month}/${day}/${year}`
     },
     closeDialog() {
-      this.status = false
+      this.$emit('closeDialog')
     },
     async uploadImg() {
         //operation here

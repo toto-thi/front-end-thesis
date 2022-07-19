@@ -1,15 +1,25 @@
 <template>
   <v-container>
-    <h1>This is member project list in dashboard</h1>
+    <member-project-card :createdProject="createdProject" />
   </v-container>
 </template>
 
 <script>
 export default {
-    layout: 'dashboard'
+  layout: 'dashboard',
+  data() {
+    return {
+      createdProject: null,
+    }
+  },
+  async mounted() {
+    const uid = this.$store.getters.user.id
+    const response = await this.$store.dispatch('getProjectByCreator', uid)
+
+    this.createdProject = response
+  },
 }
 </script>
 
 <style>
-
 </style>

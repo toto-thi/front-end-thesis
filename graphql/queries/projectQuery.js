@@ -55,6 +55,10 @@ export const GET_PROJECT_BY_CREATOR = gql`
   query GetProjectByCreator($uid: ID!) {
     getProjectByCreator(uid: $uid) {
       ...ProjectData
+      isApproved
+      isClose
+      isRejected
+      isPending
     }
   }
 `

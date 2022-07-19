@@ -94,8 +94,16 @@ const actions = {
     let client = this.app.apolloProvider.defaultClient
 
     try {
-      const resp = await fetchProjectById(client, GET_PROJECT_BY_CREATOR, uid)
-      return resp.getProjectByCreator
+      const response = await client
+        .query({
+          query: GET_PROJECT_BY_CREATOR,
+          variables: {
+            uid: uid,
+          },
+        })
+        .then(({ data }) => data.getProjectByCreator)
+
+      return response
     } catch (err) {
       console.error(err)
     }

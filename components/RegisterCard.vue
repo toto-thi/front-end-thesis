@@ -240,6 +240,8 @@ export default {
       }
 
       await this.$store.dispatch('signUp', newUser)
+      
+      this.$router.push('/')
     },
   },
   computed: {

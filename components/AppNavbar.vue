@@ -1,89 +1,91 @@
 <template>
   <nav>
     <v-app-bar flat app elevate-on-scroll v class="white">
-      <v-app-bar-nav-icon
-        @click.stop="drawer = !drawer"
-        class="hidden-md-and-up"
-      />
-      <nuxt-link to="/">
-        <v-img
-          to="/"
-          src="/Logo.png"
-          contain
-          max-height="150"
-          max-width="150"
-        ></v-img>
-      </nuxt-link>
+      <v-row align="center">
+        <v-app-bar-nav-icon
+          @click.stop="drawer = !drawer"
+          class="hidden-md-and-up"
+        />
+        <nuxt-link to="/">
+          <v-img
+            to="/"
+            src="/Logo.png"
+            contain
+            max-height="150"
+            max-width="150"
+          ></v-img>
+        </nuxt-link>
 
-      <v-spacer />
-      <v-btn
-        plain
-        rounded
-        color="white--text"
-        class="mx-2 hidden-md-and-down"
-        nuxt
-        to="/charityPage"
-      >
-        <span class="text-capitalize">{{ $t('kCharityProject') }}</span>
-      </v-btn>
-      <v-btn
-        plain
-        rounded
-        color="white--text"
-        class="mx-2 hidden-md-and-down"
-        nuxt
-        to="/about"
-      >
-        <span class="text-capitalize">{{ $t('kAboutUs') }}</span>
-      </v-btn>
+        <v-spacer />
+        <v-btn
+          plain
+          rounded
+          color="white--text"
+          class="mx-2 hidden-md-and-down"
+          nuxt
+          to="/charityPage"
+        >
+          <span class="text-capitalize">{{ $t('kCharityProject') }}</span>
+        </v-btn>
+        <v-btn
+          plain
+          rounded
+          color="white--text"
+          class="mx-2 hidden-md-and-down"
+          nuxt
+          to="/about"
+        >
+          <span class="text-capitalize">{{ $t('kAboutUs') }}</span>
+        </v-btn>
 
-      <v-menu open-on-hover offset-y close-on-content-click>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            class="mx-2 hidden-md-and-down"
-            plain
-            icon
-            v-bind="attrs"
-            v-on="on"
-          >
-            <v-icon>mdi-web</v-icon>
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="onChange('en')">
+        <v-menu open-on-hover offset-y close-on-content-click>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              class="mx-2 hidden-md-and-down"
+              plain
+              icon
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-web</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="onChange('en')">
               <v-list-item-title>English</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="onChange('la')">
+            </v-list-item>
+            <v-list-item @click="onChange('la')">
               <v-list-item-title>ລາວ</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+            </v-list-item>
+          </v-list>
+        </v-menu>
 
-      <v-btn
-        v-if="!authenticated"
-        plain
-        rounded
-        outlined
-        color="white--text #primary"
-        class="mx-2 hidden-md-and-down"
-        nuxt
-        to="/Login"
-      >
-        <span class="text-capitalize">{{ $t('kLogin') }}</span>
-      </v-btn>
-      <v-btn
-        v-if="!authenticated"
-        rounded
-        color="primary"
-        class="white--text hidden-md-and-down"
-        nuxt
-        to="/Register"
-      >
-        <span class="text-capitalize">{{ $t('kRegister') }}</span>
-      </v-btn>
-
-      <v-divider vertical v-if="authenticated" />
-      <MenuUser v-if="authenticated" :user="user" />
+        <div v-if="!authenticated" class="justify-center align-center">
+          <v-btn
+            plain
+            rounded
+            outlined
+            color="white--text #primary"
+            class="mx-2 hidden-md-and-down"
+            nuxt
+            to="/login"
+          >
+            <span class="text-capitalize">{{ $t('kLogin') }}</span>
+          </v-btn>
+          <v-btn
+            rounded
+            color="primary"
+            class="white--text hidden-md-and-down"
+            nuxt
+            to="/register"
+          >
+            <span class="text-capitalize">{{ $t('kRegister') }}</span>
+          </v-btn>
+        </div>
+        <div v-if="authenticated">
+          <MenuUser :user="user" />
+        </div>
+      </v-row>
     </v-app-bar>
 
     <!-- for mobile only -->
@@ -124,7 +126,7 @@
                 color="white--text"
                 class="hidden-md-and-up mb-2"
                 nuxt
-                to="/Login"
+                to="/login"
               >
                 <span class="text-capitalize">Login</span>
               </v-btn>
@@ -134,7 +136,7 @@
                 color="#44496c"
                 class="hidden-md-and-up white--text"
                 nuxt
-                to="/Register"
+                to="/register"
               >
                 <span class="text-capitalize">Register</span>
               </v-btn>
@@ -180,7 +182,7 @@ export default {
   methods: {
     onChange(code) {
       return this.$i18n.setLocale(code)
-    }
+    },
   },
 }
 </script>

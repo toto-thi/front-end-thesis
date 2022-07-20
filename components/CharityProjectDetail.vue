@@ -59,7 +59,11 @@
                 </v-btn>
               </v-card-actions>
             </v-card>
-            <DonationBox :status="donateDialog" :data="tempData" @closeBox="closeDialog" />
+            <DonationBox
+              :status="donateDialog"
+              :data="tempData"
+              @closeBox="closeDialog"
+            />
           </v-row>
         </v-col>
         <v-col cols="3">
@@ -220,6 +224,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import DonationBox from '@/components/DonationBox.vue'
 
 export default {
@@ -230,6 +235,7 @@ export default {
       type: Object,
     },
   },
+  computed: { ...mapGetters(['authenticated']) },
   data() {
     return {
       donateDialog: false,
@@ -253,19 +259,20 @@ export default {
   },
   methods: {
     donationBox() {
-      //check if user is login or not
+      if (this.authenticated == false) {
+        alert('Please login to proceed')
+      } else {
+        this.donateDialog = true
+        const data = {
+          id: this.project.id,
+          walletID: this.$store.getters.walletAddress,
+          userID: this.$store.getters.user.id,
+          targetWallet: 'aikhsdoiigo989g8t9gvi9w2',
+        }
 
-      this.donateDialog = true
-
-      const data = {
-        id: this.project.id,
-        walletID: this.$store.getters.walletAddress,
-        userID: this.$store.getters.user.id,
-        targetWallet: 'aikhsdoiigo989g8t9gvi9w2',
+        this.tempData = Object.assign({}, data)
+        console.log('test send data', this.tempData)
       }
-
-      this.tempData = Object.assign({}, data)
-      console.log('test send data', this.tempData)
     },
     closeDialog() {
       this.donateDialog = false

@@ -1,8 +1,16 @@
 <template>
   <nav>
-    <v-app-bar flat app dense class="white" prominent :clipped-left="true">
+    <v-app-bar
+      flat
+      app
+      dense
+      class="white"
+      prominent
+      :clipped-left="true"
+      max-height="100px"
+    >
       <v-row class="mt-2 text-center">
-        <v-col cols="2" class="pl-16">
+        <v-col cols="2">
           <nuxt-link to="/">
             <v-img
               to="/"
@@ -13,7 +21,7 @@
             ></v-img>
           </nuxt-link>
         </v-col>
-        <v-col cols="2" class="">
+        <v-col cols="2" align-self="center">
           <span class="headline font-weight-black">{{
             dashboardTitle(user.role)
           }}</span>
@@ -23,29 +31,31 @@
           >
         </v-col>
         <v-spacer />
-        <v-col cols="2" class="text-start" align-self="end">
-          <v-select
-            dense
-            outlined
-            item-text="name"
-            item-value="value"
-            :items="langs"
-            v-model="defaultLang"
-            class="text-left"
-          >
-            <template v-slot:selection="{ item }">
-              <v-img
-                :src="item.langImg"
-                contain
-                height="24px"
-                width="24px"
-              ></v-img>
-              <span>{{ item.value }}</span>
+        <v-col cols="1" class="text-start" align-self="center">
+          <v-menu open-on-hover offset-y close-on-content-click>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                class="mx-2 hidden-md-and-down"
+                plain
+                icon
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-web</v-icon>
+              </v-btn>
             </template>
-          </v-select>
+            <v-list>
+              <v-list-item @click="onChange('en')">
+                <v-list-item-title>English</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="onChange('la')">
+                <v-list-item-title>ລາວ</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
         </v-col>
-        <v-col cols="1" class="mt-1">
-          <div v-if="user.walletID === ''">
+        <v-col cols="1" class="mr-16" align-self="center">
+          <div v-if="user.walletID === null">
             <v-btn
               @click="connectWallet(walletAddress)"
               color="primary"
@@ -302,8 +312,7 @@ export default {
       if (role === 'admin') return 'Admin Dashboard'
       else return 'Dashboard'
     },
-    switchLang(code) {
-      console.log('lang code', code)
+    onChange(code) {
       return this.$i18n.setLocale(code)
     },
   },

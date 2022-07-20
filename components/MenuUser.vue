@@ -4,14 +4,14 @@
       <template v-slot:activator="{ attrs, on }">
         <v-btn
           color="primary"
-          class="white--text ma-5"
+          class="white--text text-capitalize mt-0"
           rounded
           v-bind="attrs"
           v-on="on"
-          height="56"
+          height="48"
         >
           {{ user.firstname }}
-          <v-avatar size="32" class="ma-2">
+          <v-avatar size="32">
             <img :src="user.imgUrl" :alt="user.firstname" />
           </v-avatar>
         </v-btn>

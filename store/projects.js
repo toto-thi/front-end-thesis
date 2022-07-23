@@ -179,8 +179,10 @@ const actions = {
     }
     commit('setLoading', false)
   },
-  async approveProject({ commit, dispatch }, uid) {
+  async approveProject({ commit, dispatch }, info) {
     commit('setLoading', true)
+
+    console.log('check data: ', info)
 
     let client = this.app.apolloProvider.defaultClient
 
@@ -189,8 +191,9 @@ const actions = {
         .mutate({
           mutation: APPROVE_PROJECT,
           variables: {
-            id: uid,
+            id: info.uid,
             approval: true,
+            contractAddress: info.contractAddress
           },
         })
         .then(({ data }) => data && data.approveProject)

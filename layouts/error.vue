@@ -1,16 +1,23 @@
 <template>
   <v-app dark>
-    <v-row justify="center" align="center">
-      <h1 v-if="error.statusCode === 404">
-        {{ pageNotFound }}
-      </h1>
-      <h1 v-else>
+    <div v-if="error.statusCode === 404">
+      <v-row justify="center" align="center">
+        <h1 class="text-center">
+          <v-img contain src="/bug-fix-img.svg" max-height="40vh"> </v-img>
+          {{ pageNotFound }}
+        </h1>
+      </v-row>
+      <v-row justify="center" align="center">
+        <h1>
+          <NuxtLink to="/"> Home page </NuxtLink>
+        </h1>
+      </v-row>
+    </div>
+    <div v-else>
+      <h1>
         {{ otherError }}
       </h1>
-      <h1>
-        <NuxtLink to="/"> Home page </NuxtLink>
-      </h1>
-    </v-row>
+    </div>
   </v-app>
 </template>
 

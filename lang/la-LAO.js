@@ -61,6 +61,7 @@ export default async (context, locale) => {
     kPassword: 'ລະຫັດຜ່ານ',
     kProjectCount: 'ໂຄງການ',
     kProjectActiveCount: 'ໂຄງການທີ່ກຳລັງຮັບບໍລິຈາກ',
+    kProjectAddress: 'ທີ່ຢູ່ຂອງສັນຍາ',
     kProjectTitle: 'ຊື່ໂຄງການ',
     kProjectDescription: 'ລາຍລະອຽດ',
     kProjectDetail: 'ລາຍລະອຽດໂຄງການ',

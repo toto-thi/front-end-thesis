@@ -2,8 +2,8 @@ import { PROJECT_FRAGMENT } from '../fragments'
 import gql from 'graphql-tag'
 
 export const APPROVE_PROJECT = gql`
-  mutation ApproveProject($id: ID!, $approval: Boolean!) {
-    approveProject(id: $id, approval: $approval)
+  mutation ApproveProject($id: ID!, $approval: Boolean!, $contractAddress: String!) {
+    approveProject(id: $id, approval: $approval, contractAddress: $contractAddress)
   }
 `
 export const REJECT_PROJECT = gql`

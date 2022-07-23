@@ -61,6 +61,7 @@ export default async (context, locale) => {
     kPassword: 'Password',
     kProjectCount: 'Projects',
     kProjectActiveCount: 'active projects',
+    kProjectAddress: 'Blockchain Address',
     kProjectTitle: 'Title',
     kProjectDescription: 'Description',
     kProjectDetail: 'project Details',

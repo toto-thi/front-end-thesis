@@ -50,6 +50,11 @@
             readonly
             outlined
           ></v-text-field>
+          <v-text-field
+            v-model="contractAddress"
+            :label="$t('kProjectAddress')"
+            outlined
+          ></v-text-field>
         </v-card-text>
         <v-card-actions>
           <v-btn color="success" large @click="approve">
@@ -65,9 +70,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-   <v-overlay :value="overlay">
-    <v-progress-circular indeterminate size="64"></v-progress-circular>
-   </v-overlay>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 <script>
@@ -84,29 +89,40 @@ export default {
   },
   data() {
     return {
-      overlay: false
+      overlay: false,
+      contractAddress: '',
     }
   },
   watch: {
     overlay(val) {
-      val && setTimeout(() => {
-        this.overlay = false
-      }, 3000)
-    }
+      val &&
+        setTimeout(() => {
+          this.overlay = false
+        }, 3000)
+    },
   },
   methods: {
     closeDialog() {
       this.$emit('closeMe')
     },
     async approve() {
+      const newInfo = {
+        uid: this.items.id,
+        contractAddress: this.contractAddress,
+      }
       this.overlay = true
-      await this.$store.dispatch('approveProject', this.items.id)
+      await this.$store.dispatch('approveProject', newInfo)
       this.status = false
+
+      this.items = {}
+      this.contractAddress = ''
     },
     async reject() {
       this.overlay = true
       await this.$store.dispatch('rejectProject', this.items.id)
       this.status = false
+      this.items = {}
+      this.contractAddress = ''
     },
   },
 }

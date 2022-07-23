@@ -57,7 +57,7 @@
         <v-col cols="1" class="mr-16" align-self="center">
           <div v-if="user.walletID === null">
             <v-btn
-              @click="connectWallet(walletAddress)"
+              @click="connectWallet(user.walletID)"
               color="primary"
               rounded
               large
@@ -287,7 +287,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['walletAddress', 'connectionStatus', 'user']),
+    ...mapGetters(['user']),
   },
   methods: {
     async signOut() {
@@ -295,12 +295,12 @@ export default {
       this.$router.push('/login')
     },
     async connectWallet(address) {
-      await this.$store.dispatch('connectWallet', address)
+      const resp = await this.$store.dispatch('connectWallet', address)
 
       const walletDetail = {
         id: this.user.id,
         detail: {
-          walletID: this.walletAddress,
+          walletID: resp,
         },
       }
       await this.$store.dispatch('updateUser', walletDetail)

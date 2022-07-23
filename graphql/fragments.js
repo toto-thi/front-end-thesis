@@ -19,6 +19,7 @@ export const PROJECT_FRAGMENT = gql`
     id
     title
     description
+    contractAddress
     location
     imageList
     startDate
@@ -30,6 +31,7 @@ export const PROJECT_FRAGMENT = gql`
       firstname
       lastname
       imgUrl
+      walletID
     }
   }
 `

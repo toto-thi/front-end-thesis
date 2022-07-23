@@ -145,6 +145,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import Swal from 'sweetalert2'
 import ShortText from '~/utils/ShortText.vue'
 
 export default {
@@ -171,8 +172,10 @@ export default {
     },
     createProject() {
       if (Object.keys(this.user).length === 0) {
-        // change to dialog box later
-        return alert('Please login to continue...')
+        Swal.fire({
+          title: 'Warning',
+          text: 'Please login to proceed...'
+        })
       } else {
         this.addDialog = true
       }

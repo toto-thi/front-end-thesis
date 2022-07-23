@@ -1,5 +1,6 @@
 import { GET_ALL_USERS } from '~/graphql/queries/userQuery'
 import { UPDATE_USER } from '~/graphql/mutations/userMutate'
+import { connectMetaMask } from '~/helpers/connectMetaMask'
 
 const state = {
   users: [],
@@ -16,6 +17,12 @@ const mutations = {
 }
 
 const actions = {
+  async connectWallet({ commit }, address) {
+    const res = await connectMetaMask(address)
+
+    console.log('check response', res)
+    return res
+  },
   async getAllUsers({ commit }) {
     let client = this.app.apolloProvider.defaultClient
 

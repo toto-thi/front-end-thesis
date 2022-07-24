@@ -62,8 +62,9 @@
               rounded
               large
               class="text-capitalize"
-              >{{ $t('kConnectWallet') }}</v-btn
             >
+              {{ $t('kConnectWallet') }}
+            </v-btn>
           </div>
           <div v-else-if="user.walletID">
             <v-btn large color="primary" rounded>

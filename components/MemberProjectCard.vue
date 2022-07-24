@@ -43,6 +43,19 @@
                     }}
                   </h4>
                 </v-row>
+                <br />
+                <v-card-actions>
+                  <v-spacer />
+                  <v-btn
+                    class="text-capitalize"
+                    color="yellow"
+                    rounded
+                    @click="sendData(project)"
+                  >
+                    <v-icon small>mdi-pencil</v-icon> &nbsp;
+                    {{ $t('kEdit') }}
+                  </v-btn>
+                </v-card-actions>
               </v-card-text>
             </v-card>
           </v-row>
@@ -57,6 +70,11 @@
           </v-row>
         </template>
       </v-data-iterator>
+      <EditProjectDialog
+        :status="editDialog"
+        :item="tempData"
+        :closeDialog="closeDialog"
+      />
     </div>
     <div v-else-if="createdProject === null">
       <v-row align="center" justify="center" class="mx-4 mr-4">
@@ -81,9 +99,10 @@
 
 <script>
 import ShortText from '~/utils/ShortText.vue'
+import EditProjectDialog from './editProjectDialog.vue'
 
 export default {
-  components: { ShortText },
+  components: { ShortText, EditProjectDialog },
   props: {
     createdProject: {
       type: Array,
@@ -94,6 +113,8 @@ export default {
     return {
       page: 1,
       perPage: 4,
+      editDialog: false,
+      tempData: {},
     }
   },
   computed: {
@@ -107,6 +128,13 @@ export default {
       if (reject) return 'Rejected'
       if (pending) return 'Pending'
       if (close) return 'Close'
+    },
+    closeDialog() {
+      this.editDialog = false
+    },
+    sendData(item) {
+      this.editDialog = true
+      this.tempData = Object.assign({}, item)
     },
   },
 }

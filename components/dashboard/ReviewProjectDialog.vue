@@ -53,6 +53,8 @@
           <v-text-field
             v-model="contractAddress"
             :label="$t('kProjectAddress')"
+            persistent-hint
+            hint="0xCff... 42characters address"
             outlined
           ></v-text-field>
         </v-card-text>

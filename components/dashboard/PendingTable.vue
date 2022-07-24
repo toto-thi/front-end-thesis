@@ -72,7 +72,6 @@ export default {
     return {
       reviewDialog: false,
       loading: false,
-      reviewPID: '',
       reviewData: {},
       headers: [
         {
@@ -122,7 +121,6 @@ export default {
   methods: {
     reviewProject(item) {
       this.reviewDialog = true
-      this.reviewPID = item.id
       this.reviewData = Object.assign({}, item)
     },
     closeDialog() {

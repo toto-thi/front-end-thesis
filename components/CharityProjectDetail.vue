@@ -30,6 +30,10 @@
                 <h3>{{ $t('kStory') }}:</h3>
                 <br />
                 {{ project.description }}. <br />
+                <h3 class="mt-4">
+                  <v-icon>mdi-map-marker</v-icon>
+                  {{ project.location }}
+                </h3>
                 <v-carousel
                   cycle
                   hide-delimiter-background
@@ -108,10 +112,6 @@
                   </h3>
                 </v-col>
               </v-row>
-              <h4 class="mt-4">
-                <v-icon>mdi-map-marker</v-icon>
-                {{ project.location }}
-              </h4>
             </v-card-text>
             <v-card-text class="mt-10 px-4 mx-4 text-capitalize">
               <h2 class="font-weight-black">{{ $t('kShareTitle') }}</h2>
@@ -225,7 +225,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Swal from 'sweetalert2'
 import DonationBox from '@/components/DonationBox.vue'
 
 export default {
@@ -261,10 +260,7 @@ export default {
   methods: {
     donationBox() {
       if (this.authenticated == false) {
-        Swal.fire({
-          title: 'Warning',
-          text: 'Please login to proceed...',
-        })
+        this.$router.push('/login')
       } else {
         this.donateDialog = true
         const senderWalletID = this.$store.getters.user.walletID

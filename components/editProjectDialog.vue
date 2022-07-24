@@ -9,25 +9,25 @@
           <v-container>
             <v-text-field
               :label="$t('kProjectTitle')"
-              v-model="title"
+              v-model="item.title"
               outlined
             ></v-text-field>
             <v-textarea
               :label="$t('kProjectDetail')"
-              v-model="description"
+              v-model="item.description"
               textarea
               outlined
               counter
             ></v-textarea>
             <v-text-field
-              v-model="targetAmount"
+              v-model="item.targetAmount"
               :label="$t('kTargetAmount')"
               prepend-inner-icon="mdi-ethereum"
               outlined
               type="number"
             ></v-text-field>
             <v-text-field
-              v-model="location"
+              v-model="item.location"
               :label="$t('kLocation')"
               prepend-inner-icon="mdi-map-marker-multiple"
               :hint="$t('kLocationHint')"
@@ -56,14 +56,10 @@
                 ></v-text-field>
               </template>
               <v-date-picker
-                v-model="startDate"
+                v-model="item.startDate"
                 no-title
                 max="2050-01-01"
-                :min="
-                  new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-                    .toISOString()
-                    .substr(0, 10)
-                "
+                min="2020-01-01"
                 @input="menuStartDate = !menuStartDate"
               ></v-date-picker>
             </v-menu>
@@ -90,7 +86,7 @@
                 ></v-text-field>
               </template>
               <v-date-picker
-                v-model="endDate"
+                v-model="item.endDate"
                 no-title
                 max="2050-01-01"
                 :min="
@@ -113,8 +109,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" text @click="makeRequest">{{
-            $t('kMakeRequest')
+          <v-btn color="primary" text @click="editProjectData">{{
+            $t('kUpdateBtn')
           }}</v-btn>
           <v-btn color="error" text @click="closeDialog">
             {{ $t('kCancelBtn') }}
@@ -132,34 +128,51 @@ export default {
       type: Boolean,
       required: true,
     },
+    item: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
       menuStartDate: false,
       menuEndDate: false,
-      startDate: '',
-      endDate: '',
-      title: '',
-      description: '',
-      location: '',
-      targetAmount: '',
-      imgUrl: null,
+      editedItem: {
+        startDate: '',
+        endDate: '',
+        title: '',
+        description: '',
+        location: '',
+        targetAmount: null,
+        imgUrl: null,
+      },
     }
   },
   methods: {
-    async makeRequest() {
-      this.status = false
+    async editProjectData() {
+      // this.status = false
+      this.editedItem = Object.assign({}, this.item)
 
-      const newData = {
-        title: this.title,
-        description: this.description,
-        startDate: this.startDate,
-        endDate: this.endDate,
-        location: this.location,
-        targetAmount: parseInt(this.targetAmount),
-        imageList: this.imgUrl,
+      const updateData = {
+        pid: this.item.id,
+        data: {
+          startDate: this.editedItem.startDate,
+          endDate: this.editedItem.endDate,
+          title: this.editedItem.title,
+          description: this.editedItem.description,
+          location: this.editedItem.location,
+          targetAmount: parseFloat(this.editedItem.targetAmount),
+          imageList: this.editedItem.imgUrl,
+        },
       }
-      await this.$store.dispatch('createProject', newData)
+
+      console.log('check update data', updateData)
+
+      await this.$store.dispatch('updateProject', updateData)
+
+      this.editedItem = {}
+      this.item = {}
+      this.closeDialog()
     },
     formatDate(date) {
       if (!date) return null
@@ -169,6 +182,7 @@ export default {
     },
     closeDialog() {
       this.$emit('closeDialog')
+      this.status = false
     },
     async uploadImg() {
       //operation here
@@ -176,10 +190,10 @@ export default {
   },
   computed: {
     startDateFormatted() {
-      return this.formatDate(this.startDate)
+      return this.formatDate(this.item.startDate)
     },
     endDateFormatted() {
-      return this.formatDate(this.endDate)
+      return this.formatDate(this.item.endDate)
     },
   },
 }

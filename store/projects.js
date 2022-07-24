@@ -11,6 +11,7 @@ import {
   APPROVE_PROJECT,
   REJECT_PROJECT,
   CREATE_PROJECT,
+  UPDATE_PROJECT,
 } from '~/graphql/mutations/projectMutate'
 
 import { fetchProjects, fetchProjectById } from '~/helpers/getAPI'
@@ -155,7 +156,6 @@ const actions = {
   async createProject({ commit, dispatch }, payload) {
     commit('setLoading', true)
 
-    console.log('payload', payload)
     let client = this.app.apolloProvider.defaultClient
 
     try {
@@ -167,8 +167,6 @@ const actions = {
           },
         })
         .then(({ data }) => data && data.addProject)
-
-      console.log('check response: ', JSON.stringify(res))
 
       if (!!res) {
         await dispatch('getPendingProject')
@@ -193,7 +191,7 @@ const actions = {
           variables: {
             id: info.uid,
             approval: true,
-            contractAddress: info.contractAddress
+            contractAddress: info.contractAddress,
           },
         })
         .then(({ data }) => data && data.approveProject)
@@ -230,6 +228,31 @@ const actions = {
       }
     } catch (err) {
       console.error(err)
+    }
+
+    commit('setLoading', false)
+  },
+  async updateProject({ commit, dispatch }, payload) {
+    commit('setLoading', true)
+
+    console.log('check payload: ', payload)
+    
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const resp = await client.mutate({
+        mutation: UPDATE_PROJECT,
+        variables: {
+          id: payload.pid,
+          projectInput: payload.data,
+        },
+      })
+
+      if (!!resp) {
+        await dispatch('getAllProjects')
+      }
+    } catch (err) {
+      console.error(err.message)
     }
 
     commit('setLoading', false)

@@ -48,7 +48,7 @@
           hide-default-footer
         >
           <template v-slot:default="props">
-            <v-row>
+            <v-row justify="center" align="center">
               <v-col
                 cols="4"
                 xl="4"
@@ -65,12 +65,11 @@
                   <v-card
                     color="primary"
                     class="white--text mb-10 mx-10 rounded-xl"
+                    width="100%"
+                    height="40vh"
                   >
-                    <v-card-title>
-                      <v-avatar>
-                        <v-img :src="project.imgUrl"></v-img>
-                      </v-avatar>
-                      <span class="subheadline ml-3"> {{ project.title }}</span>
+                    <v-card-title class="justify-center">
+                      <span class="subheadline"> {{ project.title }}</span>
                     </v-card-title>
                     <v-divider color="white"></v-divider>
                     <v-card-text class="white--text">
@@ -145,7 +144,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Swal from 'sweetalert2'
 import ShortText from '~/utils/ShortText.vue'
 
 export default {
@@ -172,10 +170,7 @@ export default {
     },
     createProject() {
       if (Object.keys(this.user).length === 0) {
-        Swal.fire({
-          title: 'Warning',
-          text: 'Please login to proceed...'
-        })
+        this.$router.push('/login')
       } else {
         this.addDialog = true
       }

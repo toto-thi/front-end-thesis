@@ -105,6 +105,8 @@ const sendTransaction = async (inputData) => {
 
       const transactionCount = await transactionsContract.getTransactionCount()
 
+      console.log('check response after add to blockchain: ', transactionHash)
+
       return [transactionHash.hash, transactionCount.toNumber()]
     }
   } catch (err) {
@@ -112,9 +114,9 @@ const sendTransaction = async (inputData) => {
   }
 }
 
-export default [
+export default {
   checkIfTransactionIsExists,
-  getAllTransactions,
   checkIfWalletIsConnected,
+  getAllTransactions,
   sendTransaction,
-]
+}

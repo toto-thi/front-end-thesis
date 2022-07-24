@@ -23,6 +23,7 @@ export default async (context, locale) => {
     kDialogApprove: 'ທ່ານໝັ້ນໃຈແລ້ວບໍ່ທີ່ຈະອະນຸມັດຄຳຮ້ອງຂໍຂອງໂຄງການນີ້?',
     kDialogReject: 'ທ່ານໝັ້ນໃຈແລ້ວບໍ່ທີ່ຈະປະຕິເສດຄຳຮ້ອງຂໍຂອງໂຄງການນີ້?',
     kEmail: 'ອີເມວ',
+    kEdit: 'ແກ້ໄຂ',
     kExpectAmount: 'ຍອດບໍລິຈາກທີ່ຕ້ອງການ',
     kFooterAbout: 'ກ່ຽວກັບ',
     kFooterAboutText: 'ໂຄງການນີ້ເຮັດຂື້ນມາເພື່ອວິທະຍານິພົນເທົ່ານັ້ນ ',

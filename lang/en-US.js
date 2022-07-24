@@ -23,6 +23,7 @@ export default async (context, locale) => {
     kDialogApprove: 'Are you sure you want to approve this project?',
     kDialogReject: 'Are you sure you want to reject this project?',
     kEmail: 'Email',
+    kEdit: 'Edit',
     kExpectAmount: 'expected amount',
     kFooterAbout: 'About',
     kFooterAboutText: 'This project is for Thesis purpose only',

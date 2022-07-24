@@ -55,7 +55,7 @@
           </v-menu>
         </v-col>
         <v-col cols="1" class="mr-16" align-self="center">
-          <div v-if="user.walletID === null">
+          <div v-if="user.walletID === null || user.walletID === ''">
             <v-btn
               @click="connectWallet(user.walletID)"
               color="primary"
@@ -304,7 +304,11 @@ export default {
           walletID: resp,
         },
       }
-      await this.$store.dispatch('updateUser', walletDetail)
+
+      if (!!resp) {
+        await this.$store.dispatch('updateUser', walletDetail)
+        await this.$store.dispatch('getCurrentUser', this.user.id)
+      }
     },
     shortAddress(address) {
       return shortenAddress(address)

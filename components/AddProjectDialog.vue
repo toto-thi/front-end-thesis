@@ -148,8 +148,6 @@ export default {
   },
   methods: {
     async makeRequest() {
-      this.status = false
-
       const newData = {
         title: this.title,
         description: this.description,
@@ -159,7 +157,17 @@ export default {
         targetAmount: parseInt(this.targetAmount),
         imageList: this.imgUrl,
       }
+
       await this.$store.dispatch('createProject', newData)
+
+      this.title = ''
+      this.description = ''
+      this.startDate = ''
+      this.endDate = ''
+      this.location = '',
+      this.targetAmount = '',
+      this.imgUrl = ''
+      this.closeDialog()
     },
     formatDate(date) {
       if (!date) return null

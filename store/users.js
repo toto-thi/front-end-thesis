@@ -17,10 +17,9 @@ const mutations = {
 }
 
 const actions = {
-  async connectWallet({ commit }, address) {
+  async connectWallet(address) {
     const res = await connectMetaMask(address)
 
-    console.log('check response', res)
     return res
   },
   async getAllUsers({ commit }) {

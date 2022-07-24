@@ -112,7 +112,7 @@ const sendTransaction = async (inputData) => {
   }
 }
 
-module.exports = [
+export default [
   checkIfTransactionIsExists,
   getAllTransactions,
   checkIfWalletIsConnected,

@@ -267,12 +267,17 @@ export default {
         })
       } else {
         this.donateDialog = true
+        const senderWalletID = this.$store.getters.user.walletID
+        const targetWallet = this.project.createdBy.walletID
+        const uid = this.$store.getters.user.id
+        const cAddress = this.project.contractAddress
+
         const data = {
           id: this.project.id,
-          walletID: this.$store.getters.walletAddress,
-          userID: this.$store.getters.user.id,
-          targetWallet: this.project.createdBy.walletID,
-          contractAddress: this.project.contractAddress
+          sender: senderWalletID,
+          userID: uid,
+          targetWallet: targetWallet,
+          contractAddress: cAddress,
         }
 
         this.tempData = Object.assign({}, data)

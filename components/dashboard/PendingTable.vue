@@ -109,7 +109,7 @@ export default {
           width: '1%',
         },
         {
-          text: 'Approval',
+          text: 'Review',
           align: 'center',
           value: 'approval',
           sortable: false,

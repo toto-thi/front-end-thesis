@@ -118,6 +118,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+     <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -135,6 +138,7 @@ export default {
   },
   data() {
     return {
+      overlay: false,
       menuStartDate: false,
       menuEndDate: false,
       editedItem: {
@@ -150,7 +154,7 @@ export default {
   },
   methods: {
     async editProjectData() {
-      // this.status = false
+      this.overlay = true
       this.editedItem = Object.assign({}, this.item)
 
       const updateData = {
@@ -165,8 +169,6 @@ export default {
           imageList: this.editedItem.imgUrl,
         },
       }
-
-      console.log('check update data', updateData)
 
       await this.$store.dispatch('updateProject', updateData)
 
@@ -186,6 +188,14 @@ export default {
     },
     async uploadImg() {
       //operation here
+    },
+  },
+  watch: {
+     overlay(val) {
+      val &&
+        setTimeout(() => {
+          this.overlay = false
+        }, 3000)
     },
   },
   computed: {

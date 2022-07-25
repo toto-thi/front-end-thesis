@@ -66,7 +66,6 @@
                     color="primary"
                     class="white--text mb-10 mx-10 rounded-xl"
                     width="100%"
-                    height="40vh"
                   >
                     <v-card-title class="justify-center">
                       <span class="subheadline"> {{ project.title }}</span>
@@ -78,6 +77,8 @@
                     <v-card-text class="white--text text-capitalize">
                       {{ $t('kProjectStart') }}: {{ project.startDate }} <br />
                       {{ $t('kProjectClose') }}: {{ project.endDate }} <br />
+                      {{ $t('kTargetAmount') }}: <v-icon color="white" small>mdi-ethereum</v-icon> {{ project.targetAmount }}
+                      <br />
                       {{ $t('kCreatedBy') }}: {{ project.createdBy.firstname }}
                       {{ project.createdBy.lastname }}
                     </v-card-text>

@@ -21,11 +21,20 @@
     </v-row>
     <v-row>
       <v-card class="rounded-xl" width="100%">
-        <v-card-title class="text-capitalize">{{
-          $t('kApproveTitle')
-        }}</v-card-title>
+        <v-card-title class="text-capitalize"
+          >{{ $t('kApproveTitle') }}
+          <v-spacer />
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            :label="$t('kSearchHint')"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
         <v-data-table
           :headers="headers"
+          :search="search"
           :items="approvedProject"
           :items-per-page="5"
           item-key="title"
@@ -62,6 +71,7 @@ export default {
   components: { ShortText },
   data() {
     return {
+      search: '',
       headers: [
         {
           text: 'Title',

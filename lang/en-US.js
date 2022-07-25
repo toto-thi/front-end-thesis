@@ -1,6 +1,10 @@
 export default async (context, locale) => {
   return await Promise.resolve({
     kAboutUs: 'about us',
+    kAboutPageProblem:
+      'This platform is developed to solve a charity issue which occurs across social media platforms e.g., unknown target donation amount, which leads to a tough decision on donating, donation is not transparency due to undiscovered current total donation amount and each project has no expiration/close date.',
+    kAboutPageSolution:
+      'TJ Transparency and Genuine Charity Web Application by testing and using are website will facilitate the user viewing charity project details, view transaction history, search charity project, donate cryptocurrency to the charity project, request to open a donation campaign and user can manage their information or their charity campaign.',
     kAllTransaction: 'all transactions',
     kAllProject: 'all projects',
     kApproveTitle: 'approved projects',
@@ -55,6 +59,8 @@ export default async (context, locale) => {
     kMoney: 'Money Amount',
     kMakeRequest: 'Request',
     kNoAcc: "Dont't have an account yet?",
+    kProblemTitle: 'Problems',
+    kSolutionTitle: 'Solution',
     kProjectStart: 'project start',
     kProjectClose: 'project close',
     kProjectDuration: 'project duration',

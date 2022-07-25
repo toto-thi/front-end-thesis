@@ -21,8 +21,18 @@
               class="rounded-xl mt-6 px-4 pb-4"
             >
               <v-card-title class="white--text">
-                {{ $t('kProjectTitle') }}: {{ project.title }}</v-card-title
-              >
+                {{ $t('kProjectTitle') }}: {{ project.title }}
+                <v-spacer />
+                <v-btn
+                  class="text-capitalize"
+                  color="white"
+                  rounded
+                  @click="sendData(project)"
+                >
+                  <v-icon small>mdi-pencil</v-icon> &nbsp;
+                  {{ $t('kEdit') }}
+                </v-btn>
+              </v-card-title>
               <v-card-text class="white--text">
                 <h4>{{ $t('kProjectDescription') }}:</h4>
                 <ShortText :text="project.description" :target="150" />
@@ -43,19 +53,6 @@
                     }}
                   </h4>
                 </v-row>
-                <br />
-                <v-card-actions>
-                  <v-spacer />
-                  <v-btn
-                    class="text-capitalize"
-                    color="yellow"
-                    rounded
-                    @click="sendData(project)"
-                  >
-                    <v-icon small>mdi-pencil</v-icon> &nbsp;
-                    {{ $t('kEdit') }}
-                  </v-btn>
-                </v-card-actions>
               </v-card-text>
             </v-card>
           </v-row>

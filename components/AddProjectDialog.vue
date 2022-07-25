@@ -122,6 +122,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -135,6 +138,7 @@ export default {
   },
   data() {
     return {
+      overlay: false,
       menuStartDate: false,
       menuEndDate: false,
       startDate: '',
@@ -148,13 +152,14 @@ export default {
   },
   methods: {
     async makeRequest() {
+      this.overlay = true
       const newData = {
         title: this.title,
         description: this.description,
         startDate: this.startDate,
         endDate: this.endDate,
         location: this.location,
-        targetAmount: parseInt(this.targetAmount),
+        targetAmount: parseFloat(this.targetAmount),
         imageList: this.imgUrl,
       }
 
@@ -164,9 +169,7 @@ export default {
       this.description = ''
       this.startDate = ''
       this.endDate = ''
-      this.location = '',
-      this.targetAmount = '',
-      this.imgUrl = ''
+      ;(this.location = ''), (this.targetAmount = ''), (this.imgUrl = '')
       this.closeDialog()
     },
     formatDate(date) {
@@ -180,6 +183,14 @@ export default {
     },
     async uploadImg() {
       //operation here
+    },
+  },
+  watch: {
+    overlay(val) {
+      val &&
+        setTimeout(() => {
+          this.overlay = false
+        }, 3000)
     },
   },
   computed: {

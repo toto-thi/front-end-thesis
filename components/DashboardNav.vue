@@ -296,6 +296,7 @@ export default {
       this.$router.push('/login')
     },
     async connectWallet(address) {
+      console.log('check address: ', address)
       const resp = await this.$store.dispatch('connectWallet', address)
 
       const walletDetail = {

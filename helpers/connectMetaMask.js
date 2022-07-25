@@ -3,6 +3,8 @@ export const connectMetaMask = async (address) => {
     try {
       const { ethereum } = window
 
+      console.log('check this')
+
       if (!ethereum) {
         alert('Get MetaMask!')
         return
@@ -16,5 +18,7 @@ export const connectMetaMask = async (address) => {
     } catch (err) {
       console.log(err)
     }
+  } else {
+    console.error('something went wrong')
   }
 }

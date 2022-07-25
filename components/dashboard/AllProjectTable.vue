@@ -1,8 +1,19 @@
 <template>
   <v-card class="rounded-xl" width="100%">
-    <v-card-title class="text-capitalize">{{$t('kAllProject')}}</v-card-title>
+    <v-card-title class="text-capitalize">
+      {{ $t('kAllProject') }}
+      <v-spacer />
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
     <v-data-table
       :headers="headers"
+      :search="search"
       :items="allProjects"
       :items-per-page="5"
       item-key="title"
@@ -46,6 +57,7 @@ export default {
   },
   data() {
     return {
+      search: '',
       headers: [
         {
           text: 'Title',

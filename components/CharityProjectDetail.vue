@@ -90,7 +90,7 @@
               <p class="mt-4 title">
                 <v-icon>mdi-ethereum</v-icon>
                 {{ project.targetAmount }}
-                (est. ${{ estPriceInUSD }}).
+                ({{ $t('kEstimatedPrice') }}: ${{ estPriceInUSD }}).
               </p>
               <br />
             </v-card-text>
@@ -231,6 +231,11 @@ import { PriceInUSD } from '~/helpers/calETHPrice'
 
 export default {
   name: 'CharityProjectDetail',
+  head() {
+    return {
+      title: this.project.title,
+    }
+  },
   props: {
     project: {
       required: true,
@@ -282,7 +287,6 @@ export default {
         }
 
         this.tempData = Object.assign({}, data)
-        console.log('test send data', this.tempData)
       }
     },
     closeDialog() {

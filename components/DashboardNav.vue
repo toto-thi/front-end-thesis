@@ -22,13 +22,14 @@
             ></v-img>
           </nuxt-link>
         </v-col>
-        <v-col cols="2" align-self="center">
+        <v-col cols="3" align-self="center">
           <span class="headline font-weight-black">{{
             dashboardTitle(user.role)
           }}</span>
           <br />
           <span class="title"
-            >{{ $t('kWelcome') }}, {{ user.firstname }}</span
+            >{{ $t('kWelcome') }}, {{ user.firstname }} &nbsp;
+            {{ user.lastname }}</span
           >
         </v-col>
         <v-spacer />

@@ -1,10 +1,6 @@
 <template>
   <div>
-    <div v-if="loading">
-      <LoadingScreen :isLoading="loading" />
-    </div>
-
-    <div v-else>
+    <div>
       <v-container>
         <v-row class="mx-2 text-center">
           <v-col>
@@ -17,9 +13,9 @@
                   <p class="headline">{{ allProjects.length }}</p>
                 </v-col>
                 <v-col cols="4" align-self="end">
-                  <v-card-text class="title font-weight-bold"
-                    >{{$t('kProjectCount')}}</v-card-text
-                  >
+                  <v-card-text class="title font-weight-bold">{{
+                    $t('kProjectCount')
+                  }}</v-card-text>
                 </v-col>
               </v-row>
             </v-card>
@@ -34,9 +30,9 @@
                   <p class="headline">{{ approved.length }}</p>
                 </v-col>
                 <v-col cols="4" align-self="end">
-                  <v-card-text class="title font-weight-bold text-capitalize"
-                    >{{$t('kProjectActiveCount')}}</v-card-text
-                  >
+                  <v-card-text class="title font-weight-bold text-capitalize">{{
+                    $t('kProjectActiveCount')
+                  }}</v-card-text>
                 </v-col>
               </v-row>
             </v-card>
@@ -49,12 +45,12 @@
                 </v-col>
                 <v-col cols="6" align-self="center">
                   <!-- will implement later -->
-                  <p class="headline">4089.093 ETH</p> 
+                  <p class="headline">4089.093 ETH</p>
                 </v-col>
                 <v-col cols="4" align-self="end">
-                  <v-card-text class="title font-weight-bold"
-                    >{{$t('kTotalDonation')}}</v-card-text
-                  >
+                  <v-card-text class="title font-weight-bold">{{
+                    $t('kTotalDonation')
+                  }}</v-card-text>
                 </v-col>
               </v-row>
             </v-card>
@@ -83,8 +79,8 @@ export default {
   methods: {
     async calTotalDonation() {
       //will implement later
-      return;
-    }
+      return
+    },
   },
   computed: {
     ...mapGetters(['allProjects', 'approved', 'dLoading', 'loading']),

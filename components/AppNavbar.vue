@@ -1,7 +1,7 @@
 <template>
   <nav>
-    <v-app-bar flat app elevate-on-scroll v class="white">
-      <v-row align="center">
+    <v-app-bar flat app elevate-on-scroll class="white" height="100px">
+      <v-row align="center" justify="center">
         <v-app-bar-nav-icon
           @click.stop="drawer = !drawer"
           class="hidden-md-and-up"
@@ -10,6 +10,7 @@
           <v-img
             to="/"
             src="/Logo.png"
+            class="mx-4"
             contain
             max-height="150"
             max-width="150"
@@ -25,7 +26,7 @@
           nuxt
           to="/charityPage"
         >
-          <span class="text-capitalize">{{ $t('kCharityProject') }}</span>
+          <span class="text-capitalize headline">{{ $t('kCharityProject') }}</span>
         </v-btn>
         <v-btn
           plain
@@ -35,7 +36,7 @@
           nuxt
           to="/about"
         >
-          <span class="text-capitalize">{{ $t('kAboutUs') }}</span>
+          <span class="text-capitalize headline">{{ $t('kAboutUs') }}</span>
         </v-btn>
 
         <v-menu open-on-hover offset-y close-on-content-click>
@@ -47,7 +48,7 @@
               v-bind="attrs"
               v-on="on"
             >
-              <v-icon>mdi-web</v-icon>
+              <v-icon large>mdi-web</v-icon>
             </v-btn>
           </template>
           <v-list>
@@ -63,6 +64,7 @@
         <div v-if="!authenticated" class="justify-center align-center">
           <v-btn
             plain
+            large
             rounded
             outlined
             color="white--text #primary"
@@ -70,16 +72,17 @@
             nuxt
             to="/login"
           >
-            <span class="text-capitalize">{{ $t('kLogin') }}</span>
+            <span class="text-capitalize headline">{{ $t('kLogin') }}</span>
           </v-btn>
           <v-btn
             rounded
+            large
             color="primary"
             class="white--text hidden-md-and-down"
             nuxt
             to="/register"
           >
-            <span class="text-capitalize">{{ $t('kRegister') }}</span>
+            <span class="text-capitalize headline">{{ $t('kRegister') }}</span>
           </v-btn>
         </div>
         <div v-if="authenticated">

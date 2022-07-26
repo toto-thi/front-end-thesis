@@ -7,7 +7,8 @@
       class="white"
       prominent
       :clipped-left="true"
-      max-height="100px"
+      height="100px"
+      max-height="125px"
     >
       <v-row class="mt-2 text-center">
         <v-col cols="2">
@@ -26,7 +27,7 @@
             dashboardTitle(user.role)
           }}</span>
           <br />
-          <span class="caption"
+          <span class="title"
             >{{ $t('kWelcome') }}, {{ user.firstname }}</span
           >
         </v-col>

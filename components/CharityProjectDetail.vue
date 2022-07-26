@@ -10,7 +10,7 @@
               width="100%"
               height="15vh"
             >
-              <v-card-title class="mt-6 text-capitalize">
+              <v-card-title class="mt-6 text-capitalize display-3">
                 {{ $t('kProjectTitle') }}: {{ project.title }}
               </v-card-title>
               <v-card-actions>
@@ -23,22 +23,25 @@
           </v-row>
           <v-row align="center" justify="center" class="mt-8">
             <v-card color="white" class="rounded-xl" width="100%" height="100%">
-              <v-card-title class="justify-center pt-8 text-capitalize">
-                <h2>{{ $t('kProjectDetail') }}</h2>
+              <v-card-title
+                class="justify-center pt-8 text-capitalize display-1"
+              >
+                {{ $t('kProjectDetail') }}
               </v-card-title>
-              <v-card-text class="px-8">
-                <h3>{{ $t('kStory') }}:</h3>
+              <v-card-text class="px-8 headline">
+                {{ $t('kStory') }}:
                 <br />
-                {{ project.description }}. <br />
-                <h3 class="mt-4">
+                <p class="headline pt-4">{{ project.description }}.</p>
+                <br />
+                <p class="mt-4 headline">
                   <v-icon>mdi-map-marker</v-icon>
                   {{ project.location }}
-                </h3>
+                </p>
                 <v-carousel
                   cycle
                   hide-delimiter-background
                   show-arrows-on-hover
-                  class="mt-6"
+                  class="mt-8"
                 >
                   <v-carousel-item
                     v-for="(item, i) in items"
@@ -54,12 +57,12 @@
                 <v-spacer />
                 <v-btn
                   color="primary"
-                  class="text-capitalize mb-4 mr-5"
+                  class="text-capitalize mb-4 mr-5 title"
                   rounded
                   outlined
                   @click="donationBox"
                   >{{ $t('kDonate') }}
-                  <v-icon small>mdi-ethereum</v-icon>
+                  <v-icon>mdi-ethereum</v-icon>
                 </v-btn>
               </v-card-actions>
             </v-card>
@@ -78,19 +81,17 @@
             fill-height
           >
             <v-card-text class="text-center pt-16 text-capitalize">
-              <h3 class="pt-16">{{ $t('kProjectDuration') }}</h3>
-              <br />
+              <p class="headline">{{ $t('kProjectDuration') }}</p>
 
-              <h2>{{ project.endDate }}</h2>
+              <p class="title mt-4">{{ project.endDate }}</p>
 
               <br />
-              <h3>{{ $t('kExpectAmount') }}</h3>
-              <br />
-
-              <h2>
+              <p class="headline">{{ $t('kExpectAmount') }}</p>
+              <p class="mt-4 title">
                 <v-icon>mdi-ethereum</v-icon>
                 {{ project.targetAmount }}
-              </h2>
+                (est. ${{ estPriceInUSD }}).
+              </p>
               <br />
             </v-card-text>
             <v-card-text class="px-4 mx-4 text-capitalize">
@@ -226,6 +227,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import DonationBox from '@/components/DonationBox.vue'
+import { PriceInUSD } from '~/helpers/calETHPrice'
 
 export default {
   name: 'CharityProjectDetail',
@@ -235,10 +237,13 @@ export default {
       type: Object,
     },
   },
-  computed: { ...mapGetters(['authenticated']) },
+  computed: {
+    ...mapGetters(['authenticated']),
+  },
   data() {
     return {
       donateDialog: false,
+      estPriceInUSD: null,
       // this is the way to do dynamic URL `https://localhost:3000${this.$route.path}`
       items: [
         {
@@ -284,6 +289,13 @@ export default {
       this.donateDialog = false
       this.tempData = {}
     },
+  },
+  async mounted() {
+    const target = this.project.targetAmount
+
+    this.estPriceInUSD = (await PriceInUSD(this.$axios, target)).toLocaleString(
+      'en-US'
+    )
   },
   components: { DonationBox },
 }

@@ -1,16 +1,16 @@
 <template>
   <div>
     <v-row align="center" justify="center" class="mb-16 pb-16">
-      <v-card class="rounded-xl pa-2" color="primary" height="30vh">
+      <v-card class="rounded-xl pa-2" color="primary" height="40vh">
         <v-row class="white--text">
           <v-col cols="6">
-            <v-card-title class="justify-center">{{
+            <v-card-title class="justify-center display-2">{{
               $t('kProblemTitle')
             }}</v-card-title>
             <v-img src="/about-problem-img.svg" height="30vh" contain></v-img>
           </v-col>
           <v-col cols="6" align-self="center" class="pb-16 px-8">
-            <span class="subtitle-1">
+            <span class="title">
               {{ $t('kAboutPageProblem') }}
             </span>
           </v-col>
@@ -18,15 +18,15 @@
       </v-card>
     </v-row>
     <v-row align="center" justify="center" class="mt-16 pb-16">
-      <v-card class="rounded-xl pa-2" color="primary" height="30vh">
+      <v-card class="rounded-xl pa-2" color="primary" height="40vh">
         <v-row class="white--text">
           <v-col cols="6" align-self="center" class="pb-16 px-8">
-            <span class="subtitle-1">
+            <span class="title">
               {{ $t('kAboutPageSolution') }}
             </span>
           </v-col>
           <v-col cols="6">
-            <v-card-title class="justify-center">{{
+            <v-card-title class="justify-center display-2">{{
               $t('kSolutionTitle')
             }}</v-card-title>
             <v-img src="/about-solution-img.svg" height="30vh" contain></v-img>

@@ -1,9 +1,9 @@
 import { contractABI } from '~/utils/constants'
 import { ethers } from 'ethers'
 
-const { ethereum } = window
+export const createEthereumContract = (contractAddress) => {
+  const { ethereum } = window
 
-const createEthereumContract = (contractAddress) => {
   const provider = new ethers.providers.Web3Provider(ethereum)
   const signer = provider.getSigner()
   const transactionContract = new ethers.Contract(
@@ -12,10 +12,13 @@ const createEthereumContract = (contractAddress) => {
     signer
   )
 
+  console.log('check response: ', transactionContract)
   return transactionContract
 }
 
-const getAllTransactions = async (contractAddress) => {
+export const getAllTransactions = async (contractAddress) => {
+  const { ethereum } = window
+
   try {
     if (ethereum) {
       const transactionsContract = createEthereumContract(contractAddress)
@@ -45,41 +48,43 @@ const getAllTransactions = async (contractAddress) => {
   }
 }
 
-const checkIfWalletIsConnected = async (contractAddress) => {
-  try {
-    if (!ethereum) {
-      console.error('Please install MetaMask')
-    }
+// const checkIfWalletIsConnected = async (contractAddress) => {
+//   try {
+//     if (!ethereum) {
+//       console.error('Please install MetaMask')
+//     }
 
-    const accounts = await ethereum.request({ method: 'eth_accounts' })
+//     const accounts = await ethereum.request({ method: 'eth_accounts' })
 
-    if (!accounts.length) {
-      getAllTransactions(contractAddress)
-    } else {
-      console.error('No account found')
-    }
-  } catch (err) {
-    console.error(err)
-  }
-}
+//     if (!accounts.length) {
+//       getAllTransactions(contractAddress)
+//     } else {
+//       console.error('No account found')
+//     }
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
-const checkIfTransactionIsExists = async (contractAddress) => {
-  try {
-    if (ethereum) {
-      const transactionsContract = createEthereumContract(contractAddress)
-      const currentTransactionCount =
-        await transactionsContract.getTransactionCount()
+// const checkIfTransactionIsExists = async (contractAddress) => {
+//   try {
+//     if (ethereum) {
+//       const transactionsContract = createEthereumContract(contractAddress)
+//       const currentTransactionCount =
+//         await transactionsContract.getTransactionCount()
 
-      return currentTransactionCount
-    }
-  } catch (err) {
-    console.error(err)
-    throw new Error('No Ethereum object was found')
-  }
-}
+//       return currentTransactionCount
+//     }
+//   } catch (err) {
+//     console.error(err)
+//     throw new Error('No Ethereum object was found')
+//   }
+// }
 
-const sendTransaction = async (inputData) => {
+export const sendTransaction = async (inputData) => {
+  const { ethereum } = window
   const { contractAddress, amount, message, walletID, addressTo } = inputData
+
   try {
     if (ethereum) {
       const transactionsContract = createEthereumContract(contractAddress)
@@ -99,24 +104,21 @@ const sendTransaction = async (inputData) => {
 
       const transactionHash = await transactionsContract.addToBlockchain(
         addressTo,
-        message,
-        parsedAmount
+        parsedAmount,
+        message
       )
 
       const transactionCount = await transactionsContract.getTransactionCount()
 
-      console.log('check response after add to blockchain: ', transactionHash)
+      await transactionHash.wait()
+
+      console.log('check response: ', transactionHash)
+      console.log('check response after add to blockchain: ', transactionHash.hash)
+      console.log('check count data', transactionCount.toNumber())
 
       return [transactionHash.hash, transactionCount.toNumber()]
     }
   } catch (err) {
     console.error(err)
   }
-}
-
-export default {
-  checkIfTransactionIsExists,
-  checkIfWalletIsConnected,
-  getAllTransactions,
-  sendTransaction,
 }

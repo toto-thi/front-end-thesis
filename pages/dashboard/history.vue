@@ -1,9 +1,11 @@
 <template>
-  <div>this is history page</div>
+  <Transactions />
 </template>
 
 <script>
+import Transactions from '~/components/dashboard/Transactions.vue'
 export default {
+  components: { Transactions },
   layout: 'dashboard',
 }
 </script>

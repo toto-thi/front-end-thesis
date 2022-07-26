@@ -9,12 +9,12 @@
       >
         <v-row justify="center" align="center">
           <v-col cols="6" align-self="center">
-            <v-card-title class="justify-center pb-12">
-              <h1 class="text-capitalize">{{ $t('kFinishedBtn') }}</h1>
+            <v-card-title class="justify-center pb-12 text-capitalize">
+              <h1>{{ $t('kTransaction') }}</h1>
             </v-card-title>
           </v-col>
           <v-col cols="6">
-            <v-img src="/finished-table-img.svg" contain height="25vh"></v-img>
+            <v-img src="/transaction-img.svg" contain height="25vh"></v-img>
           </v-col>
         </v-row>
       </v-card>
@@ -22,25 +22,25 @@
     <v-row>
       <v-card class="rounded-xl" width="100%">
         <v-card-title class="text-capitalize">{{
-          $t('kFinishedBtn')
+          $t('kTransaction')
         }}</v-card-title>
         <v-data-table
           :headers="headers"
-          :items="FinishedProject"
+          :items="transactions"
           :items-per-page="5"
           item-key="title"
           class="elevation-1"
         >
           <template v-slot:item="{ item }">
             <tr>
-              <td>{{ item.title }}</td>
+              <td>{{ shortenTxn(item.txnHash) }}</td>
               <td class="text-xs-right">
                 <ShortText :text="item.description" :target="15" />
               </td>
-              <td class="text-center">{{ item.startDate }}</td>
-              <td class="text-center">{{ item.endDate }}</td>
-              <td class="text-center">{{ item.targetAmount }}</td>
-              <td class="text-center">{{ item.donateAmount }}</td>
+              <td class="text-center">{{ item.transferTime }}</td>
+              <td class="text-center">{{ item.projectname }}</td>
+              <td class="text-center">{{ item.donatedBy.firstname }}</td>
+              <td class="text-center">{{ item.amount }}</td>
             </tr>
           </template>
         </v-data-table>
@@ -51,17 +51,28 @@
 
 <script>
 import ShortText from '~/utils/ShortText.vue'
+import { shortenAddress } from '~/helpers/shortenAddress'
 
 export default {
   props: {
-    FinishedProject: {
+    transactions: {
       type: Array,
-      // required: true,
+      //   required: true,
     },
   },
+  async mounted() {
+    await this.$store.dispatch('getRejectedProjects')
+  },
+  components: { ShortText },
   data() {
     return {
       headers: [
+        {
+          text: 'Txn',
+          align: 'start',
+          value: 'txnHash',
+          width: '1%',
+        },
         {
           text: 'Title',
           align: 'start',
@@ -69,31 +80,24 @@ export default {
           width: '1%',
         },
         {
-          text: 'Description',
+          text: 'Date and Time',
           align: 'start',
           sortable: false,
-          value: 'description',
+          value: 'transferTime',
           width: '1%',
         },
         {
-          text: 'Start Date',
+          text: 'Project Name',
           align: 'center',
           sortable: false,
-          value: 'startDate',
+          value: 'projectname',
           width: '1%',
         },
         {
-          text: 'End Date',
+          text: 'By',
           align: 'center',
           sortable: false,
-          value: 'endDate',
-          width: '1%',
-        },
-        {
-          text: 'Target (ETH)',
-          align: 'center',
-          sortable: true,
-          value: 'targetAmount',
+          value: 'username',
           width: '1%',
         },
         {
@@ -106,6 +110,11 @@ export default {
       ],
     }
   },
+  computed: {
+    shortenTxn(address) {
+        return shortenAddress(address);
+    }
+  }
 }
 </script>
 

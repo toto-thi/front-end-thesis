@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="isLoading" persistent fullscreen>
+  <v-dialog v-model="isLoading" color="white" persistent fullscreen>
     <v-container fill-height text-center>
       <v-row justify="center" align="center">
         <v-progress-circular

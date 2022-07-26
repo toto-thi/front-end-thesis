@@ -14,6 +14,11 @@ import DashboardNav from '~/components/DashboardNav.vue'
 
 export default {
   middleware: 'isAuth',
+  head() {
+    return {
+      title: 'Dashboard'
+    }
+  },
   data() {
     return {
       drawer: true,

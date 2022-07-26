@@ -8,12 +8,11 @@
             v-model="donateAmount"
             :label="$t('kMoney')"
             type="number"
+            :hint="`${$t('kEstimatedPrice')}: $${estimatedPrice}`"
+            persistent-hint
             outlined
             prepend-inner-icon="mdi-ethereum"
           ></v-text-field>
-          <v-text :v-model="estimatedPrice"
-            >estimated: ${{ estimatedPrice }}</v-text
-          >
           <v-textarea
             v-model="message"
             :label="$t('kMessage')"
@@ -39,6 +38,7 @@
 import { mapGetters } from 'vuex'
 import Swal from 'sweetalert2'
 import { PriceInUSD } from '~/helpers/calETHPrice'
+import { sendTransaction } from '~/helpers/transactionContext'
 
 export default {
   props: {
@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      donateAmount: 3,
+      donateAmount: 0,
       message: '',
       estimatedPrice: 0,
     }
@@ -62,21 +62,33 @@ export default {
     closeBox() {
       this.$emit('closeBox')
     },
-    makeDonation() {
+    async makeDonation() {
       if (this.user.walletID == null) {
         Swal.fire({
           title: 'Warning',
           text: 'Please connect your wallet before start making donation :)',
         })
       }
-      console.log('recieved data', this.data)
-      console.log('test test', this.donateAmount)
+
+      const donateData = {
+        contractAddress: this.data.contractAddress,
+        amount: this.donateAmount,
+        message: this.message,
+        walletID: this.data.sender,
+        addressTo: this.data.targetWallet,
+      }
+      console.log('test donate data', donateData)
+
+      await sendTransaction(donateData);
+      this.status = false
+      this.donateAmount = 0
+      this.message = ''
     },
   },
   computed: {
     ...mapGetters(['user']),
   },
-  async mounted() {
+  async updated() {
     const response = (
       await PriceInUSD(this.$axios, this.donateAmount)
     ).toLocaleString('en-US')

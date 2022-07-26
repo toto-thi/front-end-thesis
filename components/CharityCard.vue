@@ -34,7 +34,7 @@
           rounded
           @click="createProject"
         >
-          <h3>{{ $t('kCreateBtn') }}</h3>
+          <h2>{{ $t('kCreateBtn') }}</h2>
           &nbsp;
           <v-icon>mdi-file-plus-outline</v-icon>
         </v-btn>
@@ -68,21 +68,23 @@
                     width="100%"
                   >
                     <v-card-title class="justify-center">
-                      <span class="subheadline"> {{ project.title }}</span>
+                      <span class="headline"> {{ project.title }}</span>
                     </v-card-title>
                     <v-divider color="white"></v-divider>
-                    <v-card-text class="white--text">
-                      <ShortText :text="project.description" :target="100" />
+                    <v-card-text class="white--text display-1">
+                      <ShortText :text="project.description" :target="70" />
                     </v-card-text>
-                    <v-card-text class="white--text text-capitalize">
+                    <v-card-text class="white--text text-capitalize headline">
                       {{ $t('kProjectStart') }}: {{ project.startDate }} <br />
                       {{ $t('kProjectClose') }}: {{ project.endDate }} <br />
-                      {{ $t('kTargetAmount') }}: <v-icon color="white" small>mdi-ethereum</v-icon> {{ project.targetAmount }}
+                      {{ $t('kTargetAmount') }}:
+                      <v-icon color="white" small>mdi-ethereum</v-icon>
+                      {{ project.targetAmount }}
                       <br />
                       {{ $t('kCreatedBy') }}: {{ project.createdBy.firstname }}
                       {{ project.createdBy.lastname }}
                     </v-card-text>
-                    <v-card-text class="white--text text-capitalize">
+                    <v-card-text class="white--text text-capitalize headline">
                       {{ $t('kProgress') }}:
                       <v-progress-linear
                         :value="
@@ -94,7 +96,7 @@
                         color="#53A700"
                         height="25"
                         :buffer-value="100"
-                        class="white--text rounded-xl"
+                        class="white--text rounded-xl mt-2 subtitle-1"
                       >
                         <template v-slot:default="{ value }">
                           <strong>{{ value }}%</strong>
@@ -167,7 +169,7 @@ export default {
   },
   methods: {
     calPercentage(donateVal, maxVal) {
-      return (donateVal * 100) / maxVal
+      return (Math.round(donateVal * 100) / maxVal).toFixed(2)
     },
     createProject() {
       if (Object.keys(this.user).length === 0) {

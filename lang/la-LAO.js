@@ -85,8 +85,8 @@ export default async (context, locale) => {
     kRejectTitle: 'ໂຄງການທີ່ຖືກປະຕິເສດ',
     kRejection: 'ປະຕິເສດ',
     kRememberMeBox: 'ຈື່ຂ້ອຍ',
-    kRegisterNow: 'ລົງຖະບຽນຕອນນີ້!',
-    kRegister: 'ລົງຖະບຽນ',
+    kRegisterNow: 'ລົງທະບຽນຕອນນີ້!',
+    kRegister: 'ລົງທະບຽນ',
     kRegisterTitle1: 'ຍິນດີຕ້ອນຮັບສູ່ຊຸມຊົນການກຸສົນ!',
     kRegisterTitle2:
       'ມາເປັນສ່ວນໜື່ງໃນການລິເລີ່ມການສ້າງໂຄງການການກຸສົນທີ່ມີຄວາມປອດໄພ ແລະ ໂປ່ງໃສ',

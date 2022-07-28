@@ -62,3 +62,8 @@ export const GET_PROJECT_BY_CREATOR = gql`
     }
   }
 `
+export const TOTAL_DONATION = gql`
+  query TotalDonation {
+    calTotalDonation
+  }
+`

@@ -45,7 +45,7 @@
                 </v-col>
                 <v-col cols="6" align-self="center">
                   <!-- will implement later -->
-                  <p class="headline">4089.093 ETH</p>
+                  <p class="headline">{{ totalDonation }}</p>
                 </v-col>
                 <v-col cols="4" align-self="end">
                   <v-card-text class="title font-weight-bold">{{
@@ -76,10 +76,14 @@ export default {
       totalDonation: 0,
     }
   },
+  async mounted() {
+    this.calTotalDonation()
+  },
   methods: {
     async calTotalDonation() {
-      //will implement later
-      return
+      const resData = await this.$store.dispatch('totalDonation')
+
+      this.totalDonation = resData
     },
   },
   computed: {

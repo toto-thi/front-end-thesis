@@ -3,34 +3,22 @@
     <div>
       <v-row justify="center" dense height="100vh">
         <v-col cols="10" xl="10" sm="8" md="8" class="px-16">
-          <v-app-bar flat elevate-on-scroll class="white">
-            <v-app-bar-nav-icon
-              @click.stop="drawer = !drawer"
-              class="hidden-md-and-up"
-            />
-            <nuxt-link to="/">
-              <v-img
-                to="/"
-                src="/Logo.png"
-                contain
-                max-height="150"
-                max-width="150"
-              ></v-img>
-            </nuxt-link>
-          </v-app-bar>
-
-          <v-card flat class="px-16 mx-16" style="padding: 112px">
+          <v-card
+            flat
+            class="px-16 mx-16 rounded-xl darktone white--text"
+            style="padding: 112px"
+          >
             <v-card-title
-              class="justify-center font-weight-bold"
+              class="justify-center font-weight-bold white--text"
               style="font-size: 3.5rem"
             >
               {{ $t('kLogin') }}
             </v-card-title>
             <v-card-subtitle
-              class="mt-5 mb-5 text-center font-weight-bold title"
+              class="mt-5 mb-5 text-center font-weight-bold title white--text"
             >
-              {{ $t('kLoginTitle') }} <br />
-              <span>{{ $t('kLoginSubTitle') }}</span>
+              <p>{{ $t('kLoginTitle') }}</p>
+              <p>{{ $t('kLoginSubTitle') }}</p>
             </v-card-subtitle>
 
             <v-form class="px-3">
@@ -66,9 +54,9 @@
                   ></v-checkbox>
                 </v-col>
                 <v-col cols="6" align-self="center" align="end">
-                  <v-btn plain class="text-capitalize font-weight-medium"
-                    ><span>{{ $t('kForgotPassword') }}</span></v-btn
-                  >
+                  <v-btn plain class="text-capitalize font-weight-medium">
+                    <p class="white--text">{{ $t('kForgotPassword') }}</p>
+                  </v-btn>
                 </v-col>
               </v-row>
               <v-card-actions>
@@ -85,9 +73,13 @@
                     >
                   </v-col>
                   <span>{{ $t('kNoAcc') }} &nbsp; </span>
-                  <nuxt-link to="Register" style="text-decoration: none">
-                    {{ $t('kRegisterNow') }}</nuxt-link
+                  <nuxt-link
+                    to="Register"
+                    style="text-decoration: none"
+                    class="white--text"
                   >
+                    {{ $t('kRegisterNow') }}
+                  </nuxt-link>
                 </v-row>
               </v-card-actions>
             </v-form>
@@ -149,4 +141,9 @@ export default {
 .select {
   width: 0px;
 }
+
+.darktone {
+  background-color: #44496c !important;
+}
+
 </style>

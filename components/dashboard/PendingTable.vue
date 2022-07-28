@@ -127,6 +127,11 @@ export default {
       this.reviewDialog = false
     },
   },
+  // async updated() {
+  //   const result = await this.$store.dispatch('getPendingProject')
+
+  //   this.pendingProject = result
+  // },
 }
 </script>
 

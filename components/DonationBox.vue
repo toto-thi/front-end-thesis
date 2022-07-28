@@ -77,9 +77,38 @@ export default {
         walletID: this.data.sender,
         addressTo: this.data.targetWallet,
       }
-      console.log('test donate data', donateData)
 
-      await sendTransaction(donateData);
+      const res = await sendTransaction(donateData)
+
+      // console.log('check amount: ', res[0].amount)
+      // console.log('check hash:', res[0].hash)
+
+      const updatedData = {
+        id: this.data.id,
+        data: {
+          donateAmount: parseFloat(this.donateAmount),
+        },
+      }
+
+      const transactionDetail = {
+        txnHash: res[0].hash,
+        projectID: this.data.id,
+        contractAddress: this.data.contractAddress,
+        fromWalletID: this.data.sender,
+        toWalletID: this.data.targetWallet,
+        amount: parseFloat(this.donateAmount),
+        message: this.message,
+        donatedBy: this.$store.getters.user.id,
+      }
+
+      console.log('updated data: ', updatedData)
+      console.log('transaction Details: ', transactionDetail)
+      
+      if (!!res) {
+        await this.$store.dispatch('addToProject', updatedData)
+        await this.$store.dispatch('addToTransaction', transactionDetail)
+      }
+
       this.status = false
       this.donateAmount = 0
       this.message = ''

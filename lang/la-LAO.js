@@ -25,6 +25,8 @@ export default async (context, locale) => {
     kDonateBtn: 'ບໍລິຈາກ',
     kDonateAmount: 'ໄດ້ຮັບ (ETH)',
     kDonateTime: 'ບໍລິຈາກຕອນ',
+    kDonating: 'ກຳລັງບໍລິຈາກ...',
+    kDoneBtn: 'ສຳເລັດແລ້ວ',
     kDOB: 'ວັນເດືອນປີເກີດ',
     kDashboardBtn: 'ແດສບອດ',
     kDialogApprove: 'ທ່ານໝັ້ນໃຈແລ້ວບໍ່ທີ່ຈະອະນຸມັດຄຳຮ້ອງຂໍຂອງໂຄງການນີ້?',

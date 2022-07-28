@@ -12,7 +12,6 @@ export const createEthereumContract = (contractAddress) => {
     signer
   )
 
-  console.log('check response: ', transactionContract)
   return transactionContract
 }
 
@@ -34,7 +33,6 @@ export const getAllTransactions = async (contractAddress) => {
             transaction.timestamp.toNumber() * 1000
           ).toLocaleString(),
           message: transaction.message,
-          keyword: transaction.keyword,
           amount: parseInt(transaction.amount._hex) / 10 ** 18,
         })
       )
@@ -47,39 +45,6 @@ export const getAllTransactions = async (contractAddress) => {
     console.error(err)
   }
 }
-
-// const checkIfWalletIsConnected = async (contractAddress) => {
-//   try {
-//     if (!ethereum) {
-//       console.error('Please install MetaMask')
-//     }
-
-//     const accounts = await ethereum.request({ method: 'eth_accounts' })
-
-//     if (!accounts.length) {
-//       getAllTransactions(contractAddress)
-//     } else {
-//       console.error('No account found')
-//     }
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
-
-// const checkIfTransactionIsExists = async (contractAddress) => {
-//   try {
-//     if (ethereum) {
-//       const transactionsContract = createEthereumContract(contractAddress)
-//       const currentTransactionCount =
-//         await transactionsContract.getTransactionCount()
-
-//       return currentTransactionCount
-//     }
-//   } catch (err) {
-//     console.error(err)
-//     throw new Error('No Ethereum object was found')
-//   }
-// }
 
 export const sendTransaction = async (inputData) => {
   const { ethereum } = window
@@ -112,11 +77,7 @@ export const sendTransaction = async (inputData) => {
 
       await transactionHash.wait()
 
-      console.log('check response: ', transactionHash)
-      console.log('check response after add to blockchain: ', transactionHash.hash)
-      console.log('check count data', transactionCount.toNumber())
-
-      return [transactionHash.hash, transactionCount.toNumber()]
+      return [transactionHash, transactionCount.toNumber()]
     }
   } catch (err) {
     console.error(err)

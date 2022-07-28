@@ -93,6 +93,13 @@
                 ({{ $t('kEstimatedPrice') }}: ${{ estPriceInUSD }}).
               </p>
               <br />
+              <p class="headline">{{ $t('kCurrentDonatedAmount') }}</p>
+              <p class="mt-4 title">
+                <v-icon>mdi-ethereum</v-icon>
+                {{ project.donateAmount }}
+                ({{ $t('kEstimatedPrice') }}: ${{ currentEstPriceInUSD }}).
+              </p>
+              <br />
             </v-card-text>
             <v-card-text class="px-4 mx-4 text-capitalize">
               <h3>{{ $t('kCreatorInfo') }}</h3>
@@ -171,54 +178,51 @@
         <h1>{{ $t('kLatestDonation') }}</h1>
       </v-row>
       <v-row class="mt-6" align="center" justify="center">
-        <v-col cols="4" xs="12">
+        <!-- <v-data-iterator
+          :items="transactionShow"
+          :items-per-page.sync="perPage"
+          :page.sync="page"
+          hide-default-footer
+        >
+          <template v-slot:default="props">
+            <v-row justify="center" align="center"> -->
+        <v-col cols="4" xs="12" v-for="(item, i) in transactionShow" :key="i">
           <v-card
             color="primary"
             max-height="500px"
             class="white--text rounded-xl"
           >
             <v-card-title class="justify-center">
-              {{ $t('kTxnHash') }}: 90Yfsh56Hk22h23bds442p9sd32fs4
+              {{ $t('kTxnHash') }}: {{ item.txnHash }}
             </v-card-title>
             <v-card-text class="white--text px-8">
-              {{ $t('kTransferFrom') }}: xxxxx <br />
-              {{ $t('kTransferTo') }}: xxxxx <br />
-              {{ $t('kMessage') }}: Keep doing what's good for our society
+              {{ $t('kTransferFrom') }}:
+              {{ shortAddress(item.addressFrom) }}
+              <br />
+              {{ $t('kTransferTo') }}: {{ shortAddress(item.addressTo) }}
+              <br />
+              {{ $t('kAmount') }}:
+              <v-icon small color="white">mdi-ethereum</v-icon>
+              {{ item.amount }}
+              <br />
+              {{ $t('kMessage') }}: {{ item.message }}
+              <br />
+              {{ $t('kDonateTime') }}: {{ item.timestamp }}
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="4" xs="12">
-          <v-card
-            color="primary"
-            max-height="500px"
-            class="white--text rounded-xl"
-          >
-            <v-card-title class="justify-center">
-              {{ $t('kTxnHash') }}: 90Yfsh56Hk22h23bds442p9sd32fs4
-            </v-card-title>
-            <v-card-text class="white--text px-8">
-              {{ $t('kTransferFrom') }}: xxxxx <br />
-              {{ $t('kTransferTo') }}: xxxxx <br />
-              {{ $t('kMessage') }}: Keep doing what's good for our society
-            </v-card-text>
-          </v-card>
-        </v-col>
-        <v-col cols="4" xs="12">
-          <v-card
-            color="primary"
-            max-height="500px"
-            class="white--text rounded-xl"
-          >
-            <v-card-title class="justify-center">
-              {{ $t('kTxnHash') }}: 90Yfsh56Hk22h23bds442p9sd32fs4
-            </v-card-title>
-            <v-card-text class="white--text px-8">
-              {{ $t('kTransferFrom') }}: xxxxx <br />
-              {{ $t('kTransferTo') }}: xxxxx <br />
-              {{ $t('kMessage') }}: Keep doing what's good for our society
-            </v-card-text>
-          </v-card>
-        </v-col>
+        <!-- </v-row>
+          </template>
+          <template v-slot:footer>
+            <v-row justify="center" align="center" class="mt-8">
+              <v-pagination
+                v-model="page"
+                :length="4"
+                :total-visible="Math.ceil(transactionShow.length / perPage)"
+              ></v-pagination>
+            </v-row>
+          </template>
+        </v-data-iterator> -->
       </v-row>
     </v-container>
   </div>
@@ -228,6 +232,8 @@
 import { mapGetters } from 'vuex'
 import DonationBox from '@/components/DonationBox.vue'
 import { PriceInUSD } from '~/helpers/calETHPrice'
+import { getAllTransactions } from '~/helpers/transactionContext'
+import { shortenAddress } from '~/helpers/shortenAddress'
 
 export default {
   name: 'CharityProjectDetail',
@@ -244,12 +250,18 @@ export default {
   },
   computed: {
     ...mapGetters(['authenticated']),
+    // totalPage() {
+    //   return Math.ceil(this.transactionShow.length / this.perPage)
+    // }
   },
   data() {
     return {
+      page: 1,
+      perPage: 3,
       donateDialog: false,
       estPriceInUSD: null,
-      // this is the way to do dynamic URL `https://localhost:3000${this.$route.path}`
+      currentEstPriceInUSD: null,
+      transactionShow: null,
       items: [
         {
           src: 'https://images.unsplash.com/photo-1589825029592-e857f30a76bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
@@ -293,13 +305,27 @@ export default {
       this.donateDialog = false
       this.tempData = {}
     },
+    shortAddress(address) {
+      return shortenAddress(address)
+    },
+    async latestTransaction() {
+      const res = await getAllTransactions(this.project.contractAddress)
+
+      this.transactionShow = res.reverse()
+    },
   },
   async mounted() {
+    await this.latestTransaction()
+
     const target = this.project.targetAmount
+    const currentDonation = this.project.donateAmount
 
     this.estPriceInUSD = (await PriceInUSD(this.$axios, target)).toLocaleString(
       'en-US'
     )
+    this.currentEstPriceInUSD = (
+      await PriceInUSD(this.$axios, currentDonation)
+    ).toLocaleString('en-US')
   },
   components: { DonationBox },
 }

@@ -1,17 +1,56 @@
-
+import { UPDATE_PROJECT } from '~/graphql/mutations/projectMutate'
+import { ADD_TRANSACTION } from '~/graphql/mutations/transactionMutate'
 
 const state = {}
 
 const getters = {}
 
-const mutations ={}
+const mutations = {}
 
-const actions = {}
+const actions = {
+  async addToProject(payload) {
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const res = await client
+        .mutate({
+          mutation: UPDATE_PROJECT,
+          variables: {
+            id: payload.id,
+            projectInput: payload.data,
+          },
+        })
+        .then(({ data }) => data && data.updateProject)
+
+      if (!!res) return 'Done'
+    } catch (err) {
+      console.error(err)
+    }
+  },
+  async addToTransaction(payload) {
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const res = await client
+        .mutate({
+          mutation: ADD_TRANSACTION,
+          variables: {
+            donateInput: payload,
+          },
+        })
+        .then(({ data }) => data && data.donate)
+
+      if (!!res) return 'Done'
+    } catch (err) {
+      console.error(err)
+    }
+  },
+}
 
 export default {
-    namespace: true,
-    state,
-    getters,
-    mutations,
-    actions
+  namespace: true,
+  state,
+  getters,
+  mutations,
+  actions,
 }

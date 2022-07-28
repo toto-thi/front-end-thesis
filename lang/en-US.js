@@ -25,6 +25,8 @@ export default async (context, locale) => {
     kDonateBtn: 'donate',
     kDonateAmount: 'recieved (ETH)',
     kDonateTime: 'Donate At',
+    kDonating: 'Donating...',
+    kDoneBtn: 'Done',
     kDOB: 'Date of Birth',
     kDashboardBtn: 'dashbaord',
     kDialogApprove: 'Are you sure you want to approve this project?',

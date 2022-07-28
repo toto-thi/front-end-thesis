@@ -289,6 +289,8 @@ export default {
         const targetWallet = this.project.createdBy.walletID
         const uid = this.$store.getters.user.id
         const cAddress = this.project.contractAddress
+        const currentDonate = this.project.donateAmount
+        const targetAmount = this.project.targetAmount
 
         const data = {
           id: this.project.id,
@@ -296,6 +298,8 @@ export default {
           userID: uid,
           targetWallet: targetWallet,
           contractAddress: cAddress,
+          currentDonate: currentDonate,
+          targetAmount: targetAmount
         }
 
         this.tempData = Object.assign({}, data)
@@ -313,19 +317,27 @@ export default {
 
       this.transactionShow = res.reverse()
     },
+    async estimateInUSD() {
+      const target = this.project.targetAmount
+      this.estPriceInUSD = (
+        await PriceInUSD(this.$axios, target)
+      ).toLocaleString('en-US')
+    },
+    async currentPriceUSD() {
+      const currentDonation = this.project.donateAmount
+
+      this.currentEstPriceInUSD = (
+        await PriceInUSD(this.$axios, currentDonation)
+      ).toLocaleString('en-US')
+    },
   },
   async mounted() {
     await this.latestTransaction()
-
-    const target = this.project.targetAmount
-    const currentDonation = this.project.donateAmount
-
-    this.estPriceInUSD = (await PriceInUSD(this.$axios, target)).toLocaleString(
-      'en-US'
-    )
-    this.currentEstPriceInUSD = (
-      await PriceInUSD(this.$axios, currentDonation)
-    ).toLocaleString('en-US')
+    await this.estimateInUSD()
+    await this.currentPriceUSD()
+  },
+  async updated() {
+    await this.latestTransaction()
   },
   components: { DonationBox },
 }

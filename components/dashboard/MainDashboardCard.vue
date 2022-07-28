@@ -44,8 +44,8 @@
                   <v-icon color="white" large> mdi-ethereum </v-icon>
                 </v-col>
                 <v-col cols="6" align-self="center">
-                  <!-- will implement later -->
                   <p class="headline">{{ totalDonation }}</p>
+                  ({{ $t('kEstimatedPrice') }} {{ estimatedInUSD }})
                 </v-col>
                 <v-col cols="4" align-self="end">
                   <v-card-text class="title font-weight-bold">{{
@@ -66,6 +66,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { PriceInUSD } from '~/helpers/calETHPrice'
 import LoadingScreen from '~/utils/LoadingScreen.vue'
 import AllProjectTable from './AllProjectTable.vue'
 
@@ -74,6 +75,7 @@ export default {
   data() {
     return {
       totalDonation: 0,
+      estimatedInUSD: 0,
     }
   },
   async mounted() {
@@ -85,6 +87,13 @@ export default {
 
       this.totalDonation = resData
     },
+  },
+  async mounted() {
+    const response = (
+      await PriceInUSD(this.$axios, this.donateAmount)
+    ).toLocaleString('en-US')
+
+    this.estimatedInUSD = response
   },
   computed: {
     ...mapGetters(['allProjects', 'approved', 'dLoading', 'loading']),

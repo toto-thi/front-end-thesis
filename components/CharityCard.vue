@@ -71,10 +71,10 @@
                       <span class="headline"> {{ project.title }}</span>
                     </v-card-title>
                     <v-divider color="white"></v-divider>
-                    <v-card-text class="white--text display-1">
+                    <v-card-text class="white--text title">
                       <ShortText :text="project.description" :target="70" />
                     </v-card-text>
-                    <v-card-text class="white--text text-capitalize headline">
+                    <v-card-text class="white--text text-capitalize title">
                       {{ $t('kProjectStart') }}: {{ project.startDate }} <br />
                       {{ $t('kProjectClose') }}: {{ project.endDate }} <br />
                       {{ $t('kTargetAmount') }}:
@@ -84,7 +84,7 @@
                       {{ $t('kCreatedBy') }}: {{ project.createdBy.firstname }}
                       {{ project.createdBy.lastname }}
                     </v-card-text>
-                    <v-card-text class="white--text text-capitalize headline">
+                    <v-card-text class="white--text text-capitalize title">
                       {{ $t('kProgress') }}:
                       <v-progress-linear
                         :value="

@@ -261,7 +261,6 @@ const actions = {
 
     try {
       const response = await fetchProjects(client, TOTAL_DONATION)
-
       if (!!response) return response.calTotalDonation
     } catch (err) {
       console.error(err)

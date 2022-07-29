@@ -12,6 +12,7 @@
                 v-model="donateAmount"
                 :label="$t('kMoney')"
                 type="number"
+                :min="0"
                 :hint="`${$t('kEstimatedPrice')}: $${estimatedPrice}`"
                 persistent-hint
                 outlined
@@ -20,6 +21,7 @@
               <v-textarea
                 v-model="message"
                 :label="$t('kMessage')"
+                :rules="textLimit"
                 textarea
                 outlined
                 counter
@@ -91,6 +93,7 @@ export default {
       message: '',
       estimatedPrice: 0,
       onboarding: 0,
+      textLimit: [v => v.length <= 40 || 'Max 40 Characters']
     }
   },
   methods: {
@@ -149,8 +152,8 @@ export default {
       }
     },
     onSuccess() {
-      this.onboarding = null
       this.status = false
+      this.onboarding = null
       this.donateAmount = 0
       this.message = ''
     },

@@ -1,21 +1,21 @@
 <template>
   <div>
     <div>
-      <v-row justify="center" dense height="100vh">
-        <v-col cols="10" xl="10" sm="8" md="8" class="px-16">
+      <v-row align="center" justify="center" dense class="mt-16">
+        <v-col cols="8" xl="8" sm="8" md="8" class="px-16">
           <v-card
-            flat
-            class="px-16 mx-16 rounded-xl darktone white--text"
+            color="white"
+            class="px-16 mx-16 rounded-xl"
             style="padding: 112px"
           >
             <v-card-title
-              class="justify-center font-weight-bold white--text"
+              class="justify-center font-weight-bold"
               style="font-size: 3.5rem"
             >
               {{ $t('kLogin') }}
             </v-card-title>
             <v-card-subtitle
-              class="mt-5 mb-5 text-center font-weight-bold title white--text"
+              class="mt-5 mb-5 text-center font-weight-bold title"
             >
               <p>{{ $t('kLoginTitle') }}</p>
               <p>{{ $t('kLoginSubTitle') }}</p>
@@ -55,7 +55,7 @@
                 </v-col>
                 <v-col cols="6" align-self="center" align="end">
                   <v-btn plain class="text-capitalize font-weight-medium">
-                    <p class="white--text">{{ $t('kForgotPassword') }}</p>
+                    <p>{{ $t('kForgotPassword') }}</p>
                   </v-btn>
                 </v-col>
               </v-row>
@@ -68,7 +68,7 @@
                       large
                       block
                       rounded
-                      class="white--text text-capitalize font-weight-bold title"
+                      class="text-capitalize font-weight-bold title"
                       >{{ $t('kLogin') }}</v-btn
                     >
                   </v-col>
@@ -76,7 +76,6 @@
                   <nuxt-link
                     to="Register"
                     style="text-decoration: none"
-                    class="white--text"
                   >
                     {{ $t('kRegisterNow') }}
                   </nuxt-link>
@@ -140,10 +139,6 @@ export default {
 <style scoped>
 .select {
   width: 0px;
-}
-
-.darktone {
-  background-color: #44496c !important;
 }
 
 </style>

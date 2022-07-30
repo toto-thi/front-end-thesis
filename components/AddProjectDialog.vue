@@ -103,6 +103,7 @@
             </v-menu>
             <v-file-input
               multiple
+              v-model="files"
               :label="$t('kUploadImgBtn')"
               accept="image/*"
               outlined
@@ -113,9 +114,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" text @click="makeRequest">{{
-            $t('kMakeRequest')
-          }}</v-btn>
+          <v-btn color="primary" text @click="makeRequest">
+            {{ $t('kMakeRequest') }}
+          </v-btn>
           <v-btn color="error" text @click="closeDialog">
             {{ $t('kCancelBtn') }}
           </v-btn>
@@ -129,6 +130,9 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+import { UPLOAD_PROJECT_IMAGES } from '~/graphql/mutations/projectMutate'
+
 export default {
   props: {
     status: {
@@ -147,12 +151,44 @@ export default {
       description: '',
       location: '',
       targetAmount: '',
-      imgUrl: null,
+      files: [],
     }
   },
   methods: {
+    async addImages() {
+      let stringArray = []
+
+      const { data } = await this.$apollo.mutate({
+        mutation: gql`
+          ${UPLOAD_PROJECT_IMAGES}
+        `,
+        variables: {
+          files: this.files,
+        },
+      })
+
+      return data.multipleFileUploader
+      // // let keyString = []
+      // for (let i = 0; i < data.multipleFileUploader.length; i++) {
+      //   //push string array
+      //   stringArray.push(data.multipleFileUploader[i].url.toString())
+
+      //   console.log('check array of string:', stringArray)
+
+      //   // keyString.push({link: data.multipleFileUploader[i].url})
+
+      //   // console.log('check key string: ', keyString)
+      // }
+
+      // return stringArray
+    },
     async makeRequest() {
       this.overlay = true
+
+      const urlString = await this.addImages()
+
+      console.log('check urlString: ', urlString)
+
       const newData = {
         title: this.title,
         description: this.description,
@@ -160,7 +196,7 @@ export default {
         endDate: this.endDate,
         location: this.location,
         targetAmount: parseFloat(this.targetAmount),
-        imageList: this.imgUrl,
+        imageList: urlString,
       }
 
       await this.$store.dispatch('createProject', newData)
@@ -169,7 +205,9 @@ export default {
       this.description = ''
       this.startDate = ''
       this.endDate = ''
-      ;(this.location = ''), (this.targetAmount = ''), (this.imgUrl = '')
+      this.location = ''
+      this.targetAmount = ''
+      this.imgUrl = ''
       this.closeDialog()
     },
     formatDate(date) {
@@ -180,9 +218,6 @@ export default {
     },
     closeDialog() {
       this.$emit('closeDialog')
-    },
-    async uploadImg() {
-      //operation here
     },
   },
   watch: {

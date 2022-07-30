@@ -36,3 +36,10 @@ export const UPDATE_PROJECT = gql`
     }
   }
 `
+export const UPLOAD_PROJECT_IMAGES = gql`
+  mutation MultipleFileUploader($files: [Upload]!) {
+    multipleFileUploader(files: $files) {
+      url
+    }
+  }
+`

@@ -189,20 +189,18 @@
               <v-col cols="4" xs="12" v-for="(item, i) in props.items" :key="i">
                 <v-card
                   color="primary"
-                  width="450px"
                   class="white--text rounded-xl"
+                  width="600px"
                 >
                   <v-card-title class="justify-center">
                     <!-- {{ $t('kTxnHash') }}: {{ item.txnHash }} -->
                   </v-card-title>
                   <v-card-text class="white--text px-12">
                     <p class="subtitle-1">
-                      {{ $t('kTransferFrom') }}:
-                      {{ shortAddress(item.addressFrom) }}
+                      {{ $t('kTransferFrom') }}: {{ shortAddress(item.addressFrom) }}
                     </p>
                     <p class="subtitle-1">
-                      {{ $t('kTransferTo') }}:
-                      {{ shortAddress(item.addressTo) }}
+                      {{ $t('kTransferTo') }}: {{ shortAddress(item.addressTo) }}
                     </p>
                     <p class="subtitle-1">
                       {{ $t('kAmount') }}:

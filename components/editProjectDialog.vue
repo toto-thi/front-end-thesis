@@ -99,6 +99,7 @@
             </v-menu>
             <v-file-input
               multiple
+              v-model="files"
               :label="$t('kUploadImgBtn')"
               accept="image/*"
               outlined
@@ -125,6 +126,9 @@
 </template>
 
 <script>
+import gql from 'graphql-tag'
+import { UPLOAD_PROJECT_IMAGES } from '~/graphql/mutations/projectMutate'
+
 export default {
   props: {
     status: {
@@ -148,14 +152,21 @@ export default {
         description: '',
         location: '',
         targetAmount: null,
-        imgUrl: null,
+        files: [],
       },
+      files: []
     }
   },
   methods: {
     async editProjectData() {
       this.overlay = true
       this.editedItem = Object.assign({}, this.item)
+
+      const response = await this.uploadImg()
+
+      if(!!response) {
+        this.editedItem.files = response
+      }
 
       const updateData = {
         pid: this.item.id,
@@ -166,7 +177,7 @@ export default {
           description: this.editedItem.description,
           location: this.editedItem.location,
           targetAmount: parseFloat(this.editedItem.targetAmount),
-          imageList: this.editedItem.imgUrl,
+          imageList: this.editedItem.files,
         },
       }
 
@@ -187,7 +198,22 @@ export default {
       this.status = false
     },
     async uploadImg() {
-      //operation here
+      let stringArray = []
+
+      const { data } = await this.$apollo.mutate({
+        mutation: gql`
+          ${UPLOAD_PROJECT_IMAGES}
+        `,
+        variables: {
+          files: this.files,
+        },
+      })
+
+      for (let { url } of data.multipleFileUploader) {
+        stringArray.push({url: url})
+      }
+
+      return stringArray
     },
   },
   watch: {

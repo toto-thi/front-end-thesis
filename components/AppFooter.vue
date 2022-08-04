@@ -13,7 +13,7 @@
         <h1>{{$t('kFooterDev')}}</h1>
         <br>
         <h4>Thinakone Louangdy</h4>
-        <h4>Souphaxay Phounsavart</h4>
+        <h4>Souphaxay Phounsavath</h4>
       </v-col>
       <v-col cols="4" xl="4" sm="4">
         <v-row class="mt-10" align="center" justify="center">

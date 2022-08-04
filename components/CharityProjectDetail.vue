@@ -44,12 +44,12 @@
                   class="mt-8"
                 >
                   <v-carousel-item
-                    v-for="(item, i) in items"
+                    v-for="(item, i) in project.imageList"
                     :key="i"
                     reverse-transition="fade-transition"
                     transition="fade-transition"
                   >
-                    <v-img :src="item.src" contain height="500px"></v-img>
+                    <v-img :src="item.url" contain height="500px"></v-img>
                   </v-carousel-item>
                 </v-carousel>
               </v-card-text>
@@ -197,10 +197,12 @@
                   </v-card-title>
                   <v-card-text class="white--text px-12">
                     <p class="subtitle-1">
-                      {{ $t('kTransferFrom') }}: {{ shortAddress(item.addressFrom) }}
+                      {{ $t('kTransferFrom') }}:
+                      {{ shortAddress(item.addressFrom) }}
                     </p>
                     <p class="subtitle-1">
-                      {{ $t('kTransferTo') }}: {{ shortAddress(item.addressTo) }}
+                      {{ $t('kTransferTo') }}:
+                      {{ shortAddress(item.addressTo) }}
                     </p>
                     <p class="subtitle-1">
                       {{ $t('kAmount') }}:
@@ -269,20 +271,6 @@ export default {
       donateDialog: false,
       estPriceInUSD: null,
       currentEstPriceInUSD: null,
-      items: [
-        {
-          src: 'https://images.unsplash.com/photo-1589825029592-e857f30a76bf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1577376059855-afca4e1ff59c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1577375838286-e43f53e54632?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        },
-        {
-          src: 'https://images.unsplash.com/photo-1505810176942-54d98851165f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y3V0ZSUyMHRpZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        },
-      ],
       tempData: {},
     }
   },

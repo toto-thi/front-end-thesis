@@ -50,7 +50,7 @@
                 <v-col cols="7" align-self="center">
                   <p class="mt-8 display-1 font-weight-bold">{{ totalDonation }}</p>
                   <p class="subtitle-1">
-                    ({{ $t('kEstimatedPrice') }}: ${{ estimatedInUSD }})
+                    ≈ ${{ estimatedInUSD }}
                   </p>
                 </v-col>
                 <v-col cols="4" align-self="end">

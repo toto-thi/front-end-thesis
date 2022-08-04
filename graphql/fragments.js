@@ -21,7 +21,9 @@ export const PROJECT_FRAGMENT = gql`
     description
     contractAddress
     location
-    imageList
+    imageList {
+      url
+    }
     startDate
     endDate
     targetAmount

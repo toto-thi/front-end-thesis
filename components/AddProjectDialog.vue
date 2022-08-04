@@ -167,27 +167,16 @@ export default {
         },
       })
 
-      return data.multipleFileUploader
-      // // let keyString = []
-      // for (let i = 0; i < data.multipleFileUploader.length; i++) {
-      //   //push string array
-      //   stringArray.push(data.multipleFileUploader[i].url.toString())
+      for (let { url } of data.multipleFileUploader) {
+        stringArray.push({url: url})
+      }
 
-      //   console.log('check array of string:', stringArray)
-
-      //   // keyString.push({link: data.multipleFileUploader[i].url})
-
-      //   // console.log('check key string: ', keyString)
-      // }
-
-      // return stringArray
+      return stringArray
     },
     async makeRequest() {
       this.overlay = true
 
       const urlString = await this.addImages()
-
-      console.log('check urlString: ', urlString)
 
       const newData = {
         title: this.title,
@@ -207,7 +196,7 @@ export default {
       this.endDate = ''
       this.location = ''
       this.targetAmount = ''
-      this.imgUrl = ''
+      this.files = []
       this.closeDialog()
     },
     formatDate(date) {

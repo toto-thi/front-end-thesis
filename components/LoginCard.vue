@@ -73,10 +73,7 @@
                     >
                   </v-col>
                   <span>{{ $t('kNoAcc') }} &nbsp; </span>
-                  <nuxt-link
-                    to="Register"
-                    style="text-decoration: none"
-                  >
+                  <nuxt-link to="Register" style="text-decoration: none">
                     {{ $t('kRegisterNow') }}
                   </nuxt-link>
                 </v-row>
@@ -116,7 +113,7 @@ export default {
   },
   methods: {
     async signIn() {
-      await this.$store.dispatch('loginUser', this.credentials)
+      const resp = await this.$store.dispatch('loginUser', this.credentials)
 
       const wallet = this.user.walletID
       if (!!wallet) {
@@ -124,12 +121,14 @@ export default {
         this.$store.state.connectionStatus = true
       }
 
-      if (this.user.role === 'admin') {
-        this.$router.push('/dashboard/main')
-      } else if (this.user.role === 'member') {
-        this.$router.push('/dashboard/profile')
-      } else {
-        this.$router.push('/login')
+      if (!!resp) {
+        if (this.user.role === 'admin') {
+          this.$router.push('/dashboard/main')
+        } else if (this.user.role === 'member') {
+          this.$router.push('/dashboard/profile')
+        } else {
+          this.$router.push('/login')
+        }
       }
     },
   },
@@ -140,5 +139,4 @@ export default {
 .select {
   width: 0px;
 }
-
 </style>

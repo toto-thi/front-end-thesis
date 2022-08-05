@@ -16,6 +16,7 @@ import {
 } from '~/graphql/mutations/projectMutate'
 
 import { fetchProjects, fetchProjectById } from '~/helpers/getAPI'
+import { Toast } from '~/helpers/swal'
 
 const state = {
   allProjects: [],
@@ -174,7 +175,10 @@ const actions = {
         await dispatch('getAllProjects')
       }
     } catch (err) {
-      console.log(err.message)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
     commit('setLoading', false)
   },
@@ -203,7 +207,10 @@ const actions = {
         await dispatch('getAllProjects')
       }
     } catch (err) {
-      console.error(err)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
     commit('setLoading', false)
   },
@@ -228,7 +235,10 @@ const actions = {
         await dispatch('getRejectedProjects')
       }
     } catch (err) {
-      console.error(err)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
 
     commit('setLoading', false)
@@ -251,7 +261,10 @@ const actions = {
         await dispatch('getAllProjects')
       }
     } catch (err) {
-      console.error(err.message)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
 
     commit('setLoading', false)
@@ -263,7 +276,7 @@ const actions = {
       const response = await fetchProjects(client, TOTAL_DONATION)
       if (!!response) return response.calTotalDonation
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
   },
 }

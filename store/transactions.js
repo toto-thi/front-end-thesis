@@ -24,7 +24,7 @@ const actions = {
 
       if (!!res) return 'Done'
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
   },
 }

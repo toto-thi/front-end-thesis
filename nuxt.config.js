@@ -31,7 +31,7 @@ export default {
     '@nuxtjs/apollo',
     '@nuxtjs/i18n',
     'vue-social-sharing/nuxt',
-    'nuxt-sweetalert2'
+    'nuxt-sweetalert2',
   ],
 
   i18n: {

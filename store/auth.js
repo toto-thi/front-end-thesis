@@ -2,6 +2,7 @@ import { LOGIN_USER } from '~/graphql/mutations/authMutate'
 import { USER_PROFILE } from '~/graphql/queries/userQuery'
 import { CREATE_USER, UPDATE_USER } from '~/graphql/mutations/userMutate'
 import { decode } from 'jsonwebtoken'
+import { Toast } from '~/helpers/swal'
 
 const state = {
   user: {},
@@ -48,7 +49,10 @@ const actions = {
 
       commit('setUser', result.data.userProfile)
     } catch (err) {
-      console.error(err)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
     commit('setLoading', false)
   },
@@ -72,8 +76,18 @@ const actions = {
 
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Signin Complete redirecting...',
+      })
+
+      return res
     } catch (err) {
-      console.error(err.message.substring(15))
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
     commit('setLoading', false)
   },
@@ -99,8 +113,16 @@ const actions = {
 
       const decodeToken = decode(resToken)
       await dispatch('getCurrentUser', decodeToken.userId)
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Signup Complete redirecting...',
+      })
     } catch (err) {
-      console.error(err)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
 
     commit('setLoading', false)
@@ -131,8 +153,16 @@ const actions = {
         .then(({ data }) => data && data.updateUser)
 
       await dispatch('getCurrentUser', resp.id)
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Your profile has been updated!',
+      })
     } catch (err) {
-      console.log(err)
+      Toast.fire({
+        icon: 'error',
+        title: err.message.split(': ')[1],
+      })
     }
     commit('setLoading', false)
   },

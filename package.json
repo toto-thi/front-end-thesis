@@ -38,6 +38,7 @@
     "jsonwebtoken": "^8.5.1",
     "nuxt-sweetalert2": "^1.0.0",
     "prettier": "^2.5.1",
-    "secure-ls": "^1.2.6"
+    "secure-ls": "^1.2.6",
+    "sweetalert2": "^11.4.24"
   }
 }

@@ -50,7 +50,7 @@ const actions = {
 
       commit('setUsers', resp)
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
   },
 }

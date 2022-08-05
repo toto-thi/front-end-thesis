@@ -116,7 +116,7 @@ export default {
         parseFloat(this.data.targetAmount)
       ) {
         Swal.fire({
-          title: 'Warning',
+          icon: 'warning',
           text: 'We appreciated your kindness, but we only need the exact target amount. Please re-enter your donation amount.',
         })
         this.donateAmount = 0

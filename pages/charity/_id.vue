@@ -21,9 +21,17 @@ export default {
     }
   },
   async mounted() {
-    const res = await getAllTransactions(this.project.contractAddress)
+    await this.getData()
+  },
+  async updated() {
+    await this.getData()
+  },
+  methods: {
+    async getData() {
+      const res = await getAllTransactions(this.project.contractAddress)
 
-    this.showTransaction = res.reverse()
+      this.showTransaction = res.reverse()
+    },
   },
   components: {
     CharityProjectDetail,

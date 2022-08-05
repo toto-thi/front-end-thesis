@@ -79,7 +79,7 @@ const actions = {
 
       Toast.fire({
         icon: 'success',
-        title: 'Signin Complete redirecting...',
+        title: 'You\'re now logged in',
       })
 
       return res
@@ -116,7 +116,7 @@ const actions = {
 
       Toast.fire({
         icon: 'success',
-        title: 'Signup Complete redirecting...',
+        title: 'Signup completed!',
       })
     } catch (err) {
       Toast.fire({
@@ -134,6 +134,11 @@ const actions = {
     localStorage.removeItem('temp')
     commit('clearUser')
     commit('setLoading', false)
+
+    Toast.fire({
+      icon: 'success',
+      title: 'You\'re now logged out',
+    })
   },
 
   async updateProfile({ commit, dispatch }, newData) {

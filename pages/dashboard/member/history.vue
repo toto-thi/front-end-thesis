@@ -1,15 +1,32 @@
 <template>
   <v-container>
-    <h1>This is member transaction history list in dashboard</h1>
+    <MemberTransaction :transactions="userTransactions" />
   </v-container>
 </template>
 
 <script>
+import MemberTransaction from '~/components/dashboard/MemberTransaction.vue'
+
 export default {
-    layout: 'dashboard'
+  layout: 'dashboard',
+  components: { MemberTransaction },
+
+  async asyncData({ store }) {
+    console.log('check wallet address', store.getters.user.walletID)
+
+    const response = await store.dispatch(
+      'getUserTransactions',
+      store.getters.user.walletID
+    )
+
+    if (!!response) {
+      return {
+        userTransactions: response,
+      }
+    }
+  },
 }
 </script>
 
 <style>
-
 </style>

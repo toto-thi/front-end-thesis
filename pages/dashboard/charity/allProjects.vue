@@ -10,9 +10,6 @@ export default {
   layout: 'dashboard',
   computed: { ...mapGetters(['allProjects']) },
   components: { AllProjectTable },
-  async mounted() {
-    await this.$store.dispatch('getAllProjects')
-  },
 }
 </script>
 

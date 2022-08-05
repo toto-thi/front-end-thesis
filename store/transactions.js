@@ -1,4 +1,8 @@
 import { ADD_TRANSACTION } from '~/graphql/mutations/transactionMutate'
+import {
+  GET_ALL_TRANSACTIONS,
+  GET_TRANSACTIONS_BY_USER,
+} from '~/graphql/queries/transactionQuery'
 
 const state = {}
 
@@ -9,8 +13,6 @@ const mutations = {}
 const actions = {
   async addToTransaction(_, payload) {
     let client = this.app.apolloProvider.defaultClient
-
-    console.log('check payload: ', payload)
 
     try {
       const res = await client
@@ -23,6 +25,38 @@ const actions = {
         .then(({ data }) => data && data.donate)
 
       if (!!res) return 'Done'
+    } catch (err) {
+      console.error(err.message.split(': ')[1])
+    }
+  },
+  async getAllTransactions() {
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const { data } = await client.query({
+        query: GET_ALL_TRANSACTIONS,
+      })
+
+      if (!!data) return data.allTransactions
+    } catch (err) {
+      console.error(err.message.split(': ')[1])
+    }
+  },
+  async getUserTransactions(_, payload) {
+    let client = this.app.apolloProvider.defaultClient
+
+    console.log('check payload: ', payload)
+    
+    try {
+      const { data } = await client.query({
+        query: GET_TRANSACTIONS_BY_USER,
+        variables: {
+          walletAddress: payload,
+        },
+      })
+
+      if(!!data) return data.transactionPerUser
+
     } catch (err) {
       console.error(err.message.split(': ')[1])
     }

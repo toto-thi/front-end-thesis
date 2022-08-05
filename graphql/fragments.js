@@ -37,3 +37,21 @@ export const PROJECT_FRAGMENT = gql`
     }
   }
 `
+
+export const TRANSACTION_FRAGMENT = gql`
+  fragment Transactions on Transaction {
+    id
+    txnHash
+    fromWalletID
+    toWalletID
+    amount
+    message
+    donatedBy {
+      firstname
+      lastname
+    }
+    projectID {
+      title
+    }
+  }
+`

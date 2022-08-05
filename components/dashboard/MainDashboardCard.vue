@@ -73,7 +73,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import { PriceInUSD } from '~/helpers/calETHPrice'
-import LoadingScreen from '~/utils/LoadingScreen.vue'
 import AllProjectTable from './AllProjectTable.vue'
 
 export default {
@@ -102,7 +101,7 @@ export default {
   computed: {
     ...mapGetters(['allProjects', 'approved', 'dLoading', 'loading']),
   },
-  components: { LoadingScreen, AllProjectTable },
+  components: { AllProjectTable },
 }
 </script>
 

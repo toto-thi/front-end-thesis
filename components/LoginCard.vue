@@ -113,6 +113,9 @@ export default {
   },
   methods: {
     async signIn() {
+
+      this.$nuxt.$loading.start()
+
       const resp = await this.$store.dispatch('loginUser', this.credentials)
 
       const wallet = this.user.walletID
@@ -130,6 +133,7 @@ export default {
           this.$router.push('/login')
         }
       }
+      setTimeout(() => this.$nuxt.$loading.finish(), 5000)
     },
   },
 }

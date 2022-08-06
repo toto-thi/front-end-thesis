@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="mt-8">
+    <v-container class="">
       <v-row align="center" justify="center">
         <v-sheet rounded="xl" color="#44496c" width="85%">
           <v-row align="center">
@@ -43,10 +43,10 @@
 
       <v-tabs v-model="tab" background-color="white" centered text>
         <v-tabs-slider></v-tabs-slider>
-        <v-tab href="#tab-1" class="text-capitalize">
+        <v-tab href="#tab-1" class="text-capitalize headline">
           {{ $t('kAcceptingOpen') }}
         </v-tab>
-        <v-tab href="#tab-2" class="text-capitalize">
+        <v-tab href="#tab-2" class="text-capitalize headline">
           {{ $t('kCompleteProject') }}
         </v-tab>
       </v-tabs>
@@ -141,7 +141,7 @@
                 </v-row>
               </template>
               <template v-slot:footer>
-                <v-row justify="center" align="center" class="mt-8">
+                <v-row justify="center" align="center">
                   <v-pagination
                     v-model="page"
                     :length="totalPage"
@@ -152,7 +152,7 @@
             </v-data-iterator>
           </v-row>
         </v-tab-item>
-        <v-tab-item value="tab-2">
+        <v-tab-item value="tab-2" >
           <v-row justify="center" align="center" class="mt-16 mx-16">
             <v-data-iterator
               :items="closed"
@@ -242,11 +242,11 @@
                 </v-row>
               </template>
               <template v-slot:footer>
-                <v-row justify="center" align="center" class="mt-8">
+                <v-row justify="center" align="center">
                   <v-pagination
                     v-model="page"
-                    :length="totalPage"
-                    :total-visible="Math.ceil(approved.length / perPage)"
+                    :length="Math.ceil(closed.length / perPage)"
+                    :total-visible="Math.ceil(closed.length / perPage)"
                   ></v-pagination>
                 </v-row>
               </template>

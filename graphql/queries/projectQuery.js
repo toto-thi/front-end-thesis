@@ -20,6 +20,9 @@ export const GET_PROJECT_DETAILS = gql`
     getProjectById(id: $id) {
       ...ProjectData
       isApproved
+      isClose
+      isPending
+      isRejected
     }
   }
 `
@@ -62,6 +65,16 @@ export const GET_PROJECT_BY_CREATOR = gql`
     }
   }
 `
+
+export const GET_FINISHED_PROJECTS = gql`
+  ${PROJECT_FRAGMENT}
+  query GetClosedProjects {
+    getClosedProjects {
+      ...ProjectData
+    }
+  }
+`
+
 export const TOTAL_DONATION = gql`
   query TotalDonation {
     calTotalDonation

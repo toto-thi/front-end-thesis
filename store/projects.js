@@ -5,6 +5,7 @@ import {
   GET_APPROVED_PROJECTS,
   GET_REJECTED_PROJECTS,
   GET_PROJECT_BY_CREATOR,
+  GET_FINISHED_PROJECTS,
   TOTAL_DONATION,
 } from '~/graphql/queries/projectQuery'
 
@@ -13,6 +14,7 @@ import {
   REJECT_PROJECT,
   CREATE_PROJECT,
   UPDATE_PROJECT,
+  CLOSE_PROJECT,
 } from '~/graphql/mutations/projectMutate'
 
 import { fetchProjects, fetchProjectById } from '~/helpers/getAPI'
@@ -63,6 +65,7 @@ const actions = {
     await dispatch('getApprovedProject')
     await dispatch('getPendingProject')
     await dispatch('getRejectedProjects')
+    await dispatch('getClosedProjects')
   },
   async getAllProjects({ commit }) {
     commit('setLoading', true)
@@ -73,7 +76,7 @@ const actions = {
       const allProj = await fetchProjects(client, GET_ALL_PROJECT)
       commit('fetchAllProjects', allProj.getAllProjects)
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
 
     commit('setLoading', false)
@@ -87,7 +90,7 @@ const actions = {
       const resp = await fetchProjectById(client, GET_PROJECT_DETAILS, id)
       return resp.getProjectById
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
 
     commit('setLoading', true)
@@ -109,7 +112,7 @@ const actions = {
 
       return response
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
     commit('setLoading', false)
   },
@@ -122,7 +125,7 @@ const actions = {
       const approveProj = await fetchProjects(client, GET_APPROVED_PROJECTS)
       commit('fetchApprovedProject', approveProj.getApprovedProjects)
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
 
     commit('setLoading', false)
@@ -136,7 +139,7 @@ const actions = {
       const pendingProj = await fetchProjects(client, GET_PENDING_PROJECT)
       commit('fetchPendingProject', pendingProj.getPendingProjects)
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
     }
 
     commit('setLoading', false)
@@ -150,7 +153,26 @@ const actions = {
       const rejectProj = await fetchProjects(client, GET_REJECTED_PROJECTS)
       commit('fetchRejectedProject', rejectProj.getRejectedProjects)
     } catch (err) {
-      console.error(err)
+      console.error(err.message.split(': ')[1])
+    }
+
+    commit('setLoading', false)
+  },
+  async getClosedProjects({ commit }) {
+    commit('setLoading', true)
+
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const { data } = await client.query({
+        query: GET_FINISHED_PROJECTS,
+      })
+
+      if (!!data) {
+        commit('fetchClosedProject', data.getClosedProjects)
+      }
+    } catch (err) {
+      console.error(err.message.split(': ')[1])
     }
 
     commit('setLoading', false)
@@ -265,6 +287,30 @@ const actions = {
         icon: 'error',
         title: err.message.split(': ')[1],
       })
+    }
+
+    commit('setLoading', false)
+  },
+  async closeProject({ commit }, payload) {
+    commit('setLoading', true)
+
+    let client = this.app.apolloProvider.defaultClient
+
+    console.log('check id', payload)
+    
+    try {
+      const { data } = await client.mutate({
+        mutation: CLOSE_PROJECT,
+        variables: {
+          closeProjectId: payload,
+        },
+      })
+
+      console.log('check response', data)
+
+      if (!!data) return data.closeProject
+    } catch (err) {
+      console.error(err.message.split(': ')[1])
     }
 
     commit('setLoading', false)

@@ -26,7 +26,7 @@
         }}</v-card-title>
         <v-data-table
           :headers="headers"
-          :items="FinishedProject"
+          :items="finishedProject"
           :items-per-page="5"
           item-key="title"
           class="elevation-1"
@@ -54,9 +54,9 @@ import ShortText from '~/utils/ShortText.vue'
 
 export default {
   props: {
-    FinishedProject: {
+    finishedProject: {
       type: Array,
-      // required: true,
+      required: true,
     },
   },
   data() {
@@ -105,6 +105,9 @@ export default {
         },
       ],
     }
+  },
+  components: {
+    ShortText,
   },
 }
 </script>

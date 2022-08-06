@@ -19,6 +19,7 @@ export const REJECT_PROJECT = gql`
     rejectProject(id: $id, rejection: $rejection)
   }
 `
+
 export const CREATE_PROJECT = gql`
   ${PROJECT_FRAGMENT}
   mutation AddProject($projectInput: ProjectInput!) {
@@ -41,5 +42,11 @@ export const UPLOAD_PROJECT_IMAGES = gql`
     multipleFileUploader(files: $files) {
       url
     }
+  }
+`
+
+export const CLOSE_PROJECT = gql`
+  mutation CloseProject($closeProjectId: ID!) {
+    closeProject(id: $closeProjectId)
   }
 `

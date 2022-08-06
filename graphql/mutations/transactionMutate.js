@@ -5,7 +5,10 @@ export const ADD_TRANSACTION = gql`
     donate(donateInput: $donateInput) {
       id
       txnHash
-      projectID
+      projectID {
+        id
+        title
+      }
       fromWalletID
       toWalletID
       amount

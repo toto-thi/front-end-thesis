@@ -116,7 +116,7 @@ export default {
       if (approve) return 'Approved'
       if (reject) return 'Rejected'
       if (pending) return 'Pending'
-      if (close) return 'Close'
+      if (close) return 'Finished'
     },
   },
 }

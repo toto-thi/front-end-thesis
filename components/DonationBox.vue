@@ -93,7 +93,7 @@ export default {
       message: '',
       estimatedPrice: 0,
       onboarding: 0,
-      textLimit: [v => v.length <= 40 || 'Max 40 Characters']
+      textLimit: [(v) => v.length <= 40 || 'Max 40 Characters'],
     }
   },
   methods: {
@@ -101,6 +101,11 @@ export default {
       this.$emit('closeBox')
     },
     async makeDonation() {
+      const getMoney = parseFloat(this.donateAmount).toFixed(2)
+      const currentMoney = parseFloat(this.currentDonate).toFixed(2)
+      const target = parseFloat(this.data.targetAmount).toFixed(2)
+      const sum = getMoney + currentMoney
+
       if (this.user.walletID == null) {
         Swal.fire({
           title: 'Warning',
@@ -111,10 +116,7 @@ export default {
           title: 'Warning',
           text: 'Please input donation amount before you donate',
         })
-      } else if (
-        parseFloat(this.donateAmount) + parseFloat(this.data.currentDonate) >
-        parseFloat(this.data.targetAmount)
-      ) {
+      } else if (parseFloat(sum).toFixed(2) > target) {
         Swal.fire({
           icon: 'warning',
           text: 'We appreciated your kindness, but we only need the exact target amount. Please re-enter your donation amount.',
@@ -123,10 +125,10 @@ export default {
         this.message = ''
       } else {
         this.onboarding = 1
-
+        
         const donateData = {
           contractAddress: this.data.contractAddress,
-          amount: this.donateAmount,
+          amount: getMoney,
           message: this.message,
           walletID: this.data.sender,
           addressTo: this.data.targetWallet,
@@ -140,13 +142,17 @@ export default {
           contractAddress: this.data.contractAddress,
           fromWalletID: this.data.sender,
           toWalletID: this.data.targetWallet,
-          amount: parseFloat(this.donateAmount),
+          amount: parseFloat(getMoney),
           message: this.message,
           donatedBy: this.$store.getters.user.id,
         }
-
+        
         if (!!res) {
           await this.$store.dispatch('addToTransaction', transactionDetail)
+          if (parseFloat(sum).toFixed(2) === target)
+           {
+            await this.$store.dispatch('closeProject', this.data.id)
+          }
         }
         this.onboarding = 2
       }

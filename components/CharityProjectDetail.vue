@@ -16,7 +16,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <h3 style="color: #53a700" class="pr-5">
-                  {{ project.isApproved ? 'Active' : 'Close' }}
+                  {{
+                    project.isApproved
+                      ? $t('kActiveTitle')
+                      : $t('kCompleteTitle')
+                  }}
                 </h3>
               </v-card-actions>
             </v-card>
@@ -58,6 +62,7 @@
                 <v-btn
                   color="primary"
                   class="text-capitalize mb-4 mr-5 title"
+                  :disabled="project.isApproved ? false : true"
                   rounded
                   outlined
                   @click="donationBox"
@@ -192,9 +197,7 @@
                   class="white--text rounded-xl"
                   width="600px"
                 >
-                  <v-card-title class="justify-center">
-                    <!-- {{ $t('kTxnHash') }}: {{ item.txnHash }} -->
-                  </v-card-title>
+                  <v-card-title class="justify-center"> </v-card-title>
                   <v-card-text class="white--text px-12">
                     <p class="subtitle-1">
                       {{ $t('kTransferFrom') }}:

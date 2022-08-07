@@ -67,7 +67,7 @@
         </v-data-table>
         <v-dialog v-model="editDialog" max-width="500px">
           <v-card color="white">
-            <v-card-title>{{$t('kUserDialog')}}</v-card-title>
+            <v-card-title>{{ $t('kUserDialog') }}</v-card-title>
             <v-card-text>
               <v-container>
                 <v-row>
@@ -88,7 +88,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12">
-                    <span>{{$t('kGender')}}</span>
+                    <span>{{ $t('kGender') }}</span>
                     <v-radio-group
                       v-model="selected.gender"
                       dense
@@ -113,7 +113,7 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12" sm="6">
-                    <span>{{$t('kRole')}}</span>
+                    <span>{{ $t('kRole') }}</span>
                     <v-select
                       dense
                       outlined
@@ -132,13 +132,13 @@
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="success" text @click="confirmEdit"
-                >{{$t('kUpdateBtn')}}</v-btn
-              >
+              <v-btn color="success" text @click="confirmEdit">{{
+                $t('kUpdateBtn')
+              }}</v-btn>
               <v-spacer />
-              <v-btn color="error" text @click="editDialog = !editDialog"
-                >{{$t('kCancelBtn')}}</v-btn
-              >
+              <v-btn color="error" text @click="editDialog = !editDialog">{{
+                $t('kCancelBtn')
+              }}</v-btn>
             </v-card-actions>
             <v-overlay :value="loading">
               <v-progress-circular
@@ -150,18 +150,52 @@
         </v-dialog>
 
         <v-dialog v-model="deleteDialog" max-width="500px">
-          <v-card color="white">
-            <v-card-title
-              >Are you sure you want to delete this user?</v-card-title
-            >
-            <v-card-actions>
-              <v-btn color="success" text>Yes, I Confirm</v-btn>
-              <v-spacer />
-              <v-btn color="error" text @click="deleteDialog = !deleteDialog"
-                >Cancel</v-btn
-              >
-            </v-card-actions>
-          </v-card>
+          <v-window v-model="onboarding">
+            <v-window-item>
+              <v-card color="white">
+                <v-card-title
+                  >Are you sure you want to delete this user?</v-card-title
+                >
+                <v-card-actions>
+                  <v-btn color="success" text @click="confirmDeleteUser"
+                    >Yes, I Confirm</v-btn
+                  >
+                  <v-spacer />
+                  <v-btn color="error" text @click="closeDeleteDialog"
+                    >Cancel</v-btn
+                  >
+                </v-card-actions>
+              </v-card>
+            </v-window-item>
+            <v-window-item>
+              <v-card color="white" height="20vh">
+                <v-card-title class="justify-center headline">
+                  {{ $t('kLoading') }}
+                </v-card-title>
+                <v-card-text class="text-center">
+                  <v-row class="pt-8" align="center" justify="center">
+                    <v-progress-circular
+                      indeterminate
+                      size="64"
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-row>
+                </v-card-text>
+              </v-card>
+            </v-window-item>
+            <v-window-item>
+              <v-card color="white" height="20vh" class="text-center">
+                <v-row align="end" justify="center" class="mt-16 pt-16">
+                  <p>{{ responseSuccess }}.</p>
+                  <br />
+                  <v-btn color="success" @click="onSuccess">
+                    <v-icon>mdi-check-circle-outline</v-icon> &nbsp;
+                    {{ $t('kDoneBtn') }}!
+                  </v-btn>
+                </v-row>
+              </v-card>
+            </v-window-item>
+          </v-window>
         </v-dialog>
       </v-card>
     </v-row>
@@ -169,17 +203,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   props: {
     users: {
       type: Array,
       required: true,
     },
-  },
-  computed: {
-    ...mapGetters(['loading']),
   },
   data() {
     return {
@@ -239,6 +268,10 @@ export default {
         },
       ],
       editDialog: false,
+      loading: false,
+      idForDel: '',
+      onboarding: null,
+      responseSuccess: '',
       deleteDialog: false,
       roles: [
         {
@@ -274,6 +307,8 @@ export default {
       this.selected = Object.assign({}, user)
     },
     async confirmEdit() {
+      this.loading = true
+
       const newData = {
         id: this.selected.id,
         detail: {
@@ -288,18 +323,39 @@ export default {
 
       try {
         await this.$store.dispatch('updateUser', newData)
-        await this.$store.dispatch('getAllUsers')
       } catch (err) {
         console.error(err)
       }
 
-      this.editDialog = false
-      this.selected = Object.assign({}, this.defaultUser)
+      setTimeout(
+        () => (
+          (this.loading = false),
+          (this.editDialog = false),
+          (this.selected = Object.assign({}, this.defaultUser))
+        ),
+        2000
+      )
     },
     deleteUser(id) {
       this.deleteDialog = true
+      this.onboarding = 0
+      this.idForDel = id
     },
-    async confirmDelete() {},
+    async confirmDeleteUser() {
+      this.onboarding = 1
+      const response = await this.$store.dispatch('deleteUser', this.idForDel)
+      await this.$store.dispatch('getAllUsers')
+      this.idForDel = ''
+      this.responseSuccess = response
+      setTimeout(() => (this.onboarding = 2), 2000)
+    },
+    closeDeleteDialog() {
+      this.deleteDialog = false
+    },
+    onSuccess() {
+      this.deleteDialog = false
+      this.onboarding = null
+    },
   },
 }
 </script>

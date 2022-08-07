@@ -1,5 +1,5 @@
 import { GET_ALL_USERS } from '~/graphql/queries/userQuery'
-import { UPDATE_USER } from '~/graphql/mutations/userMutate'
+import { UPDATE_USER, DELETE_USER } from '~/graphql/mutations/userMutate'
 import { connectMetaMask } from '~/helpers/connectMetaMask'
 
 const state = {
@@ -49,6 +49,22 @@ const actions = {
         .then(({ data }) => data && data.updateUser)
 
       commit('setUsers', resp)
+    } catch (err) {
+      console.error(err.message.split(': ')[1])
+    }
+  },
+  async deleteUser(_, uid) {
+    let client = this.app.apolloProvider.defaultClient
+
+    try {
+      const { data } = await client.mutate({
+        mutation: DELETE_USER,
+        variables: {
+          deleteUserId: uid,
+        },
+      })
+
+      if (!!data) return data.deleteUser
     } catch (err) {
       console.error(err.message.split(': ')[1])
     }

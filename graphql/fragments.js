@@ -11,6 +11,7 @@ export const USER_FRAGMENT = gql`
     role
     dob
     walletID
+    isActive
   }
 `
 

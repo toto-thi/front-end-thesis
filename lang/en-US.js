@@ -25,6 +25,7 @@ export default async (context, locale) => {
     kCharityBtn: 'charity',
     kConfirmPassword: 're-enter password',
     KConfirmBtn: 'confirm',
+    kConfirmText: 'Please enter smart contract address to bind this project with blockchain network',
     kCreateBtn: 'Create Project',
     kCurrentDonatedAmount: 'Current Donation Amount',
     kDonate: 'donate now',

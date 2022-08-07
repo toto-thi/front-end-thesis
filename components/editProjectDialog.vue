@@ -26,6 +26,7 @@
                   :label="$t('kTargetAmount')"
                   prepend-inner-icon="mdi-ethereum"
                   outlined
+                  disabled
                   type="number"
                 ></v-text-field>
                 <v-text-field
@@ -101,15 +102,6 @@
                     @input="menuEndDate = !menuEndDate"
                   ></v-date-picker>
                 </v-menu>
-                <v-file-input
-                  multiple
-                  v-model="files"
-                  :label="$t('kUploadImgBtn')"
-                  accept="image/*"
-                  outlined
-                  clearable
-                  small-chips
-                ></v-file-input>
               </v-container>
             </v-card-text>
             <v-card-actions>
@@ -180,22 +172,13 @@ export default {
         title: '',
         description: '',
         location: '',
-        targetAmount: null,
-        files: [],
       },
-      files: [],
     }
   },
   methods: {
     async editProjectData() {
       this.onboarding = 1
       this.editedItem = Object.assign({}, this.item)
-
-      const response = await this.uploadImg()
-
-      if (!!response) {
-        this.editedItem.files = response
-      }
 
       const updateData = {
         pid: this.item.id,
@@ -205,8 +188,6 @@ export default {
           title: this.editedItem.title,
           description: this.editedItem.description,
           location: this.editedItem.location,
-          targetAmount: parseFloat(this.editedItem.targetAmount),
-          imageList: this.editedItem.files,
         },
       }
 
@@ -229,24 +210,6 @@ export default {
     onSuccess() {
       this.status = false
       this.onboarding = null
-    },
-    async uploadImg() {
-      let stringArray = []
-
-      const { data } = await this.$apollo.mutate({
-        mutation: gql`
-          ${UPLOAD_PROJECT_IMAGES}
-        `,
-        variables: {
-          files: this.files,
-        },
-      })
-
-      for (let { url } of data.multipleFileUploader) {
-        stringArray.push({ url: url })
-      }
-
-      return stringArray
     },
   },
   computed: {

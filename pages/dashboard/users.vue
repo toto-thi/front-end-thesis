@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import UsersTable from '~/components/dashboard/UsersTable.vue'
 
 export default {

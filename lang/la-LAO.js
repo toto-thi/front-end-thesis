@@ -25,6 +25,7 @@ export default async (context, locale) => {
     kCharityBtn: 'ການກຸສົນ',
     kConfirmPassword: 'ໃສ່ລະຫັດອີກຄັ້ງ',
     KConfirmBtn: 'ຍືນຍັນ',
+    kConfirmText: 'ກະລຸນາໃສ່ເລກທີ່ຢູ່ຂອງສັນຍາອັດສະລິຍະເພື່ອຜູກຕິດໂຄງການນີ້ກັບເຄື່ອຄ່າຍຂອງ Blockchain',
     kCreateBtn: 'ສະເໜີໂຄງການ',
     kCurrentDonatedAmount: 'ຍອດບໍລິຈາກປັດຈຸບັນ',
     kDonate: 'ບໍລິຈາກເລີຍ',

@@ -25,6 +25,8 @@
               <v-text-field
                 v-model="items.targetAmount"
                 :label="$t('kTargetAmount')"
+                :hint="`${$t('kEstimatedPrice')}: $${estimatedPrice}`"
+                persistent-hint
                 prepend-inner-icon="mdi-ethereum"
                 outlined
                 type="number"
@@ -52,6 +54,24 @@
                 readonly
                 outlined
               ></v-text-field>
+              <v-carousel
+                cycle
+                hide-delimiter-background
+                show-arrows-on-hover
+                class="mt-8"
+              >
+                <v-carousel-item
+                  v-for="(item, i) in items.imageList"
+                  :key="i"
+                  reverse-transition="fade-transition"
+                  transition="fade-transition"
+                >
+                  <v-img :src="item.url" contain height="500px"></v-img>
+                </v-carousel-item>
+              </v-carousel>
+              <p class="subtitle textcolor text-capitalize">
+                {{ $t('kConfirmText') }}.
+              </p>
               <v-text-field
                 v-model="contractAddress"
                 :label="$t('kProjectAddress')"
@@ -105,6 +125,8 @@
   </v-container>
 </template>
 <script>
+import { PriceInUSD } from '~/helpers/calETHPrice'
+
 export default {
   props: {
     status: {
@@ -119,6 +141,7 @@ export default {
   data() {
     return {
       onboarding: 0,
+      estimatedPrice: 0,
       contractAddress: '',
     }
   },
@@ -139,22 +162,32 @@ export default {
 
       this.items = {}
       this.contractAddress = ''
-      this.onboarding = 2
+      setTimeout(() => (this.onboarding = 2), 3000)
     },
     async reject() {
       this.onboarding = 1
       await this.$store.dispatch('rejectProject', this.items.id)
       this.items = {}
       this.contractAddress = ''
-      this.onboarding = 2
+      setTimeout(() => (this.onboarding = 2), 3000)
     },
     onSuccess() {
       this.onboarding = null
       this.status = false
     },
   },
+  async mounted() {
+    const response = (
+      await PriceInUSD(this.$axios, this.items.targetAmount)
+    ).toLocaleString('en-US')
+
+    this.estimatedPrice = response
+  },
 }
 </script>
 
-<style>
+<style scoped>
+.textcolor {
+  color: #44496c;
+}
 </style>

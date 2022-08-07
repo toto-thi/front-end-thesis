@@ -228,7 +228,7 @@ export default {
       this.location = ''
       this.targetAmount = ''
       this.files = []
-      this.onboarding = 2
+      setTimeout(() => (this.onboarding = 2), 3000)
     },
     formatDate(date) {
       if (!date) return null

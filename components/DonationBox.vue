@@ -9,11 +9,13 @@
             }}</v-card-title>
             <v-card-text class="mt-6">
               <v-text-field
-                v-model="donateAmount"
+                
                 :label="$t('kMoney')"
+                @input="donateAmount"
                 type="number"
                 :min="0"
                 :hint="`${$t('kEstimatedPrice')}: $${estimatedPrice}`"
+                append-icon="MAX"
                 persistent-hint
                 outlined
                 prepend-inner-icon="mdi-ethereum"

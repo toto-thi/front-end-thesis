@@ -35,8 +35,8 @@
                 </v-col>
                 <v-col cols="7" align-self="end">
                   <v-card-text class="title font-weight-bold text-capitalize">
-                    {{ $t('kProjectActiveCount') }}</v-card-text
-                  >
+                    {{ $t('kProjectActiveCount') }}
+                  </v-card-text>
                 </v-col>
               </v-row>
             </v-card>
@@ -48,10 +48,10 @@
                   <v-icon color="white" large> mdi-ethereum </v-icon>
                 </v-col>
                 <v-col cols="7" align-self="center">
-                  <p class="mt-8 display-1 font-weight-bold">{{ totalDonation }}</p>
-                  <p class="subtitle-1">
-                    ≈ ${{ estimatedInUSD }}
+                  <p class="mt-8 display-1 font-weight-bold">
+                    {{ !!totalDonation ? totalDonation : 0 }}
                   </p>
+                  <p class="subtitle-1">≈ ${{ !!totalDonation ? estimatedInUSD : 0 }}</p>
                 </v-col>
                 <v-col cols="4" align-self="end">
                   <v-card-text class="title font-weight-bold">{{

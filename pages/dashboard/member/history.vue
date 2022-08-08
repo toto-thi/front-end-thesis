@@ -1,6 +1,9 @@
 <template>
   <v-container>
-    <MemberTransaction :transactions="userTransactions" />
+    <MemberTransaction
+      :recievedTransactions="recieveHistory"
+      :sentTransaction="sendHistory"
+    />
   </v-container>
 </template>
 
@@ -11,18 +14,27 @@ export default {
   layout: 'dashboard',
   components: { MemberTransaction },
 
-  async asyncData({ store }) {
-    console.log('check wallet address', store.getters.user.walletID)
+  data() {
+    return {
+      recieveHistory: [],
+      sendHistory: []
+    }
+  },
+  async mounted() {
+    
+    const walletID = this.$store.getters.user.walletID
+    console.log('check wallet ', walletID)
 
-    const response = await store.dispatch(
-      'getUserTransactions',
-      store.getters.user.walletID
-    )
+    const response = await Promise.all([
+      this.$store.dispatch('getUserTransactions', walletID),
+      this.$store.dispatch('getSendHistory', walletID),
+    ])
+
+    console.log('check response', response[0])
 
     if (!!response) {
-      return {
-        userTransactions: response,
-      }
+      this.recieveHistory = !!response[0] ? response[0] : []
+      this.sendHistory = !!response[1] ? response[1] : []
     }
   },
 }

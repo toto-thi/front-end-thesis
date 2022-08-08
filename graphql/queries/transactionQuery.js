@@ -22,3 +22,15 @@ export const GET_TRANSACTIONS_BY_USER = gql`
     }
   }
 `
+
+export const GET_PERSONAL_TRANSACTION = gql`
+  ${TRANSACTION_FRAGMENT}
+  query MyPersonalTransaction($walletAddress: String!) {
+    myPersonalTransaction(walletAddress: $walletAddress) {
+      ...Transactions
+      projectID {
+        title
+      }
+    }
+  }
+`

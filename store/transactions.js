@@ -2,6 +2,7 @@ import { ADD_TRANSACTION } from '~/graphql/mutations/transactionMutate'
 import {
   GET_ALL_TRANSACTIONS,
   GET_TRANSACTIONS_BY_USER,
+  GET_PERSONAL_TRANSACTION
 } from '~/graphql/queries/transactionQuery'
 
 const state = {}
@@ -44,8 +45,6 @@ const actions = {
   },
   async getUserTransactions(_, payload) {
     let client = this.app.apolloProvider.defaultClient
-
-    console.log('check payload: ', payload)
     
     try {
       const { data } = await client.query({
@@ -61,6 +60,23 @@ const actions = {
       console.error(err.message.split(': ')[1])
     }
   },
+  async getSendHistory(_, payload) {
+    let client = this.app.apolloProvider.defaultClient
+    
+    try {
+      const { data } = await client.query({
+        query: GET_PERSONAL_TRANSACTION,
+        variables: {
+          walletAddress: payload,
+        },
+      })
+
+      if(!!data) return data.myPersonalTransaction
+
+    } catch (err) {
+      console.error(err.message.split(': ')[1])
+    }
+  }
 }
 
 export default {

@@ -289,6 +289,9 @@ export default {
         const cAddress = this.project.contractAddress
         const currentDonate = this.project.donateAmount
         const targetAmount = this.project.targetAmount
+        const remaining = targetAmount - currentDonate
+
+        console.log('remaining: ', remaining)
 
         const data = {
           id: this.project.id,
@@ -298,6 +301,7 @@ export default {
           contractAddress: cAddress,
           currentDonate: currentDonate,
           targetAmount: targetAmount,
+          remaining: remaining
         }
 
         this.tempData = Object.assign({}, data)

@@ -24,6 +24,8 @@
                 <v-text-field
                   v-model="targetAmount"
                   :label="$t('kTargetAmount')"
+                  :hint="`${$t('kEstimatedPrice')}: $${estimatedPrice}`"
+                  persistent-hint
                   prepend-inner-icon="mdi-ethereum"
                   outlined
                   type="number"
@@ -163,6 +165,7 @@
 <script>
 import gql from 'graphql-tag'
 import { UPLOAD_PROJECT_IMAGES } from '~/graphql/mutations/projectMutate'
+import { PriceInUSD } from '~/helpers/calETHPrice'
 
 export default {
   props: {
@@ -181,7 +184,8 @@ export default {
       title: '',
       description: '',
       location: '',
-      targetAmount: '',
+      targetAmount: 0,
+      estimatedPrice: 0,
       files: [],
     }
   },
@@ -242,7 +246,7 @@ export default {
     onSuccess() {
       this.onboarding = null
       this.status = false
-    }
+    },
   },
   computed: {
     startDateFormatted() {
@@ -251,6 +255,13 @@ export default {
     endDateFormatted() {
       return this.formatDate(this.endDate)
     },
+  },
+  async updated() {
+    const response = (
+      await PriceInUSD(this.$axios, this.targetAmount)
+    ).toLocaleString('en-US')
+
+    this.estimatedPrice = response
   },
 }
 </script>

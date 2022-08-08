@@ -141,7 +141,7 @@
                 </v-row>
               </template>
               <template v-slot:footer>
-                <v-row justify="center" align="center">
+                <v-row justify="center" align="center" class="mt-8 pb-8">
                   <v-pagination
                     v-model="page"
                     :length="totalPage"
@@ -242,7 +242,7 @@
                 </v-row>
               </template>
               <template v-slot:footer>
-                <v-row justify="center" align="center">
+                <v-row justify="center" align="center" class="mt-8 pb-8">
                   <v-pagination
                     v-model="page"
                     :length="Math.ceil(closed.length / perPage)"

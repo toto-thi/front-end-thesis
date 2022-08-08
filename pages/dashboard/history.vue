@@ -8,13 +8,14 @@ import Transactions from '~/components/dashboard/Transactions.vue'
 export default {
   components: { Transactions },
   layout: 'dashboard',
-
-  async asyncData({ store }) {
-    const response = await store.dispatch('getAllTransactions')
-
+  data() {
     return {
-      transactions: response,
+      transactions: []
     }
+  },
+  async mounted() {
+    const response = await this.$store.dispatch('getAllTransactions')
+    this.transactions = response
   },
 }
 </script>

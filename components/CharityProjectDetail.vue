@@ -291,8 +291,6 @@ export default {
         const targetAmount = this.project.targetAmount
         const remaining = targetAmount - currentDonate
 
-        console.log('remaining: ', remaining)
-
         const data = {
           id: this.project.id,
           sender: senderWalletID,

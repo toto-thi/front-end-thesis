@@ -3,11 +3,12 @@
     <v-dialog v-model="status" max-width="25%" class="rounded-xl">
       <v-window v-model="onboarding">
         <v-window-item>
-          <v-card color="white" height="45vh">
+          <v-card color="white" height="50vh">
             <v-card-title class="justify-center">{{
               $t('kDonate')
             }}</v-card-title>
             <v-card-text class="mt-6">
+              <p class="mx-3">{{ $t('kRemaining') }}: {{ data.remaining }} ETH</p>
               <v-text-field
                 v-model="donateAmount"
                 :label="$t('kMoney')"
@@ -92,6 +93,7 @@ export default {
       donateAmount: 0,
       message: '',
       estimatedPrice: 0,
+      remaining: 0,
       onboarding: 0,
       textLimit: [(v) => v.length <= 40 || 'Max 40 Characters'],
     }
@@ -101,10 +103,12 @@ export default {
       this.$emit('closeBox')
     },
     async makeDonation() {
-      const getMoney = parseFloat(this.donateAmount).toFixed(2)
-      const currentMoney = parseFloat(this.currentDonate).toFixed(2)
-      const target = parseFloat(this.data.targetAmount).toFixed(2)
-      const sum = getMoney + currentMoney
+      const getMoney = parseFloat(parseFloat(this.donateAmount).toFixed(2))
+      const currentMoney = parseFloat(
+        parseFloat(this.data.currentDonate).toFixed(2)
+      )
+      const target = parseFloat(parseFloat(this.data.targetAmount).toFixed(2))
+      let sum = parseFloat(parseFloat(getMoney + currentMoney).toFixed(2))
 
       if (this.user.walletID == null) {
         Swal.fire({
@@ -116,7 +120,7 @@ export default {
           title: 'Warning',
           text: 'Please input donation amount before you donate',
         })
-      } else if (parseFloat(sum).toFixed(2) > target) {
+      } else if (sum > target) {
         Swal.fire({
           icon: 'warning',
           text: 'We appreciated your kindness, but we only need the exact target amount. Please re-enter your donation amount.',
@@ -125,10 +129,10 @@ export default {
         this.message = ''
       } else {
         this.onboarding = 1
-        
+
         const donateData = {
           contractAddress: this.data.contractAddress,
-          amount: getMoney,
+          amount: getMoney.toString(),
           message: this.message,
           walletID: this.data.sender,
           addressTo: this.data.targetWallet,
@@ -142,15 +146,15 @@ export default {
           contractAddress: this.data.contractAddress,
           fromWalletID: this.data.sender,
           toWalletID: this.data.targetWallet,
-          amount: parseFloat(getMoney),
+          amount: getMoney,
           message: this.message,
           donatedBy: this.$store.getters.user.id,
         }
-        
+
         if (!!res) {
           await this.$store.dispatch('addToTransaction', transactionDetail)
-          if (parseFloat(sum).toFixed(2) === target)
-           {
+          if (sum === target) {
+            console.log('status update: ', sum === target)
             await this.$store.dispatch('closeProject', this.data.id)
           }
         }

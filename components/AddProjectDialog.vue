@@ -244,7 +244,7 @@ export default {
       this.$emit('closeDialog')
     },
     onSuccess() {
-      this.onboarding = null
+      this.onboarding = 0
       this.status = false
     },
   },

@@ -13,7 +13,7 @@ export default {
     const response = await store.dispatch('getAllTransactions')
 
     return {
-      transactions: response
+      transactions: response,
     }
   },
 }

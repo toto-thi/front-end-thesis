@@ -16,10 +16,9 @@ export const createEthereumContract = (contractAddress) => {
 }
 
 export const getAllTransactions = async (contractAddress) => {
-  const { ethereum } = window
+  // const { ethereum } = window
 
   try {
-    if (ethereum) {
       const transactionsContract = createEthereumContract(contractAddress)
 
       const availableTransactions =
@@ -38,9 +37,9 @@ export const getAllTransactions = async (contractAddress) => {
       )
 
       return structuredTransactions
-    } else {
-      console.error('Ethereum is not present')
-    }
+    // } else {
+    // console.error('Ethereum is not present')
+    // }
   } catch (err) {
     console.error(err)
   }

@@ -20,44 +20,124 @@
       </v-card>
     </v-row>
     <v-row>
-      <v-card class="rounded-xl" width="100%">
-        <v-card-title class="text-capitalize"
-          >{{ $t('kTransaction') }}
-          <v-spacer />
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field
-        ></v-card-title>
-        <v-data-table
-          :headers="headers"
-          :items="transactions"
-          :items-per-page="5"
-          :search="search"
-          item-key="title"
-          class="elevation-1"
-        >
-          <template v-slot:item="{ item }">
-            <tr>
-              <td class="text-center">
-                <a :href="`https://ropsten.etherscan.io/tx/${item.txnHash}`">{{
-                  shortenTxn(item.txnHash)
-                }}</a>
-              </td>
-              <td class="text-center">{{ shortenTxn(item.fromWalletID) }}</td>
-              <td class="text-center">{{ shortenTxn(item.toWalletID) }}</td>
-              <td class="text-center">{{ item.message }}</td>
-              <td class="text-center">{{ item.projectID.title }}</td>
-              <td class="text-center">
-                {{ item.donatedBy.firstname }} {{ item.donatedBy.lastname }}
-              </td>
-              <td class="text-center">{{ item.amount }}</td>
-            </tr>
-          </template>
-        </v-data-table>
+      <v-tabs v-model="tab" background-color="white" text>
+        <v-tabs-slider></v-tabs-slider>
+        <v-tab href="#tab-1" class="text-capitalize headline">
+          {{ $t('kTransactionRecieved') }}
+        </v-tab>
+        <v-tab href="#tab-2" class="text-capitalize headline">
+          {{ $t('kTransactionSend') }}
+        </v-tab>
+      </v-tabs>
+      <v-card width="100%" class="rounded-xl">
+        <v-tabs-items v-model="tab">
+          <v-tab-item value="tab-1">
+            <v-card class="rounded-xl" width="100%">
+              <v-card-title class="text-capitalize">
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field
+              ></v-card-title>
+              <v-data-table
+                :headers="headers"
+                :items="recievedTransactions"
+                :items-per-page="5"
+                :search="search"
+                item-key="title"
+                class="elevation-1"
+              >
+                <template v-slot:item="{ item }">
+                  <tr>
+                    <td class="text-center">
+                      <a
+                        :href="`https://ropsten.etherscan.io/tx/${item.txnHash}`"
+                        >{{ shortenTxn(item.txnHash) }}</a
+                      >
+                    </td>
+                    <td class="text-center">
+                      {{
+                        item.fromWalletID === $store.getters.user.walletID
+                          ? $t('kMe')
+                          : shortenTxn(item.fromWalletID)
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        item.toWalletID === $store.getters.user.walletID
+                          ? $t('kMe')
+                          : shortenTxn(item.toWalletID)
+                      }}
+                    </td>
+                    <td class="text-center">{{ item.message }}</td>
+                    <td class="text-center">{{ item.projectID.title }}</td>
+                    <td class="text-center">
+                      {{ item.donatedBy.firstname }}
+                      {{ item.donatedBy.lastname }}
+                    </td>
+                    <td class="text-center">{{ item.amount }}</td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item value="tab-2">
+            <v-card class="rounded-xl" width="100%">
+              <v-card-title class="text-capitalize">
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field
+              ></v-card-title>
+              <v-data-table
+                :headers="headers"
+                :items="sentTransaction"
+                :items-per-page="5"
+                :search="search"
+                item-key="title"
+                class="elevation-1"
+              >
+                <template v-slot:item="{ item }">
+                  <tr>
+                    <td class="text-center">
+                      <a
+                        :href="`https://ropsten.etherscan.io/tx/${item.txnHash}`"
+                        >{{ shortenTxn(item.txnHash) }}</a
+                      >
+                    </td>
+                    <td class="text-center">
+                      {{
+                        item.fromWalletID === $store.getters.user.walletID
+                          ? $t('kMe')
+                          : shortenTxn(item.fromWalletID)
+                      }}
+                    </td>
+                    <td class="text-center">
+                      {{
+                        item.toWalletID === $store.getters.user.walletID
+                          ? $t('kMe')
+                          : shortenTxn(item.toWalletID)
+                      }}
+                    </td>
+                    <td class="text-center">{{ item.message }}</td>
+                    <td class="text-center">{{ item.projectID.title }}</td>
+                    <td class="text-center">
+                      {{ item.donatedBy.firstname }}
+                      {{ item.donatedBy.lastname }}
+                    </td>
+                    <td class="text-center">{{ item.amount }}</td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
       </v-card>
     </v-row>
   </v-container>
@@ -69,7 +149,11 @@ import { shortenAddress } from '~/helpers/shortenAddress'
 
 export default {
   props: {
-    transactions: {
+    recievedTransactions: {
+      type: Array,
+      required: true,
+    },
+    sentTransaction: {
       type: Array,
       required: true,
     },
@@ -78,6 +162,7 @@ export default {
   data() {
     return {
       search: '',
+      tab: null,
       headers: [
         {
           text: 'Txn',

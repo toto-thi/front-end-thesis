@@ -158,11 +158,10 @@ export default {
       }
 
       await this.$store.dispatch('approveProject', newInfo)
-      this.status = false
 
       this.items = {}
       this.contractAddress = ''
-      setTimeout(() => (this.onboarding = 2), 3000)
+      setTimeout(() => ((this.onboarding = 2), (this.status = false)), 3000)
     },
     async reject() {
       this.onboarding = 1

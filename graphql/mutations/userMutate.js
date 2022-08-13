@@ -23,7 +23,7 @@ export const DELETE_USER = gql`
   }
 `
 
-export const UPLOAD_PROFILE_IMG = gql`
+export const FILE_UPLOADER = gql`
   mutation FileUploader($file: Upload!) {
     fileUploader(file: $file)
   }

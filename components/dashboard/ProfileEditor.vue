@@ -148,7 +148,7 @@
 
 <script>
 import gql from 'graphql-tag'
-import { UPLOAD_PROFILE_IMG } from '~/graphql/mutations/userMutate'
+import { FILE_UPLOADER } from '~/graphql/mutations/userMutate'
 
 export default {
   props: {
@@ -232,7 +232,7 @@ export default {
     async uploadImg() {
       let { data } = await this.$apollo.mutate({
         mutation: gql`
-          ${UPLOAD_PROFILE_IMG}
+          ${FILE_UPLOADER}
         `,
         variables: {
           file: this.$refs['uploader'].files[0],

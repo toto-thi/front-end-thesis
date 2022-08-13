@@ -25,6 +25,7 @@ export const PROJECT_FRAGMENT = gql`
     imageList {
       url
     }
+    referenceDoc
     startDate
     endDate
     targetAmount

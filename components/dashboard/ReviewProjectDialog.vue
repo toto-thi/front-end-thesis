@@ -69,6 +69,17 @@
                   <v-img :src="item.url" contain height="500px"></v-img>
                 </v-carousel-item>
               </v-carousel>
+              <!-- PDF here -->
+              <p class=" mt-4 title textcolor text-capitalize">
+                #{{ $t('kDocument') }}
+              </p>
+              <p class="title textcolor text-capitalize">
+                <a :href="`${items.referenceDoc}`">
+                  {{ $t('kDownloadDocument') }}
+                </a>
+              </p>
+              <br />
+
               <p class="subtitle textcolor text-capitalize">
                 {{ $t('kConfirmText') }}.
               </p>
@@ -126,6 +137,7 @@
 </template>
 <script>
 import { PriceInUSD } from '~/helpers/calETHPrice'
+import Swal from 'sweetalert2'
 
 export default {
   props: {
@@ -138,6 +150,7 @@ export default {
       required: true,
     },
   },
+  components: {},
   data() {
     return {
       onboarding: 0,
@@ -150,7 +163,13 @@ export default {
       this.$emit('closeMe')
     },
     async approve() {
-      this.onboarding = 1
+      if(this.contractAddress === '') {
+        Swal.fire({
+          title: 'Warning',
+          text: 'Please input smart contract address before you approve',
+        })
+      } else { 
+        this.onboarding = 1
 
       const newInfo = {
         uid: this.items.id,
@@ -162,6 +181,7 @@ export default {
       this.items = {}
       this.contractAddress = ''
       setTimeout(() => ((this.onboarding = 2), (this.status = false)), 3000)
+      }
     },
     async reject() {
       this.onboarding = 1

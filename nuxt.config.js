@@ -15,11 +15,6 @@ export default {
   },
 
   loading: '~/components/LoadingScreen.vue',
-  // loadingIndicator: {
-  //   name: 'circle',
-  //   color: '#3B8070',
-  //   background: 'white'
-  // },
 
   css: [],
 
@@ -104,5 +99,6 @@ export default {
     },
   },
 
-  build: {},
+  build: {
+  },
 }

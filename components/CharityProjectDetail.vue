@@ -168,6 +168,14 @@
                   </ShareNetwork>
                 </v-btn>
               </v-row>
+              <v-row align="start" class="mt-8">
+                <v-btn text large class="title text-capitalize">
+                  <v-icon>mdi-file-outline</v-icon>
+                  <a :href="`${project.referenceDoc}`">
+                    {{ $t('kDownloadDocument') }}
+                  </a>
+                </v-btn>
+              </v-row>
             </v-card-text>
           </v-card>
         </v-col>
@@ -299,7 +307,7 @@ export default {
           contractAddress: cAddress,
           currentDonate: currentDonate,
           targetAmount: targetAmount,
-          remaining: remaining
+          remaining: remaining,
         }
 
         this.tempData = Object.assign({}, data)

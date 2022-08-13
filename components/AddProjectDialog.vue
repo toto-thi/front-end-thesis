@@ -118,6 +118,14 @@
                   clearable
                   small-chips
                 ></v-file-input>
+                <v-file-input
+                  v-model="docs"
+                  :label="$t('kRefDocument')"
+                  accept="application/*"
+                  outlined
+                  clearable
+                  small-chips
+                ></v-file-input>
               </v-container>
             </v-card-text>
             <v-card-actions>
@@ -165,6 +173,7 @@
 <script>
 import gql from 'graphql-tag'
 import { UPLOAD_PROJECT_IMAGES } from '~/graphql/mutations/projectMutate'
+import { FILE_UPLOADER } from '~/graphql/mutations/userMutate'
 import { PriceInUSD } from '~/helpers/calETHPrice'
 
 export default {
@@ -187,6 +196,7 @@ export default {
       targetAmount: 0,
       estimatedPrice: 0,
       files: [],
+      docs: null
     }
   },
   methods: {
@@ -208,10 +218,24 @@ export default {
 
       return stringArray
     },
+    async addDocs() {
+      const { data } = await this.$apollo.mutate({
+        mutation: gql`
+          ${FILE_UPLOADER}
+        `,
+        variables: {
+          file: this.docs,
+        },
+      })
+
+      return data.fileUploader
+
+    },
     async makeRequest() {
       this.onboarding = 1
 
       const urlString = await this.addImages()
+      const docPath = await this.addDocs()
 
       const newData = {
         title: this.title,
@@ -221,6 +245,7 @@ export default {
         location: this.location,
         targetAmount: parseFloat(this.targetAmount),
         imageList: urlString,
+        referenceDoc: docPath
       }
 
       await this.$store.dispatch('createProject', newData)
@@ -232,6 +257,7 @@ export default {
       this.location = ''
       this.targetAmount = ''
       this.files = []
+      this.docs = null
       setTimeout(() => (this.onboarding = 2), 3000)
     },
     formatDate(date) {

@@ -2,9 +2,9 @@ import { GET_ALL_USERS } from '~/graphql/queries/userQuery'
 import { UPDATE_USER, DELETE_USER } from '~/graphql/mutations/userMutate'
 import { connectMetaMask } from '~/helpers/connectMetaMask'
 
-const state = {
+const state = () => ({
   users: [],
-}
+})
 
 const getters = {
   userList: (state) => state.users,

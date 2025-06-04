@@ -5,7 +5,7 @@ import {
   GET_PERSONAL_TRANSACTION
 } from '~/graphql/queries/transactionQuery'
 
-const state = {}
+const state = () => ({})
 
 const getters = {}
 

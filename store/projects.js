@@ -20,14 +20,14 @@ import {
 import { fetchProjects, fetchProjectById } from '~/helpers/getAPI'
 import { Toast } from '~/helpers/swal'
 
-const state = {
+const state = () => ({
   allProjects: [],
   approvedProjects: [],
   pendingProjects: [],
   rejectedProjects: [],
   closedProjects: [],
   dLoading: false,
-}
+})
 
 const getters = {
   allProjects: (state) => state.allProjects,

@@ -4,11 +4,11 @@ import { CREATE_USER, UPDATE_USER } from '~/graphql/mutations/userMutate'
 import { decode } from 'jsonwebtoken'
 import { Toast } from '~/helpers/swal'
 
-const state = {
+const state = () => ({
   user: {},
   authenticated: false,
   loading: false,
-}
+})
 
 const getters = {
   user: (state) => state.user,
